@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import {
@@ -136,16 +137,6 @@ const impactItems = [
   },
 ];
 
-const heroStepLayers = [
-  "bottom-[0px] w-[460px]",
-  "bottom-[16px] w-[414px]",
-  "bottom-[32px] w-[368px]",
-  "bottom-[48px] w-[322px]",
-  "bottom-[64px] w-[276px]",
-  "bottom-[80px] w-[230px]",
-  "bottom-[96px] w-[184px]",
-];
-
 const dotOpacities = ["opacity-20", "opacity-30", "opacity-40", "opacity-50", "opacity-60", "opacity-70", "opacity-80", "opacity-90", "opacity-100"];
 
 type CtaButtonProps = {
@@ -164,14 +155,20 @@ function CtaButton({ href, children, className, variant, size }: CtaButtonProps)
   );
 }
 
+function LogoGlyph({ className }: { className?: string }) {
+  return (
+    <div className={cn("relative size-7 shrink-0", className)}>
+      <div className="absolute left-0 top-1.5 h-4 w-5 skew-x-[-18deg] rounded-[4px] bg-[#3155e7]" />
+      <div className="absolute left-2.5 top-0 h-6 w-3 skew-x-[22deg] rounded-[4px] bg-[#6d8cff]" />
+      <div className="absolute bottom-0 right-0 size-2.5 rounded-sm bg-[#2237bf]" />
+    </div>
+  );
+}
+
 function LogoMark() {
   return (
     <div className="flex items-center gap-2.5">
-      <div className="relative size-7">
-        <div className="absolute left-0 top-1.5 h-4 w-5 skew-x-[-18deg] rounded-[4px] bg-[#3155e7]" />
-        <div className="absolute left-2.5 top-0 h-6 w-3 skew-x-[22deg] rounded-[4px] bg-[#6d8cff]" />
-        <div className="absolute bottom-0 right-0 size-2.5 rounded-sm bg-[#2237bf]" />
-      </div>
+      <LogoGlyph />
       <span className="text-[10px] font-extrabold leading-[0.95] tracking-tight text-[#0b1028]">
         AI-READY
         <br />
@@ -181,20 +178,30 @@ function LogoMark() {
   );
 }
 
-function HeroVisual() {
+function HeroVisual({ className }: { className?: string }) {
   return (
-    <div className="relative h-[360px] overflow-visible bg-[radial-gradient(circle_at_52%_46%,rgba(150,211,251,0.36),transparent_32%),linear-gradient(120deg,rgba(247,252,255,0.12),rgba(255,255,255,0.1)_55%,rgba(255,232,207,0.16))]">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(61,101,211,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(61,101,211,0.055)_1px,transparent_1px)] bg-[size:42px_42px] opacity-55" />
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(242,249,255,0.92))]" />
+    <div className={cn("relative h-[360px] overflow-visible", className)}>
+      <div className="absolute inset-y-0 left-[-64px] right-0 [mask-image:radial-gradient(ellipse_at_66%_58%,black_0%,black_65%,transparent_91%)]">
+        <Image
+          alt=""
+          className="pointer-events-none select-none object-cover object-[58%_52%]"
+          fill
+          priority
+          sizes="(min-width: 1024px) 620px, 100vw"
+          src="/images/aiw-hero-portal.png"
+        />
+        <div className="absolute inset-y-0 left-0 w-36 bg-[linear-gradient(90deg,#f8fbff,rgba(248,251,255,0))]" />
+        <div className="absolute inset-x-0 bottom-0 h-12 bg-[linear-gradient(180deg,rgba(248,251,255,0),#f8fbff)]" />
+      </div>
 
-      <Card className="absolute left-[8%] top-[50px] hidden w-[88px] rounded-lg border-white/70 bg-white/55 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
+      <Card className="absolute left-[48px] top-[54px] hidden w-[88px] rounded-lg border-white/70 bg-white/70 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
         <CardContent className="p-3">
           <p className="text-[8px] font-semibold leading-3 text-[#111936]">Skill & Task Intelligence</p>
           <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Identify the skills AI-era jobs actually require.</p>
           <div className="mt-3 h-7 rounded-md bg-[linear-gradient(135deg,rgba(49,85,231,0.08),rgba(99,190,255,0.28))]" />
         </CardContent>
       </Card>
-      <Card className="absolute right-[5%] top-[50px] hidden w-[100px] rounded-lg border-white/70 bg-white/58 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
+      <Card className="absolute right-[18px] top-[54px] hidden w-[100px] rounded-lg border-white/70 bg-white/72 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
         <CardContent className="p-3">
           <p className="text-[8px] font-semibold leading-3 text-[#111936]">AI-Generated Assessments</p>
           <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Realistic tasks. Transparent rubrics. Validated outcomes.</p>
@@ -203,7 +210,7 @@ function HeroVisual() {
           </div>
         </CardContent>
       </Card>
-      <Card className="absolute bottom-[72px] right-[4%] hidden w-[102px] rounded-lg border-white/70 bg-white/64 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
+      <Card className="absolute bottom-[72px] right-[10px] hidden w-[102px] rounded-lg border-white/70 bg-white/76 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
         <CardContent className="p-3">
           <p className="text-[8px] font-semibold leading-3 text-[#111936]">Human Review & Fairness</p>
           <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Expert feedback. Bias audits. Trusted decisions.</p>
@@ -213,22 +220,6 @@ function HeroVisual() {
           </div>
         </CardContent>
       </Card>
-
-      <div className="absolute bottom-2 left-1/2 h-24 w-[470px] -translate-x-1/2 rounded-[50%] bg-[#8ac7f2]/32 blur-2xl" />
-      <div className="absolute bottom-0 left-1/2 h-[140px] w-[500px] -translate-x-1/2">
-        {heroStepLayers.map((stepClass) => (
-          <div
-            key={stepClass}
-            className={cn(
-              "absolute left-1/2 h-[24px] -translate-x-1/2 rounded-[5px] border border-white/70 bg-[linear-gradient(180deg,rgba(223,242,255,0.96),rgba(113,183,227,0.72))] shadow-[0_12px_24px_rgba(61,126,181,0.2)] [clip-path:polygon(7%_0,93%_0,100%_100%,0_100%)]",
-              stepClass
-            )}
-          />
-        ))}
-      </div>
-      <div className="absolute bottom-[72px] left-1/2 h-[280px] w-[108px] -translate-x-1/2 rounded-t-[7px] border border-white/90 bg-[linear-gradient(180deg,rgba(114,207,255,0.74),rgba(255,238,218,0.78))] shadow-[0_0_34px_rgba(100,198,255,0.72),0_0_0_8px_rgba(255,255,255,0.36)]" />
-      <div className="absolute bottom-[118px] left-1/2 h-[34px] w-[18px] -translate-x-1/2 rounded-full bg-[#1b3155]" />
-      <div className="absolute bottom-[60px] left-1/2 h-[80px] w-[28px] -translate-x-1/2 rounded-t-full bg-[linear-gradient(180deg,#365271,#243a56)]" />
     </div>
   );
 }
@@ -272,44 +263,43 @@ export function LightReferenceLandingPage() {
             </div>
           </nav>
 
-          <div className="grid h-[calc(100%-36px)] items-center gap-4 pt-7 lg:grid-cols-[0.52fr_0.48fr]">
-            <div>
-              <Badge className="rounded-full border-0 bg-[#e9f1ff] px-3 py-1 text-[8px] text-[#3155e7]">
-                Institute for Human Advancement in the AI Economy
-              </Badge>
-              <h1 className="mt-5 max-w-[460px] text-[48px] font-semibold leading-[1.05] tracking-[-0.055em] text-balance">
-                <span className="block">Build an</span>
-                <span className="block">
-                  <span className="text-[#3155e7]">AI-ready</span> workforce.
-                </span>
-              </h1>
-              <p className="mt-5 max-w-[410px] text-[13px] leading-[1.5] text-[#34405d]">
-                Evidence-based assessments and AI-powered tools that help employers find talent,
-                help workers grow, and help communities thrive.
+          <div className="relative z-10 pt-7 lg:w-[460px]">
+            <Badge className="rounded-full border-0 bg-[#e9f1ff] px-3 py-1 text-[8px] text-[#3155e7]">
+              Institute for Human Advancement in the AI Economy
+            </Badge>
+            <h1 className="mt-5 max-w-[460px] text-[48px] font-semibold leading-[1.05] tracking-[-0.055em] text-balance">
+              <span className="block">Build an</span>
+              <span className="block">
+                <span className="text-[#3155e7]">AI-ready</span> workforce.
+              </span>
+            </h1>
+            <p className="mt-5 max-w-[410px] text-[13px] leading-[1.5] text-[#34405d]">
+              Evidence-based assessments and AI-powered tools that help employers find talent,
+              help workers grow, and help communities thrive.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <CtaButton className="h-[30px] rounded-md bg-[#3155e7] px-4 text-[10px] text-white hover:bg-[#2647d6]" href="#platform" size="lg">
+                See the Platform
+                <ArrowRightIcon data-icon="inline-end" />
+              </CtaButton>
+              <CtaButton className="h-[30px] rounded-md border-[#b8c8ee] bg-white/70 px-4 text-[10px] text-[#3155e7] hover:bg-white" href="#science" size="lg" variant="outline">
+                <CirclePlayIcon data-icon="inline-start" />
+                Watch Overview
+              </CtaButton>
+            </div>
+            <div className="mt-9">
+              <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#8791a8]">
+                Trusted by forward-thinking partners
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <CtaButton className="h-[30px] rounded-md bg-[#3155e7] px-4 text-[10px] text-white hover:bg-[#2647d6]" href="#platform" size="lg">
-                  See the Platform
-                  <ArrowRightIcon data-icon="inline-end" />
-                </CtaButton>
-                <CtaButton className="h-[30px] rounded-md border-[#b8c8ee] bg-white/70 px-4 text-[10px] text-[#3155e7] hover:bg-white" href="#science" size="lg" variant="outline">
-                  <CirclePlayIcon data-icon="inline-start" />
-                  Watch Overview
-                </CtaButton>
-              </div>
-              <div className="mt-9">
-                <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#8791a8]">
-                  Trusted by forward-thinking partners
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-semibold text-[#151b2e] opacity-85">
-                  {partnerLogos.map((partner) => (
-                    <span key={partner}>{partner}</span>
-                  ))}
-                </div>
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-semibold text-[#151b2e] opacity-85">
+                {partnerLogos.map((partner) => (
+                  <span key={partner}>{partner}</span>
+                ))}
               </div>
             </div>
-            <HeroVisual />
+            <HeroVisual className="mt-8 lg:hidden" />
           </div>
+          <HeroVisual className="absolute right-[-6px] top-[66px] z-0 hidden w-[520px] lg:block" />
         </div>
       </section>
 
@@ -378,7 +368,7 @@ export function LightReferenceLandingPage() {
               <div className="relative mx-auto hidden h-[202px] max-w-[430px] sm:block">
                 <div className="absolute inset-x-[70px] inset-y-[34px] rounded-full border border-[#b9c9eb]" />
                 <div className="absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-                  <LogoMark />
+                  <LogoGlyph className="scale-[1.35]" />
                 </div>
                 {solutionLoop.map((item) => {
                   const Icon = item.icon;
@@ -470,8 +460,8 @@ export function LightReferenceLandingPage() {
             </Link>
           </div>
           <div className="hidden items-center justify-center lg:flex">
-            <div className="grid grid-cols-9 gap-1.5">
-              {Array.from({ length: 72 }).map((_, index) => (
+            <div className="grid grid-cols-14 gap-1.5 [clip-path:polygon(0_0,78%_0,100%_50%,78%_100%,0_100%,12%_50%)]">
+              {Array.from({ length: 126 }).map((_, index) => (
                 <span
                   key={index}
                   className={cn("size-1.5 rounded-full bg-[#3155e7]", dotOpacities[index % dotOpacities.length])}
@@ -498,7 +488,7 @@ export function LightReferenceLandingPage() {
 
       <footer className="bg-white px-6 py-6 lg:h-[113px] lg:px-0">
         <div className="mx-auto max-w-[880px]">
-          <div className="grid items-center gap-6 pb-2 lg:grid-cols-[1fr_auto]">
+          <div className="grid items-center gap-6 pb-1 lg:grid-cols-[1fr_auto]">
             <div>
               <h2 className="text-[23px] font-semibold leading-tight tracking-[-0.04em] text-[#3155e7]">
                 Let&apos;s build the future of work, together.
@@ -518,8 +508,10 @@ export function LightReferenceLandingPage() {
             </div>
           </div>
           <Separator className="bg-[#e4ecf7]" />
-          <div className="flex flex-col gap-5 pt-2 md:flex-row md:items-center md:justify-between">
-            <LogoMark />
+          <div className="flex flex-col gap-5 pt-1 md:flex-row md:items-center md:justify-between">
+            <div className="origin-left scale-[0.86]">
+              <LogoMark />
+            </div>
             <div className="flex flex-wrap gap-8 text-[10px] text-[#59647d]">
               <a href="#platform">Platform</a>
               <a href="#our-mission">Solutions</a>
