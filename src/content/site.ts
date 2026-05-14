@@ -64,9 +64,9 @@ export const conceptVariants = [
   {
     slug: "variant-b",
     label: "Variant B",
-    name: "Design sample pending",
+    name: "Frontier Lab",
     href: "/concepts/variant-b",
-    tone: "Reserved for the second sample direction.",
-    bestFor: "Use this slot for the alternate complete design reference.",
+    tone: "Dark, cinematic, research-lab direction with gold signal-system styling.",
+    bestFor: "Use this slot for the alternate manager-review concept.",
   },
 ];

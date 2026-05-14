@@ -1,6 +1,6 @@
-import { ConceptPlaceholder } from "@/components/concepts/concept-placeholder";
+import { FrontierLabLandingPage } from "@/components/concepts/frontier-lab/landing-page";
 
 export default function VariantBPage() {
-  return <ConceptPlaceholder label="Variant B" />;
+  return <FrontierLabLandingPage />;
 }
 
