@@ -18,9 +18,18 @@ Open `http://localhost:3000`.
 - Early navigation: About, Framework, Platform, Research, Resources
 - Primary call to action: Request a Demo
 
+## UI System
+
+This project is initialized with shadcn/ui using the Base UI preset:
+
+```bash
+npx shadcn@latest init --preset b0 --base base --template next
+```
+
+The full generated component set lives in `src/components/ui/`.
+
 ## Scripts
 
 - `npm run dev` starts the local development server.
 - `npm run build` creates a production build.
 - `npm run lint` runs Next.js ESLint checks.
-

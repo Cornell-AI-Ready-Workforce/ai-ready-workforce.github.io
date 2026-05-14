@@ -1,3 +1,6 @@
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
 const navigation = ["About", "Framework", "Platform", "Research", "Resources"];
 
 const principles = [
@@ -57,7 +60,7 @@ export default function Home() {
               </a>
             ))}
           </div>
-          <a className="nav-cta" href="mailto:hello@example.com">
+          <a className={cn(buttonVariants(), "nav-cta")} href="mailto:hello@example.com">
             Request a Demo
           </a>
         </nav>
@@ -71,10 +74,10 @@ export default function Home() {
               decisions under real-world constraints.
             </p>
             <div className="hero-actions">
-              <a className="primary-action" href="mailto:hello@example.com">
+              <a className={cn(buttonVariants({ size: "lg" }), "primary-action")} href="mailto:hello@example.com">
                 Request a Demo
               </a>
-              <a className="secondary-action" href="#framework">
+              <a className={cn(buttonVariants({ variant: "outline", size: "lg" }), "secondary-action")} href="#framework">
                 Explore the Framework
               </a>
             </div>
