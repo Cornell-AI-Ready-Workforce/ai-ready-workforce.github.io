@@ -30,30 +30,30 @@ const navItems = ["Our Mission", "Platform", "Solutions", "Science", "Resources"
 
 const partnerLogos = ["Wegmans", "M&T Bank", "paychex", "Cornell University", "Strada", "eCornell"];
 
-const stats = [
+const evidenceSignals = [
   {
     icon: BarChart3Icon,
-    value: "70%",
-    label: "of employers say it is hard to find AI-ready talent.",
-    source: "IBM Institute",
+    title: "Authentic measures",
+    label: "Simulation-based assessments that reflect real work, transferable skills, and learning pathways.",
+    source: "Vision slide",
   },
   {
     icon: UsersIcon,
-    value: "2/3",
-    label: "of workers lack clear pathways to the next role.",
-    source: "McKinsey",
+    title: "6P evidence map",
+    label: "Plan, Prompt, Probe, Protect, Pivot, and Present frame observable AI-ready work.",
+    source: "Prototype Demo 2",
   },
   {
     icon: ShieldCheckIcon,
-    value: "Millions",
-    label: "of credentials, resumes, and scores provide little signal.",
-    source: "Leadership deck",
+    title: "Evidence-linked review",
+    label: "Scores connect to decisions, artifacts, rubric anchors, and reviewer notes.",
+    source: "Design principles",
   },
   {
     icon: BrainIcon,
-    value: "AI",
-    label: "is reshaping work, but recognition has not caught up.",
-    source: "AI-Ready Workforce",
+    title: "Human-centered AI",
+    label: "AI structures evidence and surfaces patterns; trained human reviewers own the final call.",
+    source: "Design principles",
   },
 ];
 
@@ -345,19 +345,19 @@ export function LightReferenceLandingPage() {
       <section className="border-b border-[#e4ecf7] bg-white px-6 py-8 lg:h-[218px] lg:px-0">
         <div className="mx-auto max-w-[932px]">
           <h2 className="text-center text-[21px] font-semibold tracking-[-0.035em]">
-            The workforce is changing faster than our systems.
+            Grounded in the leadership meeting materials.
           </h2>
           <div className="mt-7 grid gap-px bg-[#dce5f2] md:grid-cols-4 lg:h-[116px]">
-            {stats.map((stat) => {
-              const Icon = stat.icon;
+            {evidenceSignals.map((signal) => {
+              const Icon = signal.icon;
               return (
-                <Card key={stat.value} className="overflow-hidden rounded-none border-0 bg-white px-5 py-7 text-center shadow-none ring-0 lg:h-full lg:gap-0 lg:py-0">
+                <Card key={signal.title} className="overflow-hidden rounded-none border-0 bg-white px-5 py-7 text-center shadow-none ring-0 lg:h-full lg:gap-0 lg:py-0">
                   <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-[#eef4ff] lg:size-9">
                     <Icon className="size-5 text-[#3155e7] lg:size-4" />
                   </div>
-                  <p className="mt-4 text-4xl font-semibold leading-none tracking-[-0.04em] lg:mt-2 lg:text-[25px]">{stat.value}</p>
-                  <p className="mx-auto mt-2 max-w-[190px] text-sm leading-5 text-[#35415d] lg:mt-1.5 lg:max-w-[150px] lg:text-[9px] lg:leading-3">{stat.label}</p>
-                  <p className="mt-2 text-xs text-[#8992a6] lg:mt-1 lg:text-[8px]">- {stat.source}</p>
+                  <p className="mt-4 text-lg font-semibold leading-none tracking-[-0.04em] lg:mt-2 lg:text-[15px]">{signal.title}</p>
+                  <p className="mx-auto mt-2 max-w-[190px] text-sm leading-5 text-[#35415d] lg:mt-1.5 lg:max-w-[162px] lg:text-[8px] lg:leading-3">{signal.label}</p>
+                  <p className="mt-2 text-xs text-[#8992a6] lg:mt-1 lg:text-[8px]">- {signal.source}</p>
                 </Card>
               );
             })}
