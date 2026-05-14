@@ -3,11 +3,11 @@ export const siteNavigation = ["About", "Framework", "Platform", "Research", "Re
 export const sharedMessaging = {
   name: "AI-Ready Workforce",
   demoHref: "mailto:hello@example.com",
-  headline: "Measure the work people do with AI, not just what they say about it.",
+  headline: "Build an AI-ready workforce.",
   summary:
-    "AI-Ready Workforce helps teams design evidence-rich simulations that show how people frame problems, collaborate with AI, verify outputs, and communicate decisions under real-world constraints.",
+    "Evidence-based assessments and AI-powered tools that help employers find talent, help workers grow, and help communities thrive.",
   frameworkSummary:
-    "The assessment surface is built around observable behavior, work artifacts, and reviewer calibration instead of self-reported fluency.",
+    "Simulation-based assessments capture real work, transferable skills, AI collaboration, and reviewer-ready evidence.",
 };
 
 export const principles = [
@@ -56,10 +56,10 @@ export const conceptVariants = [
   {
     slug: "variant-a",
     label: "Variant A",
-    name: "Design sample pending",
+    name: "Light reference",
     href: "/concepts/variant-a",
-    tone: "Reserved for the first sample direction.",
-    bestFor: "Use this slot for one complete design reference.",
+    tone: "Airy institutional SaaS direction based on the provided light reference.",
+    bestFor: "Use this slot for the current AI-Ready Workforce light-theme sample.",
   },
   {
     slug: "variant-b",

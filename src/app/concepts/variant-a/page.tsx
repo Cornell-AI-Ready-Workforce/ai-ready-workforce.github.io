@@ -1,6 +1,6 @@
-import { ConceptPlaceholder } from "@/components/concepts/concept-placeholder";
+import { LightReferenceLandingPage } from "@/components/concepts/variant-a/light-reference-landing-page";
 
 export default function VariantAPage() {
-  return <ConceptPlaceholder label="Variant A" />;
+  return <LightReferenceLandingPage />;
 }
 
