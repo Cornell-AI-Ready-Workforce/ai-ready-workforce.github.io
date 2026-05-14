@@ -178,17 +178,56 @@ function LogoMark() {
   );
 }
 
+function PartnerLogo({ partner }: { partner: string }) {
+  if (partner === "Wegmans") {
+    return <span className="font-serif text-[12px] font-bold italic tracking-[-0.06em]">Wegmans</span>;
+  }
+
+  if (partner === "M&T Bank") {
+    return <span className="font-serif text-[12px] font-bold tracking-[-0.04em]">M&amp;TBank</span>;
+  }
+
+  if (partner === "paychex") {
+    return <span className="text-[13px] font-extrabold tracking-[-0.05em]">paychex</span>;
+  }
+
+  if (partner === "Cornell University") {
+    return (
+      <span className="inline-flex items-center gap-1.5">
+        <span className="flex size-5 items-center justify-center rounded-full border border-[#7c8497] text-[7px] font-semibold">CU</span>
+        <span className="font-serif text-[9px] font-semibold tracking-[-0.03em]">Cornell University</span>
+      </span>
+    );
+  }
+
+  if (partner === "Strada") {
+    return (
+      <span className="inline-flex flex-col leading-none">
+        <span className="text-[13px] font-extrabold tracking-[-0.07em]">Strada</span>
+        <span className="text-[4px] font-semibold uppercase tracking-[0.16em]">Education Network</span>
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span className="size-4 rounded-[2px] border-2 border-[#111827]" />
+      <span className="text-[11px] font-semibold tracking-[-0.04em]">eCornell</span>
+    </span>
+  );
+}
+
 function HeroVisual({ className }: { className?: string }) {
   return (
     <div className={cn("relative h-[360px] overflow-visible", className)}>
       <div className="absolute inset-y-0 left-[-64px] right-0 [mask-image:radial-gradient(ellipse_at_66%_58%,black_0%,black_65%,transparent_91%)]">
         <Image
           alt=""
-          className="pointer-events-none select-none object-cover object-[58%_52%]"
+          className="pointer-events-none -translate-x-12 scale-105 select-none object-cover object-[58%_52%]"
           fill
           priority
           sizes="(min-width: 1024px) 620px, 100vw"
-          src="/images/aiw-hero-portal.png"
+          src="/images/aiw-hero-portal-v2.png"
         />
         <div className="absolute inset-y-0 left-0 w-36 bg-[linear-gradient(90deg,#f8fbff,rgba(248,251,255,0))]" />
         <div className="absolute inset-x-0 bottom-0 h-12 bg-[linear-gradient(180deg,rgba(248,251,255,0),#f8fbff)]" />
@@ -201,7 +240,7 @@ function HeroVisual({ className }: { className?: string }) {
           <div className="mt-3 h-7 rounded-md bg-[linear-gradient(135deg,rgba(49,85,231,0.08),rgba(99,190,255,0.28))]" />
         </CardContent>
       </Card>
-      <Card className="absolute right-[18px] top-[54px] hidden w-[100px] rounded-lg border-white/70 bg-white/72 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
+      <Card className="absolute right-[66px] top-[54px] hidden w-[100px] rounded-lg border-white/70 bg-white/72 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
         <CardContent className="p-3">
           <p className="text-[8px] font-semibold leading-3 text-[#111936]">AI-Generated Assessments</p>
           <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Realistic tasks. Transparent rubrics. Validated outcomes.</p>
@@ -210,7 +249,7 @@ function HeroVisual({ className }: { className?: string }) {
           </div>
         </CardContent>
       </Card>
-      <Card className="absolute bottom-[72px] right-[10px] hidden w-[102px] rounded-lg border-white/70 bg-white/76 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
+      <Card className="absolute bottom-[72px] right-[62px] hidden w-[102px] rounded-lg border-white/70 bg-white/76 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
         <CardContent className="p-3">
           <p className="text-[8px] font-semibold leading-3 text-[#111936]">Human Review & Fairness</p>
           <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Expert feedback. Bias audits. Trusted decisions.</p>
@@ -291,9 +330,9 @@ export function LightReferenceLandingPage() {
               <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#8791a8]">
                 Trusted by forward-thinking partners
               </p>
-              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-semibold text-[#151b2e] opacity-85">
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[#151b2e] opacity-90 lg:w-[520px] lg:flex-nowrap">
                 {partnerLogos.map((partner) => (
-                  <span key={partner}>{partner}</span>
+                  <PartnerLogo key={partner} partner={partner} />
                 ))}
               </div>
             </div>
