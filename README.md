@@ -15,8 +15,10 @@ Open `http://localhost:3000`.
 
 - Official name: AI-Ready Workforce
 - Initial public-site focus: a premium modern website for the AI-ready work assessment project
-- Early navigation: About, Framework, Platform, Research, Resources
-- Primary call to action: Request a Demo
+- Design routes are intentionally neutral until reference samples are provided:
+  - `/concepts`
+  - `/concepts/variant-a`
+  - `/concepts/variant-b`
 
 ## UI System
 
