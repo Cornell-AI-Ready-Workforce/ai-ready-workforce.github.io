@@ -611,11 +611,11 @@ export function LightReferenceLandingPage() {
               <motion.div animate={reducedMotion ? undefined : "visible"} initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
                 <motion.div variants={heroVariants}>
                   <Badge className="rounded-full border-0 bg-[#e7f0ff] px-4 py-1.5 text-[12px] text-[#3155e7]">
-                    Simulation-based assessment for AI-era work
+                    Assessment for AI-era work
                   </Badge>
                 </motion.div>
-                <motion.h1 className="mt-8 max-w-[900px] text-[clamp(4.5rem,10.4vw,10.8rem)] font-semibold leading-[0.86] tracking-[-0.085em] text-balance lg:leading-[0.8]" variants={heroVariants}>
-                  See how people actually work with <span className="text-[#3155e7]">AI.</span>
+                <motion.h1 className="mt-8 max-w-[900px] text-[clamp(4rem,8.3vw,8.4rem)] font-semibold leading-[0.9] tracking-[-0.08em] text-balance lg:leading-[0.84]" variants={heroVariants}>
+                  Measure how people collaborate with <span className="text-[#3155e7]">AI</span> before hiring.
                 </motion.h1>
                 <motion.p className="mt-8 max-w-[650px] text-xl leading-9 text-[#34405d]" variants={heroVariants}>
                   Hiring teams cannot see AI collaboration from resumes alone. We turn realistic work

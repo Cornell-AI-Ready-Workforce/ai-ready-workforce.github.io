@@ -514,7 +514,7 @@ export function FrontierLabLandingPage() {
                 </Badge>
               </motion.div>
               <motion.h1 className="mt-7 max-w-[820px] font-serif text-[clamp(4rem,7.1vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.06em] text-[#fff5e6] text-balance" variants={heroVariants}>
-                Interview for AI-ready skills.
+                Measure how people collaborate with AI before hiring.
               </motion.h1>
               <motion.div className="mt-10 flex flex-wrap gap-3" variants={heroVariants}>
                 <CtaButton className="h-12 rounded-md bg-[#f1be62] px-6 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="#evidence" size="lg">
