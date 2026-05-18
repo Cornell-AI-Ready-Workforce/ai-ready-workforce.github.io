@@ -393,6 +393,43 @@ function IconBubble({ icon: Icon, className }: { icon: IconComponent; className?
   );
 }
 
+function HeroCallout({
+  icon: Icon,
+  title,
+  text,
+  className,
+  delay = 0,
+  reverse = false,
+}: {
+  icon: IconComponent;
+  title: string;
+  text: string;
+  className?: string;
+  delay?: number;
+  reverse?: boolean;
+}) {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      className={cn("absolute hidden max-w-[250px] items-center gap-4 text-left text-[#273653] drop-shadow-[0_1px_12px_rgba(255,255,255,0.9)] lg:flex", className)}
+      initial={reducedMotion ? undefined : { opacity: 0, y: 20, filter: "blur(8px)" }}
+      animate={reducedMotion ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.82, delay, ease: smoothEase }}
+    >
+      <div className={cn("flex items-center gap-4", reverse && "flex-row-reverse text-right", !reducedMotion && "motion-safe:animate-[aiw-float_8s_ease-in-out_infinite]")}>
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-[#b9cdf4] bg-white/82 text-[#3155e7] shadow-[0_18px_54px_rgba(49,85,231,0.16)] backdrop-blur">
+          <Icon className="size-5" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold tracking-[-0.02em] text-[#0b1028]">{title}</p>
+          <p className="mt-1 text-xs leading-5 text-[#53617f]">{text}</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function HeroVisual({
   glowOpacity,
   glowScale,
@@ -435,34 +472,28 @@ function HeroVisual({
         className="absolute right-[12%] top-[12%] hidden h-[56%] w-[38%] rounded-full bg-[#85c7ff]/26 blur-3xl lg:block"
         style={reducedMotion ? undefined : { opacity: glowOpacity, scale: glowScale }}
       />
-      <motion.div
-        className="absolute right-[31%] top-[24%] hidden rounded-full border border-white/70 bg-white/55 px-5 py-3 shadow-[0_24px_80px_rgba(54,86,142,0.16)] backdrop-blur-xl lg:block"
-        initial={reducedMotion ? undefined : { opacity: 0, y: 18, scale: 0.96 }}
-        animate={reducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.35, ease: smoothEase }}
-      >
-        <div className="flex items-center gap-3 motion-safe:animate-[aiw-float_7s_ease-in-out_infinite]">
-          <IconBubble icon={FileSearchIcon} className="size-8 bg-white/70" />
-          <div>
-            <p className="text-[11px] font-semibold tracking-[-0.02em]">Evidence trace</p>
-            <p className="text-[10px] leading-4 text-[#66708b]">Artifacts to review</p>
-          </div>
-        </div>
-      </motion.div>
-      <motion.div
-        className="absolute bottom-[19%] right-[5%] hidden rounded-full border border-white/70 bg-white/58 px-5 py-3 shadow-[0_24px_80px_rgba(54,86,142,0.16)] backdrop-blur-xl lg:block"
-        initial={reducedMotion ? undefined : { opacity: 0, y: 22, scale: 0.96 }}
-        animate={reducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.5, ease: smoothEase }}
-      >
-        <div className="flex items-center gap-3 motion-safe:animate-[aiw-float_8s_ease-in-out_infinite_reverse]">
-          <IconBubble icon={UsersIcon} className="size-8 bg-white/70" />
-          <div>
-            <p className="text-[11px] font-semibold tracking-[-0.02em]">Human review</p>
-            <p className="text-[10px] leading-4 text-[#66708b]">People decide</p>
-          </div>
-        </div>
-      </motion.div>
+      <HeroCallout
+        className="right-[29%] top-[18%]"
+        delay={0.34}
+        icon={FileSearchIcon}
+        text="Scores trace back to artifacts."
+        title="Evidence trace"
+      />
+      <HeroCallout
+        className="right-[9%] top-[35%]"
+        delay={0.44}
+        icon={SparklesIcon}
+        text="Context-aware support builds capability."
+        title="AI guidance"
+      />
+      <HeroCallout
+        className="bottom-[28%] right-[4%]"
+        delay={0.54}
+        icon={UsersIcon}
+        reverse
+        text="Expert feedback. Fair decisions."
+        title="Human review"
+      />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,251,255,0.98)_0%,rgba(247,251,255,0.9)_58%,rgba(247,251,255,0.44)_100%)] md:bg-[linear-gradient(90deg,rgba(247,251,255,0.96)_0%,rgba(247,251,255,0.74)_35%,rgba(247,251,255,0.12)_67%,rgba(247,251,255,0)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,251,255,0.82)_0%,rgba(247,251,255,0)_21%,rgba(247,251,255,0)_76%,rgba(247,251,255,0.8)_100%)]" />
       <div className="absolute inset-x-[12%] bottom-[10%] h-px bg-[linear-gradient(90deg,transparent,rgba(49,85,231,0.45),transparent)] motion-safe:animate-[aiw-glow_4.5s_ease-in-out_infinite]" />
