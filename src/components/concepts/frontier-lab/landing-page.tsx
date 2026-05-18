@@ -510,7 +510,7 @@ export function FrontierLabLandingPage() {
             <motion.div animate={reducedMotion ? undefined : "visible"} className="order-1 text-left" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
               <motion.div variants={heroVariants}>
                 <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
-                  Measure AI-ready work
+                  Assessment for AI-era work
                 </Badge>
               </motion.div>
               <motion.h1 className="mt-7 max-w-[820px] font-serif text-[clamp(4rem,7.1vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.06em] text-[#fff5e6] text-balance" variants={heroVariants}>
