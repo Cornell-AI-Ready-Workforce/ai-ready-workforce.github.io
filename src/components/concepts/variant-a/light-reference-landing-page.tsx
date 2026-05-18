@@ -26,7 +26,6 @@ import {
   ShieldCheckIcon,
   SparklesIcon,
   UsersIcon,
-  WorkflowIcon,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -71,10 +70,10 @@ const heroVariants: Variants = {
 };
 
 const navItems = [
-  { label: "Mission", href: "#mission" },
-  { label: "Evidence", href: "#evidence" },
-  { label: "Platform", href: "#platform" },
-  { label: "Science", href: "#science" },
+  { label: "Problem", href: "#problem" },
+  { label: "Simulation", href: "#simulation" },
+  { label: "Evidence Map", href: "#evidence-map" },
+  { label: "Review", href: "#review" },
   { label: "Partners", href: "#partners" },
   { label: "Contact", href: "#contact" },
 ];
@@ -83,17 +82,17 @@ const partnerLogos = ["Wegmans", "M&T Bank", "paychex", "Cornell University", "S
 
 const heroSignals = [
   {
-    title: "Simulation-based",
+    title: "Simulation-based assessment",
     text: "Real work, not proxy credentials",
     icon: OrbitIcon,
   },
   {
-    title: "Evidence-linked",
+    title: "Evidence trace",
     text: "Scores trace back to artifacts",
     icon: FileSearchIcon,
   },
   {
-    title: "Human-reviewed",
+    title: "Human review",
     text: "AI prepares. Reviewers decide.",
     icon: BadgeCheckIcon,
   },
@@ -101,28 +100,28 @@ const heroSignals = [
 
 const evidenceSignals = [
   {
-    icon: BarChart3Icon,
-    title: "Authentic measures",
-    label: "Simulation-based assessments reflect real work, transferable skills, and learning pathways.",
-    source: "Vision slide",
-  },
-  {
-    icon: WorkflowIcon,
-    title: "6P evidence map",
-    label: "Plan, Prompt, Probe, Protect, Pivot, and Present frame observable AI-ready work.",
-    source: "Prototype Demo 2",
-  },
-  {
     icon: FileSearchIcon,
-    title: "Evidence-linked review",
-    label: "Scores connect to decisions, artifacts, rubric anchors, and reviewer notes.",
-    source: "Design principles",
+    title: "Resumes show history",
+    label: "They summarize credentials and past roles, but they rarely show how someone handles AI-enabled work now.",
+    source: "Problem",
   },
   {
-    icon: UsersIcon,
-    title: "Human-centered AI",
-    label: "AI structures evidence and surfaces patterns; trained human reviewers own the final call.",
-    source: "Leadership transcript",
+    icon: MessageSquareTextIcon,
+    title: "Interviews describe work",
+    label: "They ask candidates to explain how they think, but the actual work process remains hard to inspect.",
+    source: "Problem",
+  },
+  {
+    icon: BarChart3Icon,
+    title: "Case assessment rarely scales",
+    label: "Rigorous work samples are valuable, but they are hard to design, review, and calibrate consistently.",
+    source: "Constraint",
+  },
+  {
+    icon: SparklesIcon,
+    title: "AI collaboration is invisible",
+    label: "The most important skill is often hidden: how people plan, prompt, check, adapt, and present with AI.",
+    source: "Missing signal",
   },
 ];
 
@@ -162,42 +161,42 @@ const practices = [
 const platformModules = [
   {
     icon: BriefcaseBusinessIcon,
-    title: "Work modeling",
-    text: "Employers define real tasks, source materials, and success criteria.",
+    title: "Co-design the work",
+    text: "Employers define realistic tasks, source materials, deliverables, and success criteria.",
   },
   {
     icon: SparklesIcon,
-    title: "Simulation assessment",
-    text: "Candidates work through role-relevant scenarios with AI as part of the environment.",
+    title: "Run the simulation",
+    text: "People complete role-relevant work with AI as part of the task environment.",
   },
   {
     icon: FileSearchIcon,
-    title: "Reviewer console",
-    text: "AI organizes evidence and proposes rubric scores for trained human review.",
+    title: "Map the evidence",
+    text: "Decisions, artifacts, AI-use traces, and rubric anchors stay connected.",
   },
   {
     icon: RouteIcon,
-    title: "Mobility map",
-    text: "Evidence becomes a signal for growth, adjacent roles, and training pathways.",
+    title: "Calibrate the review",
+    text: "Trained reviewers interpret the evidence and improve anchors over time.",
   },
 ];
 
 const solutionSteps = [
   {
-    title: "Define",
-    text: "Translate AI-era work into observable tasks with employers and educators.",
+    title: "Role context",
+    text: "Ground each assessment in realistic workplace pressure, stakeholder needs, and decision points.",
   },
   {
-    title: "Assess",
-    text: "Run realistic simulations that produce artifacts, decisions, and explanations.",
+    title: "Source materials",
+    text: "Give people the documents, data, constraints, and ambiguity they would face in real work.",
   },
   {
-    title: "Review",
-    text: "Anchor AI-supported scoring to rubrics, notes, and human judgment.",
+    title: "Work artifacts",
+    text: "Capture memos, plans, analyses, prompts, checks, revisions, and final recommendations.",
   },
   {
-    title: "Mobilize",
-    text: "Turn the evidence into development paths and trusted opportunity signals.",
+    title: "Evidence trace",
+    text: "Connect the work back to observable practices and calibrated reviewer judgment.",
   },
 ];
 
@@ -601,7 +600,7 @@ export function LightReferenceLandingPage() {
                 Sign in
               </Button>
               <CtaButton className="h-11 rounded-full bg-[#3155e7] px-5 text-sm text-white shadow-[0_16px_36px_rgba(49,85,231,0.24)] transition active:scale-[0.98] hover:bg-[#2647d6]" href="mailto:hello@example.com">
-                Book a Demo
+                Discuss a Pilot
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
             </div>
@@ -612,24 +611,24 @@ export function LightReferenceLandingPage() {
               <motion.div animate={reducedMotion ? undefined : "visible"} initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
                 <motion.div variants={heroVariants}>
                   <Badge className="rounded-full border-0 bg-[#e7f0ff] px-4 py-1.5 text-[12px] text-[#3155e7]">
-                    Institute for Human Advancement in the AI Economy
+                    Simulation-based assessment for AI-era work
                   </Badge>
                 </motion.div>
                 <motion.h1 className="mt-8 max-w-[900px] text-[clamp(4.5rem,10.4vw,10.8rem)] font-semibold leading-[0.86] tracking-[-0.085em] text-balance lg:leading-[0.8]" variants={heroVariants}>
-                  Build the <span className="text-[#3155e7]">AI-ready</span> workforce.
+                  See how people actually work with <span className="text-[#3155e7]">AI.</span>
                 </motion.h1>
                 <motion.p className="mt-8 max-w-[650px] text-xl leading-9 text-[#34405d]" variants={heroVariants}>
-                  Simulation-based assessments and evidence-linked review help employers see real capability,
-                  help workers grow, and help communities build mobility in the AI economy.
+                  Hiring teams cannot see AI collaboration from resumes alone. We turn realistic work
+                  simulations into evidence traces that trained reviewers can inspect.
                 </motion.p>
                 <motion.div className="mt-8 flex flex-wrap gap-3" variants={heroVariants}>
-                  <CtaButton className="h-12 rounded-full bg-[#3155e7] px-6 text-sm text-white shadow-[0_16px_36px_rgba(49,85,231,0.22)] transition active:scale-[0.98] hover:bg-[#2647d6]" href="#platform" size="lg">
-                    See the Platform
+                  <CtaButton className="h-12 rounded-full bg-[#3155e7] px-6 text-sm text-white shadow-[0_16px_36px_rgba(49,85,231,0.22)] transition active:scale-[0.98] hover:bg-[#2647d6]" href="#problem" size="lg">
+                    Explore Evidence
                     <ArrowRightIcon data-icon="inline-end" />
                   </CtaButton>
-                  <CtaButton className="h-12 rounded-full border-[#b8c8ee] bg-white/70 px-6 text-sm text-[#3155e7] transition active:scale-[0.98] hover:bg-white" href="#evidence" size="lg" variant="outline">
+                  <CtaButton className="h-12 rounded-full border-[#b8c8ee] bg-white/70 px-6 text-sm text-[#3155e7] transition active:scale-[0.98] hover:bg-white" href="mailto:hello@example.com" size="lg" variant="outline">
                     <CirclePlayIcon data-icon="inline-start" />
-                    View Evidence
+                    Discuss a Pilot
                   </CtaButton>
                 </motion.div>
               </motion.div>
@@ -672,16 +671,16 @@ export function LightReferenceLandingPage() {
         </div>
       </section>
 
-      <section id="evidence" className="relative overflow-hidden border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-32">
+      <section id="problem" className="relative overflow-hidden border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-32">
         <div className="mx-auto grid max-w-[1320px] items-center gap-14 lg:grid-cols-[0.78fr_1.22fr]">
           <Reveal>
-            <SectionLabel>Evidence system</SectionLabel>
+            <SectionLabel>The problem</SectionLabel>
             <h2 className="mt-5 max-w-[560px] text-[clamp(2.75rem,5vw,5.8rem)] font-semibold leading-[0.95] tracking-[-0.065em] text-balance">
-              Every score needs a visible chain of evidence.
+              Hiring teams cannot see the work itself.
             </h2>
             <p className="mt-7 max-w-[560px] text-lg leading-8 text-[#4e5a76]">
-              The leadership materials point to a simple standard: AI can structure the evidence, but the
-              assessment must stay anchored to observable work and trained human judgment.
+              Current hiring methods miss how people actually use AI: how they frame the task,
+              brief the model, verify output, adapt, and explain the final recommendation.
             </p>
           </Reveal>
           <MotionMedia>
@@ -707,25 +706,18 @@ export function LightReferenceLandingPage() {
           ))}
         </StaggerGroup>
 
-        <div className="mx-auto mt-20 max-w-[1320px]">
-          <StaggerGroup className="grid gap-5 md:grid-cols-2 lg:grid-cols-6">
-            {practices.map((practice, index) => (
-              <PracticeNode key={practice.title} practice={practice} index={index} />
-            ))}
-          </StaggerGroup>
-        </div>
       </section>
 
-      <section id="mission" className="border-b border-[#dce7f6] bg-[#f7fbff] px-6 py-24 lg:px-10 lg:py-32">
+      <section id="simulation" className="border-b border-[#dce7f6] bg-[#f7fbff] px-6 py-24 lg:px-10 lg:py-32">
         <div className="mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[0.92fr_1.08fr]">
           <Reveal>
-            <SectionLabel>Our solution</SectionLabel>
+            <SectionLabel>Case-Based Work Simulation</SectionLabel>
             <h2 className="mt-5 max-w-[640px] text-[clamp(2.6rem,5vw,5.4rem)] font-semibold leading-[0.98] tracking-[-0.06em] text-balance">
-              A public-good signal for skill, mobility, and opportunity.
+              Make real AI-era work observable.
             </h2>
             <p className="mt-7 max-w-[600px] text-lg leading-8 text-[#4e5a76]">
-              AI-Ready Workforce combines employer co-design, simulation assessment, reviewer calibration,
-              and mobility insight into one evidence loop.
+              A role-relevant simulation gives people realistic context, source materials, AI access,
+              and a concrete deliverable. The result is not a claim of skill, it is work to review.
             </p>
           </Reveal>
 
@@ -747,20 +739,26 @@ export function LightReferenceLandingPage() {
         </div>
       </section>
 
-      <section ref={platformRef} id="platform" className="relative overflow-hidden border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-32">
+      <section ref={platformRef} id="evidence-map" className="relative overflow-hidden border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-32">
         <div className="mx-auto max-w-[1320px]">
           <Reveal className="grid items-end gap-10 lg:grid-cols-[1fr_0.65fr]">
             <div>
-              <SectionLabel>The AI-Ready Workforce platform</SectionLabel>
+              <SectionLabel>Six Practices Evidence Map</SectionLabel>
               <h2 className="mt-5 max-w-[820px] text-[clamp(2.75rem,5vw,5.6rem)] font-semibold leading-[0.96] tracking-[-0.065em] text-balance">
-                Infrastructure for workforce transformation.
+                Turn AI collaboration into evidence reviewers can follow.
               </h2>
             </div>
             <p className="max-w-[500px] text-lg leading-8 text-[#4e5a76] lg:pb-2">
-              The platform is not just a test. It is a workflow for turning real work into evidence,
-              evidence into review, and review into paths people can use.
+              Plan, Prompt, Probe, Protect, Pivot, and Present become an evidence map for how
+              people work with AI under realistic constraints.
             </p>
           </Reveal>
+
+          <StaggerGroup className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+            {practices.map((practice, index) => (
+              <PracticeNode key={practice.title} practice={practice} index={index} />
+            ))}
+          </StaggerGroup>
 
           <MotionMedia className="mt-14">
           <Card className="overflow-hidden rounded-[38px] border-[#dce7f6] bg-[#f7fbff] shadow-[0_40px_120px_rgba(54,86,142,0.14)]">
@@ -805,12 +803,16 @@ export function LightReferenceLandingPage() {
         </div>
       </section>
 
-      <section className="bg-[linear-gradient(90deg,#eef6ff,#ffffff_50%,#f1f6ff)] px-6 py-20 lg:px-10 lg:py-24">
+      <section id="review" className="bg-[linear-gradient(90deg,#eef6ff,#ffffff_50%,#f1f6ff)] px-6 py-20 lg:px-10 lg:py-24">
         <Reveal className="mx-auto max-w-[1180px] text-center">
-          <SectionLabel>Our impact</SectionLabel>
+          <SectionLabel>Human Review and Calibration</SectionLabel>
           <h2 className="mx-auto mt-5 max-w-[920px] text-[clamp(2.7rem,5vw,5.4rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-balance">
-            Better signals. Better decisions. Better futures.
+            AI prepares. Humans decide.
           </h2>
+          <p className="mx-auto mt-6 max-w-[720px] text-lg leading-8 text-[#53617e]">
+            AI can organize artifacts, surface patterns, and propose anchors. Trained reviewers
+            keep final interpretation accountable, calibrated, and fair.
+          </p>
           <StaggerGroup className="mt-14 grid gap-px overflow-hidden rounded-[30px] border border-[#dce7f6] bg-[#dce7f6] text-left md:grid-cols-3">
             {impactItems.map((item) => {
               const Icon = item.icon;
@@ -829,13 +831,14 @@ export function LightReferenceLandingPage() {
       <section id="science" className="border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-28">
         <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[0.9fr_220px_0.9fr]">
           <Reveal>
-            <SectionLabel>Rooted in science</SectionLabel>
-            <h2 className="mt-5 text-[clamp(2.2rem,4vw,4.1rem)] font-semibold leading-none tracking-[-0.055em]">Rigor you can trust.</h2>
+            <SectionLabel>Relational Skills Assessment</SectionLabel>
+            <h2 className="mt-5 text-[clamp(2.2rem,4vw,4.1rem)] font-semibold leading-none tracking-[-0.055em]">Measure communication in context.</h2>
             <p className="mt-6 max-w-[460px] text-base leading-7 text-[#53617e]">
-              Our research program tests what works reliably, fairly, and at scale.
+              AI-era readiness includes communication, empathy, conflict resolution, and psychological safety,
+              not only technical output.
             </p>
             <Link className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#3155e7]" href="#science">
-              Explore our science
+              Explore the research
               <ArrowRightIcon className="size-4" />
             </Link>
           </Reveal>
@@ -850,10 +853,11 @@ export function LightReferenceLandingPage() {
             </div>
           </MotionMedia>
           <Reveal className="lg:pl-4" id="partners">
-            <SectionLabel>Built with partners</SectionLabel>
-            <h2 className="mt-5 text-[clamp(2.2rem,4vw,4.1rem)] font-semibold leading-none tracking-[-0.055em]">Together, we go further.</h2>
+            <SectionLabel>Assessment Evidence Loop</SectionLabel>
+            <h2 className="mt-5 text-[clamp(2.2rem,4vw,4.1rem)] font-semibold leading-none tracking-[-0.055em]">Build the signal with partners.</h2>
             <p className="mt-6 max-w-[500px] text-base leading-7 text-[#53617e]">
-              We collaborate with employers, educators, researchers, and workforce leaders to create lasting change.
+              Employers, educators, researchers, and workforce leaders shape the same loop from task design
+              to evidence, review, calibration, and mobility.
             </p>
             <Link className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#3155e7]" href="#partners">
               See our partners
@@ -868,13 +872,13 @@ export function LightReferenceLandingPage() {
           <Reveal className="grid items-center gap-8 pb-8 lg:grid-cols-[1fr_auto]">
             <div>
               <h2 className="max-w-[760px] text-[clamp(2.4rem,5vw,5.4rem)] font-semibold leading-[0.96] tracking-[-0.065em] text-[#3155e7]">
-                Let&apos;s build the future of work, together.
+                Build a signal people can inspect.
               </h2>
-              <p className="mt-4 text-base text-[#53617e]">Join leading organizations advancing the AI-ready workforce.</p>
+              <p className="mt-4 text-base text-[#53617e]">Bring real work, AI collaboration, and human review into one assessment evidence loop.</p>
             </div>
             <div className="flex flex-wrap gap-4">
               <CtaButton className="h-12 rounded-full bg-[#3155e7] px-8 text-sm text-white transition active:scale-[0.98] hover:bg-[#2647d6]" href="mailto:hello@example.com" size="lg">
-                Book a Demo
+                Discuss a Pilot
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
               <CtaButton className="h-12 rounded-full border-[#b8c8ee] px-8 text-sm text-[#3155e7] transition active:scale-[0.98]" href="mailto:hello@example.com" size="lg" variant="outline">

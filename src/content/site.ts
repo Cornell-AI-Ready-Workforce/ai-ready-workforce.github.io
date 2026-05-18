@@ -2,7 +2,7 @@ export const siteNavigation = ["About", "Framework", "Platform", "Research", "Re
 
 export const sharedMessaging = {
   name: "AI-Ready Workforce",
-  demoHref: "mailto:hello@example.com",
+  pilotHref: "mailto:hello@example.com",
   headline: "Build an AI-ready workforce.",
   summary:
     "Evidence-based assessments and AI-powered tools that help employers find talent, help workers grow, and help communities thrive.",
@@ -48,7 +48,7 @@ export const sections = [
   {
     id: "resources",
     title: "Resources for pilots and stakeholder review",
-    text: "The site will collect pilot briefs, framework explainers, and implementation notes as the project moves from prototype to external-facing work.",
+    text: "The site will collect pilot briefs, framework explainers, and implementation notes as the project moves from internal concepting to external-facing work.",
   },
 ];
 
@@ -56,17 +56,17 @@ export const conceptVariants = [
   {
     slug: "variant-a",
     label: "Variant A",
-    name: "Light reference",
+    name: "Light narrative",
     href: "/concepts/variant-a",
-    tone: "Airy institutional SaaS direction based on the provided light reference.",
-    bestFor: "Use this slot for the current AI-Ready Workforce light-theme sample.",
+    tone: "Focused public story built around simulation, evidence traces, and human review.",
+    bestFor: "Use this as the current public-facing direction.",
   },
   {
     slug: "variant-b",
     label: "Variant B",
-    name: "Frontier Lab",
+    name: "Horizontal frontier",
     href: "/concepts/variant-b",
-    tone: "Dark, cinematic, research-lab direction with gold signal-system styling.",
+    tone: "Dark cinematic research-lab direction with a horizontal first fold.",
     bestFor: "Use this slot for the alternate manager-review concept.",
   },
 ];

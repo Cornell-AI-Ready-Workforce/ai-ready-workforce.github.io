@@ -20,17 +20,17 @@ export default function ConceptsPage() {
       <section className="mx-auto flex max-w-6xl flex-col gap-10">
         <header className="flex flex-col gap-5 border-b pb-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <Badge variant="secondary">Manager review</Badge>
+            <Badge variant="secondary">Internal concept review</Badge>
             <h1 className="mt-5 text-4xl font-medium tracking-tight text-balance sm:text-6xl">
               Two separate website concepts for {sharedMessaging.name}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-              Same project and core claims. Two neutral slots for the sample designs
-              you provide.
+              Same project and core claims. The public root now opens the focused light narrative;
+              this page keeps both concepts available for review.
             </p>
           </div>
           <Link className={cn(buttonVariants({ variant: "outline" }), "w-fit")} href="/">
-            Home redirects here
+            Open public route
           </Link>
         </header>
 
