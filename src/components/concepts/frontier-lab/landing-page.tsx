@@ -352,6 +352,31 @@ function IconFrame({ icon: Icon, className }: { icon: IconComponent; className?:
   );
 }
 
+function HeroCallout({
+  icon: Icon,
+  title,
+  text,
+  className,
+}: {
+  icon: IconComponent;
+  title: string;
+  text: string;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={cn("absolute hidden max-w-[250px] items-center gap-4 text-left text-[#d7cbb8] lg:flex", className)}
+      variants={revealVariants}
+    >
+      <IconFrame icon={Icon} className="size-12 rounded-full bg-[#0a0602] shadow-[0_0_34px_rgba(241,190,98,0.22)]" />
+      <div>
+        <p className="text-sm font-semibold text-[#fff5e6]">{title}</p>
+        <p className="mt-1 text-xs leading-5 text-[#b9ad9b]">{text}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 function EvidenceCard({ item }: { item: (typeof evidenceChapters)[number] }) {
   const Icon = item.icon;
 
@@ -425,44 +450,20 @@ export function FrontierLabLandingPage() {
     target: platformRef,
     offset: ["start end", "end start"],
   });
-  const heroImageY = useTransform(heroScroll, [0, 1], ["0%", "3%"]);
-  const heroImageScale = useTransform(heroScroll, [0, 1], [1, 1.02]);
+  const heroVisualY = useTransform(heroScroll, [0, 1], ["0%", "5%"]);
+  const heroVisualScale = useTransform(heroScroll, [0, 1], [1, 1.035]);
   const heroTextY = useTransform(heroScroll, [0, 1], ["0%", "-5%"]);
   const heroTextOpacity = useTransform(heroScroll, [0, 0.72, 1], [1, 0.95, 0.82]);
-  const portalGlowOpacity = useTransform(heroScroll, [0, 0.42, 1], [0.22, 0.9, 0.14]);
-  const portalGlowScale = useTransform(heroScroll, [0, 1], [0.82, 1.22]);
   const platformImageY = useTransform(platformScroll, [0, 1], ["6%", "-8%"]);
   const platformImageScale = useTransform(platformScroll, [0, 0.5, 1], [0.95, 1, 1.04]);
 
   return (
     <MotionConfig reducedMotion="user" transition={{ ease: smoothEase }}>
       <main className="min-h-screen overflow-x-hidden bg-[#060504] text-[#fff5e6]">
-      <section ref={heroRef} className="relative min-h-[calc(100svh-24px)] overflow-hidden border-b border-[#332715]">
-        <motion.div className="absolute inset-0" style={reducedMotion ? undefined : { y: heroImageY, scale: heroImageScale }}>
-          <Image
-            alt="Dark cinematic research portal for AI-ready workforce assessment"
-            className="object-contain object-top opacity-95 md:hidden"
-            fill
-            priority
-            sizes="(max-width: 767px) 100vw, 1px"
-            src="/images/aiw-dark-hero-gpt-image-2-mobile.png"
-          />
-          <Image
-            alt="Dark cinematic research portal for AI-ready workforce assessment"
-            className="hidden object-cover object-[72%_50%] opacity-95 md:block xl:object-center"
-            fill
-            priority
-            sizes="(min-width: 768px) 100vw, 1px"
-            src="/images/aiw-dark-hero-gpt-image-2-wide.png"
-          />
-          <motion.div
-            className="absolute right-[8%] top-[9%] hidden h-[62%] w-[34%] rounded-full bg-[#f1be62]/20 blur-3xl lg:block"
-            style={reducedMotion ? undefined : { opacity: portalGlowOpacity, scale: portalGlowScale }}
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#060504_0%,rgba(6,5,4,0.95)_54%,rgba(6,5,4,0.54)_100%)] md:bg-[linear-gradient(90deg,#060504_0%,rgba(6,5,4,0.95)_31%,rgba(6,5,4,0.42)_61%,rgba(6,5,4,0.04)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,5,4,0.72)_0%,rgba(6,5,4,0)_30%,rgba(6,5,4,0.1)_66%,#060504_100%)]" />
-          <div className="absolute inset-0 opacity-[0.13] [background-image:linear-gradient(rgba(239,190,98,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(239,190,98,0.12)_1px,transparent_1px)] [background-size:80px_80px]" />
-        </motion.div>
+      <section ref={heroRef} className="relative min-h-[calc(100svh-24px)] overflow-hidden border-b border-[#332715] bg-[#020100]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_28%,rgba(241,190,98,0.24),transparent_25%),radial-gradient(circle_at_50%_4%,rgba(255,185,96,0.12),transparent_42%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(207,118,23,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(207,118,23,0.15)_1px,transparent_1px)] [background-size:72px_72px]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-[radial-gradient(ellipse_at_bottom,rgba(232,145,46,0.18),transparent_62%)]" />
 
         <div className="relative z-10 mx-auto flex min-h-[calc(100svh-24px)] max-w-[1440px] flex-col px-6 py-6 lg:px-10">
           <motion.nav
@@ -505,22 +506,42 @@ export function FrontierLabLandingPage() {
             </div>
           </motion.nav>
 
-          <motion.div className="flex flex-1 items-center py-16 lg:py-20" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
-            <div className="max-w-[1000px]">
-              <motion.div animate={reducedMotion ? undefined : "visible"} initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
-                <motion.div variants={heroVariants}>
-                  <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
-                    Frontier research institute
-                  </Badge>
+          <motion.div className="flex flex-1 flex-col items-center justify-center py-12 text-center lg:py-10" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
+            <motion.div animate={reducedMotion ? undefined : "visible"} className="w-full" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
+              <div className="relative mx-auto flex min-h-[260px] w-full max-w-[1100px] items-center justify-center sm:min-h-[320px] lg:min-h-[360px]">
+                <HeroCallout className="left-2 top-16" icon={OrbitIcon} text="Role-relevant tasks. Real outcomes." title="Simulation assessment" />
+                <HeroCallout className="bottom-16 left-6" icon={UsersIcon} text="Expert feedback. Fair decisions." title="Human review" />
+                <HeroCallout className="right-2 top-28" icon={SparklesIcon} text="Context-aware support that builds capability." title="AI guidance" />
+                <motion.div
+                  className="relative flex size-[240px] items-center justify-center rounded-full border border-[#ff982d]/50 bg-[radial-gradient(circle,rgba(255,194,113,0.38),rgba(214,104,12,0.12)_42%,transparent_70%)] shadow-[0_0_100px_rgba(255,145,38,0.48)] sm:size-[330px] motion-safe:animate-[aiw-portal-drift_13s_ease-in-out_infinite]"
+                  style={reducedMotion ? undefined : { y: heroVisualY, scale: heroVisualScale }}
+                  variants={heroVariants}
+                >
+                  <div className="absolute inset-4 rounded-full border border-[#ffae52]/30" />
+                  <div className="absolute inset-12 rounded-full border border-dashed border-[#ffc174]/30" />
+                  <div className="absolute h-px w-[78%] rotate-12 bg-[#ffae52]/35" />
+                  <div className="absolute h-px w-[72%] -rotate-[32deg] bg-[#ffae52]/30" />
+                  <div className="absolute h-px w-[62%] rotate-[55deg] bg-[#ffae52]/25" />
+                  <div className="absolute left-[26%] top-[30%] size-2 rounded-full bg-[#ffc174] shadow-[0_0_18px_6px_rgba(255,172,62,0.42)]" />
+                  <div className="absolute right-[28%] top-[38%] size-1.5 rounded-full bg-[#ffe2a9] shadow-[0_0_16px_5px_rgba(255,172,62,0.36)]" />
+                  <div className="absolute bottom-[30%] left-[38%] size-1.5 rounded-full bg-[#ffbd68] shadow-[0_0_16px_5px_rgba(255,172,62,0.34)]" />
+                  <div className="size-4 rounded-full bg-[#ffe2a9] shadow-[0_0_35px_12px_rgba(255,172,62,0.7)]" />
                 </motion.div>
-                <motion.h1 className="mt-8 max-w-[1180px] text-[clamp(4rem,8vw,8.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-[#fff5e6] lg:leading-[0.82]" variants={heroVariants}>
-                  Measure <span className="whitespace-nowrap">AI-ready</span> work where it happens.
-                </motion.h1>
-                <motion.p className="mt-8 max-w-[710px] text-xl leading-9 text-[#d7cbb8]" variants={heroVariants}>
-                  Case-based simulations, 6P evidence maps, and trained human review turn AI collaboration into
-                  visible signals for hiring, mobility, and learning.
-                </motion.p>
-                <motion.div className="mt-8 flex flex-wrap gap-3" variants={heroVariants}>
+              </div>
+
+              <motion.div variants={heroVariants}>
+                <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
+                  Frontier research institute
+                </Badge>
+              </motion.div>
+              <motion.h1 className="mx-auto mt-5 max-w-[1040px] font-serif text-[clamp(3.7rem,7.4vw,7.6rem)] font-normal leading-[0.92] tracking-[-0.055em] text-[#fff5e6] text-balance" variants={heroVariants}>
+                Build the <span className="whitespace-nowrap">AI-ready</span> workforce.
+              </motion.h1>
+              <motion.p className="mx-auto mt-6 max-w-[720px] text-lg leading-8 text-[#d7cbb8] sm:text-xl sm:leading-9" variants={heroVariants}>
+                Case-based simulations, 6P evidence maps, and trained human review turn AI collaboration into
+                visible signals for hiring, mobility, and learning.
+              </motion.p>
+              <motion.div className="mt-8 flex flex-wrap justify-center gap-3" variants={heroVariants}>
                   <CtaButton className="h-12 rounded-md bg-[#f1be62] px-6 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="#platform" size="lg">
                     See the Platform
                     <ArrowRightIcon data-icon="inline-end" />
@@ -528,28 +549,26 @@ export function FrontierLabLandingPage() {
                   <CtaButton className="h-12 rounded-md border-[#6d4c20] bg-[#090705]/70 px-6 text-sm text-[#fff5e6] transition active:scale-[0.98] hover:bg-[#18120a]" href="#evidence" size="lg" variant="outline">
                     View Evidence
                   </CtaButton>
-                </motion.div>
               </motion.div>
 
-              <StaggerGroup className="mt-14 grid max-w-[920px] overflow-hidden rounded-lg border border-[#332715] bg-[#080604]/68 shadow-[0_34px_120px_rgba(0,0,0,0.36)] backdrop-blur-sm sm:grid-cols-3">
+              <StaggerGroup className="mx-auto mt-10 flex max-w-[900px] flex-wrap justify-center gap-3">
                 {heroSignals.map((signal) => {
                   const Icon = signal.icon;
 
                   return (
                     <motion.div
                       key={signal.title}
-                      className="border-b border-[#332715] p-5 transition-colors duration-300 hover:bg-[#130e08]/72 sm:border-r sm:border-b-0 sm:last:border-r-0"
+                      className="inline-flex items-center gap-2 rounded-md border border-[#332715] bg-[#090705]/72 px-3 py-2 text-left transition-colors duration-300 hover:border-[#7b5a2b] hover:bg-[#130e08]/72"
                       variants={revealVariants}
-                      whileHover={reducedMotion ? undefined : { y: -6, scale: 1.015 }}
+                      whileHover={reducedMotion ? undefined : { y: -3, scale: 1.01 }}
                     >
-                      <Icon className="size-5 text-[#f1be62]" />
-                      <p className="mt-5 text-sm font-semibold text-[#fff5e6]">{signal.title}</p>
-                      <p className="mt-2 text-xs leading-5 text-[#b9ad9b]">{signal.text}</p>
+                      <Icon className="size-4 shrink-0 text-[#f1be62]" />
+                      <span className="text-xs font-semibold text-[#fff5e6]">{signal.title}</span>
                     </motion.div>
                   );
                 })}
               </StaggerGroup>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
