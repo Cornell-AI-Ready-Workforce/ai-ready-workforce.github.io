@@ -70,8 +70,8 @@ const heroVariants: Variants = {
 
 const navItems = [
   { label: "Evidence", href: "#evidence" },
-  { label: "Framework", href: "#framework" },
-  { label: "Platform", href: "#platform" },
+  { label: "Evidence Map", href: "#framework" },
+  { label: "Loop", href: "#platform" },
   { label: "Pilots", href: "#pilots" },
   { label: "Science", href: "#science" },
 ];
@@ -97,27 +97,27 @@ const heroSignals = [
 const evidenceChapters = [
   {
     icon: OrbitIcon,
-    title: "Authentic measures",
-    text: "The leadership deck frames AI-readiness around simulation-based competency assessments that reflect real work and transferable skills.",
-    source: "Vision slide",
+    title: "Case-based work simulation",
+    text: "Simulation-based competency assessments reflect real work, transferable skills, and visible work artifacts.",
+    source: "Assessment model",
   },
   {
     icon: WorkflowIcon,
-    title: "6P evidence map",
+    title: "Six Practices Evidence Map",
     text: "Plan, Prompt, Probe, Protect, Pivot, and Present turn AI collaboration into observable practices reviewers can inspect.",
-    source: "Prototype Demo 2",
+    source: "Evidence map",
   },
   {
     icon: FileSearchIcon,
     title: "Evidence-linked evaluation",
     text: "Every score should trace to decisions, artifacts, rubric anchors, and reviewer notes instead of standing alone as a black-box output.",
-    source: "Design principles",
+    source: "Review method",
   },
   {
     icon: UsersIcon,
     title: "AI prepares, humans decide",
     text: "Agents structure evidence and surface patterns while trained reviewers interpret, adjust, approve, or send work back.",
-    source: "Design principles",
+    source: "Governance",
   },
 ];
 
@@ -186,7 +186,7 @@ const pilotTracks = [
   {
     icon: HandshakeIcon,
     title: "Relational skills",
-    text: "AI interview prototypes explore communication, empathy, conflict resolution, and psychological safety.",
+    text: "AI interview pilots explore communication, empathy, conflict resolution, and psychological safety.",
   },
   {
     icon: BriefcaseBusinessIcon,
@@ -497,61 +497,40 @@ export function FrontierLabLandingPage() {
                 render={<Link href="#science" />}
                 variant="ghost"
               >
-                Research brief
+                Science brief
               </Button>
               <CtaButton className="h-11 rounded-md bg-[#f1be62] px-5 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="mailto:hello@example.com">
-                Book a Demo
+                Discuss a Pilot
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
             </div>
           </motion.nav>
 
-          <motion.div className="flex flex-1 flex-col items-center justify-center py-12 text-center lg:py-10" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
-            <motion.div animate={reducedMotion ? undefined : "visible"} className="w-full" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
-              <div className="relative mx-auto flex min-h-[260px] w-full max-w-[1100px] items-center justify-center sm:min-h-[320px] lg:min-h-[360px]">
-                <HeroCallout className="left-2 top-16" icon={OrbitIcon} text="Role-relevant tasks. Real outcomes." title="Simulation assessment" />
-                <HeroCallout className="bottom-16 left-6" icon={UsersIcon} text="Expert feedback. Fair decisions." title="Human review" />
-                <HeroCallout className="right-2 top-28" icon={SparklesIcon} text="Context-aware support that builds capability." title="AI guidance" />
-                <motion.div
-                  className="relative flex size-[240px] items-center justify-center rounded-full border border-[#ff982d]/50 bg-[radial-gradient(circle,rgba(255,194,113,0.38),rgba(214,104,12,0.12)_42%,transparent_70%)] shadow-[0_0_100px_rgba(255,145,38,0.48)] sm:size-[330px] motion-safe:animate-[aiw-portal-drift_13s_ease-in-out_infinite]"
-                  style={reducedMotion ? undefined : { y: heroVisualY, scale: heroVisualScale }}
-                  variants={heroVariants}
-                >
-                  <div className="absolute inset-4 rounded-full border border-[#ffae52]/30" />
-                  <div className="absolute inset-12 rounded-full border border-dashed border-[#ffc174]/30" />
-                  <div className="absolute h-px w-[78%] rotate-12 bg-[#ffae52]/35" />
-                  <div className="absolute h-px w-[72%] -rotate-[32deg] bg-[#ffae52]/30" />
-                  <div className="absolute h-px w-[62%] rotate-[55deg] bg-[#ffae52]/25" />
-                  <div className="absolute left-[26%] top-[30%] size-2 rounded-full bg-[#ffc174] shadow-[0_0_18px_6px_rgba(255,172,62,0.42)]" />
-                  <div className="absolute right-[28%] top-[38%] size-1.5 rounded-full bg-[#ffe2a9] shadow-[0_0_16px_5px_rgba(255,172,62,0.36)]" />
-                  <div className="absolute bottom-[30%] left-[38%] size-1.5 rounded-full bg-[#ffbd68] shadow-[0_0_16px_5px_rgba(255,172,62,0.34)]" />
-                  <div className="size-4 rounded-full bg-[#ffe2a9] shadow-[0_0_35px_12px_rgba(255,172,62,0.7)]" />
-                </motion.div>
-              </div>
-
+          <motion.div className="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-16" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
+            <motion.div animate={reducedMotion ? undefined : "visible"} className="order-1 text-left" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
               <motion.div variants={heroVariants}>
                 <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
-                  Frontier research institute
+                  Assessment evidence system
                 </Badge>
               </motion.div>
-              <motion.h1 className="mx-auto mt-5 max-w-[1040px] font-serif text-[clamp(3.7rem,7.4vw,7.6rem)] font-normal leading-[0.92] tracking-[-0.055em] text-[#fff5e6] text-balance" variants={heroVariants}>
-                Build the <span className="whitespace-nowrap">AI-ready</span> workforce.
+              <motion.h1 className="mt-7 max-w-[760px] font-serif text-[clamp(3.6rem,6.2vw,7.2rem)] font-normal leading-[0.92] tracking-[-0.055em] text-[#fff5e6] text-balance" variants={heroVariants}>
+                See how people actually work with <span className="whitespace-nowrap">AI.</span>
               </motion.h1>
-              <motion.p className="mx-auto mt-6 max-w-[720px] text-lg leading-8 text-[#d7cbb8] sm:text-xl sm:leading-9" variants={heroVariants}>
-                Case-based simulations, 6P evidence maps, and trained human review turn AI collaboration into
-                visible signals for hiring, mobility, and learning.
+              <motion.p className="mt-7 max-w-[660px] text-lg leading-8 text-[#d7cbb8] sm:text-xl sm:leading-9" variants={heroVariants}>
+                Hiring teams cannot see AI collaboration from proxy credentials. Case-based simulations,
+                evidence maps, and trained review turn the work itself into a visible signal.
               </motion.p>
-              <motion.div className="mt-8 flex flex-wrap justify-center gap-3" variants={heroVariants}>
-                  <CtaButton className="h-12 rounded-md bg-[#f1be62] px-6 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="#platform" size="lg">
-                    See the Platform
-                    <ArrowRightIcon data-icon="inline-end" />
-                  </CtaButton>
-                  <CtaButton className="h-12 rounded-md border-[#6d4c20] bg-[#090705]/70 px-6 text-sm text-[#fff5e6] transition active:scale-[0.98] hover:bg-[#18120a]" href="#evidence" size="lg" variant="outline">
-                    View Evidence
-                  </CtaButton>
+              <motion.div className="mt-8 flex flex-wrap gap-3" variants={heroVariants}>
+                <CtaButton className="h-12 rounded-md bg-[#f1be62] px-6 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="#evidence" size="lg">
+                  Explore Evidence
+                  <ArrowRightIcon data-icon="inline-end" />
+                </CtaButton>
+                <CtaButton className="h-12 rounded-md border-[#6d4c20] bg-[#090705]/70 px-6 text-sm text-[#fff5e6] transition active:scale-[0.98] hover:bg-[#18120a]" href="mailto:hello@example.com" size="lg" variant="outline">
+                  Discuss a Pilot
+                </CtaButton>
               </motion.div>
 
-              <StaggerGroup className="mx-auto mt-10 flex max-w-[900px] flex-wrap justify-center gap-3">
+              <StaggerGroup className="mt-10 flex max-w-[760px] flex-wrap gap-3">
                 {heroSignals.map((signal) => {
                   const Icon = signal.icon;
 
@@ -568,6 +547,29 @@ export function FrontierLabLandingPage() {
                   );
                 })}
               </StaggerGroup>
+            </motion.div>
+
+            <motion.div animate={reducedMotion ? undefined : "visible"} className="order-2 w-full" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
+              <div className="relative mx-auto flex min-h-[360px] w-full max-w-[720px] items-center justify-center sm:min-h-[440px] lg:min-h-[590px]">
+                <HeroCallout className="left-0 top-[18%]" icon={OrbitIcon} text="Role-relevant tasks. Real outcomes." title="Simulation assessment" />
+                <HeroCallout className="bottom-[16%] left-[6%]" icon={UsersIcon} text="Expert feedback. Fair decisions." title="Human review" />
+                <HeroCallout className="right-0 top-[31%]" icon={SparklesIcon} text="Context-aware support that builds capability." title="AI guidance" />
+                <motion.div
+                  className="relative flex size-[260px] items-center justify-center rounded-full border border-[#ff982d]/50 bg-[radial-gradient(circle,rgba(255,194,113,0.38),rgba(214,104,12,0.12)_42%,transparent_70%)] shadow-[0_0_100px_rgba(255,145,38,0.48)] sm:size-[390px] lg:size-[430px] motion-safe:animate-[aiw-portal-drift_13s_ease-in-out_infinite]"
+                  style={reducedMotion ? undefined : { y: heroVisualY, scale: heroVisualScale }}
+                  variants={heroVariants}
+                >
+                  <div className="absolute inset-4 rounded-full border border-[#ffae52]/30" />
+                  <div className="absolute inset-12 rounded-full border border-dashed border-[#ffc174]/30" />
+                  <div className="absolute h-px w-[78%] rotate-12 bg-[#ffae52]/35" />
+                  <div className="absolute h-px w-[72%] -rotate-[32deg] bg-[#ffae52]/30" />
+                  <div className="absolute h-px w-[62%] rotate-[55deg] bg-[#ffae52]/25" />
+                  <div className="absolute left-[26%] top-[30%] size-2 rounded-full bg-[#ffc174] shadow-[0_0_18px_6px_rgba(255,172,62,0.42)]" />
+                  <div className="absolute right-[28%] top-[38%] size-1.5 rounded-full bg-[#ffe2a9] shadow-[0_0_16px_5px_rgba(255,172,62,0.36)]" />
+                  <div className="absolute bottom-[30%] left-[38%] size-1.5 rounded-full bg-[#ffbd68] shadow-[0_0_16px_5px_rgba(255,172,62,0.34)]" />
+                  <div className="size-4 rounded-full bg-[#ffe2a9] shadow-[0_0_35px_12px_rgba(255,172,62,0.7)]" />
+                </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -613,7 +615,7 @@ export function FrontierLabLandingPage() {
         <div className="mx-auto max-w-[1320px]">
           <Reveal className="grid items-end gap-8 lg:grid-cols-[1fr_0.62fr]">
             <div>
-              <SectionLabel>6P framework</SectionLabel>
+              <SectionLabel>Six Practices Evidence Map</SectionLabel>
               <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl lg:text-7xl">
                 Six practices make AI-ready work reviewable.
               </h2>
@@ -636,7 +638,7 @@ export function FrontierLabLandingPage() {
         <div className="mx-auto max-w-[1320px]">
           <Reveal className="grid items-end gap-10 lg:grid-cols-[1fr_0.7fr]">
             <div>
-              <SectionLabel>Platform</SectionLabel>
+              <SectionLabel>Assessment Evidence Loop</SectionLabel>
               <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl lg:text-7xl">
                 A complete loop from case design to mobility signal.
               </h2>
@@ -736,7 +738,7 @@ export function FrontierLabLandingPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <CtaButton className="h-12 rounded-md bg-[#f1be62] px-7 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="mailto:hello@example.com" size="lg">
-                Book a Demo
+                Discuss a Pilot
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
               <CtaButton className="h-12 rounded-md border-[#6d4c20] bg-transparent px-7 text-sm text-[#fff5e6] transition active:scale-[0.98] hover:bg-[#18120a]" href="#evidence" size="lg" variant="outline">
