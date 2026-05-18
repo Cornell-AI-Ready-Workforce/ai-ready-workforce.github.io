@@ -1,170 +1,217 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps, ComponentType, ReactNode } from "react";
+import { useRef } from "react";
+import { MotionConfig, motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import {
   ArrowRightIcon,
+  BadgeCheckIcon,
   BrainCircuitIcon,
   BriefcaseBusinessIcon,
-  ChartNoAxesColumnIncreasingIcon,
-  CheckIcon,
-  GraduationCapIcon,
+  CompassIcon,
+  FileSearchIcon,
   HandshakeIcon,
-  HexagonIcon,
-  ListChecksIcon,
-  ScaleIcon,
+  LinkIcon,
+  MailIcon,
+  MessageSquareTextIcon,
+  OrbitIcon,
+  PresentationIcon,
+  RefreshCcwIcon,
+  RouteIcon,
+  SearchCheckIcon,
   ShieldCheckIcon,
   SparklesIcon,
-  UserCheckIcon,
   UsersIcon,
+  WorkflowIcon,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
-const navItems = ["Platform", "Solutions", "Science", "Resources", "Company"];
+type IconComponent = ComponentType<{ className?: string }>;
 
-const problemCards = [
+const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 34, filter: "blur(10px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.72, ease: smoothEase },
+  },
+};
+
+const staggerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const heroVariants: Variants = {
+  hidden: { opacity: 0, y: 28, filter: "blur(12px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: smoothEase },
+  },
+};
+
+const navItems = [
+  { label: "Evidence", href: "#evidence" },
+  { label: "Framework", href: "#framework" },
+  { label: "Platform", href: "#platform" },
+  { label: "Pilots", href: "#pilots" },
+  { label: "Science", href: "#science" },
+];
+
+const heroSignals = [
   {
-    icon: SparklesIcon,
-    title: "Unclear skill needs",
-    text: "AI is changing roles faster than job descriptions can keep up. Organizations lack a shared, granular view of the skills that drive performance.",
+    icon: OrbitIcon,
+    title: "Simulation-based",
+    text: "Role-relevant tasks with source materials and deliverables.",
   },
   {
-    icon: ShieldCheckIcon,
-    title: "Low-trust signals",
-    text: "Resumes, titles, and credentials do not prove what someone can do. Generic tests and self-claims add more noise than clarity.",
+    icon: FileSearchIcon,
+    title: "Evidence-linked",
+    text: "Scores connect to artifacts, rubric anchors, and reviewer notes.",
   },
   {
-    icon: ChartNoAxesColumnIncreasingIcon,
-    title: "Weak mobility pathways",
-    text: "Without trusted, comparable evidence of skills, workers cannot unlock opportunity and employers cannot confidently build what is next.",
+    icon: BadgeCheckIcon,
+    title: "Human-decided",
+    text: "AI structures evidence. Trained reviewers own the call.",
   },
 ];
 
-const workflowSteps = [
+const evidenceChapters = [
   {
-    icon: ListChecksIcon,
-    title: "Define real tasks",
-    text: "Work experts define the outcomes, tasks, and quality standards.",
+    icon: OrbitIcon,
+    title: "Authentic measures",
+    text: "The leadership deck frames AI-readiness around simulation-based competency assessments that reflect real work and transferable skills.",
+    source: "Vision slide",
   },
   {
-    icon: HexagonIcon,
-    title: "Simulate work",
-    text: "Candidates complete realistic, scenario-based tasks in the platform.",
+    icon: WorkflowIcon,
+    title: "6P evidence map",
+    text: "Plan, Prompt, Probe, Protect, Pivot, and Present turn AI collaboration into observable practices reviewers can inspect.",
+    source: "Prototype Demo 2",
   },
   {
-    icon: SparklesIcon,
-    title: "Support with AI guidance",
-    text: "AI provides context-aware hints, resources, and feedback in the flow.",
-  },
-  {
-    icon: UserCheckIcon,
-    title: "Review with humans",
-    text: "Expert reviewers validate performance and ensure fair, consistent decisions.",
-  },
-];
-
-const platformFeatures = [
-  {
-    icon: ListChecksIcon,
-    title: "Skill & Task Intelligence",
-    text: "Stay ahead of change with evolving role and skill models.",
-  },
-  {
-    icon: HexagonIcon,
-    title: "Simulation Assessments",
-    text: "Measure skills through realistic work simulations.",
-  },
-  {
-    icon: SparklesIcon,
-    title: "AI Guidance",
-    text: "Deliver personalized support that builds capability in the flow.",
-  },
-  {
-    icon: UserCheckIcon,
-    title: "Human Review",
-    text: "Combine AI efficiency with human judgment for fairness.",
-  },
-  {
-    icon: ChartNoAxesColumnIncreasingIcon,
-    title: "Insights & Mobility",
-    text: "Turn evidence into clear decisions and mobility pathways.",
-  },
-];
-
-const dimensions = [
-  {
-    icon: ScaleIcon,
-    title: "Judgment",
-    text: "Sound decisions based on context and clear reasoning.",
-  },
-  {
-    icon: ListChecksIcon,
-    title: "Execution",
-    text: "Turning plans into results with focus, ownership, and follow-through.",
-  },
-  {
-    icon: BrainCircuitIcon,
-    title: "AI Collaboration",
-    text: "Working effectively with AI to amplify impact and creativity.",
-  },
-  {
-    icon: ShieldCheckIcon,
-    title: "Responsible Use",
-    text: "Using AI ethically, safely, and in service of human values.",
-  },
-  {
-    icon: HandshakeIcon,
-    title: "Communication",
-    text: "Clear, concise, and persuasive communication that drives understanding.",
-  },
-  {
-    icon: ChartNoAxesColumnIncreasingIcon,
-    title: "Adaptability",
-    text: "Learning quickly and adapting to change with confidence.",
-  },
-];
-
-const outcomes = [
-  {
-    icon: BriefcaseBusinessIcon,
-    title: "Employers",
-    points: ["Hire with confidence", "Reduce time-to-productivity", "Build future-ready teams"],
+    icon: FileSearchIcon,
+    title: "Evidence-linked evaluation",
+    text: "Every score should trace to decisions, artifacts, rubric anchors, and reviewer notes instead of standing alone as a black-box output.",
+    source: "Design principles",
   },
   {
     icon: UsersIcon,
-    title: "Workers",
-    points: ["Show your true capability", "Access better opportunities", "Grow skills with feedback"],
-  },
-  {
-    icon: GraduationCapIcon,
-    title: "Training Providers",
-    points: ["Align learning to real skills", "Prove impact with evidence", "Improve learner outcomes"],
+    title: "AI prepares, humans decide",
+    text: "Agents structure evidence and surface patterns while trained reviewers interpret, adjust, approve, or send work back.",
+    source: "Design principles",
   },
 ];
 
-const scienceCards = [
+const practices = [
   {
-    icon: HexagonIcon,
-    title: "Skillable assessment design",
-    text: "Built on established psychometric principles and role-specific benchmarks to support validity, reliability, and fairness.",
+    icon: CompassIcon,
+    title: "Plan",
+    text: "Frame the task, goals, constraints, and where AI belongs.",
   },
   {
-    icon: UserCheckIcon,
-    title: "Human review and audit trails",
-    text: "Every recommendation is reviewed by humans. Decisions are documented with clear rationale and traceable audit trails.",
+    icon: MessageSquareTextIcon,
+    title: "Prompt",
+    text: "Brief AI with context, criteria, boundaries, and role needs.",
   },
   {
-    icon: GraduationCapIcon,
-    title: "Early pilot pathways",
-    text: "Start small, learn fast, and scale with confidence through facilitator training, customer support, and junior analyst workflows.",
+    icon: SearchCheckIcon,
+    title: "Probe",
+    text: "Check sources, formulas, assumptions, and competing answers.",
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: "Protect",
+    text: "Work within policy, privacy, data, fairness, and safety limits.",
+  },
+  {
+    icon: RefreshCcwIcon,
+    title: "Pivot",
+    text: "Change approach when evidence, feedback, or AI errors appear.",
+  },
+  {
+    icon: PresentationIcon,
+    title: "Present",
+    text: "Deliver the recommendation, tradeoffs, next steps, and rationale.",
+  },
+];
+
+const platformModules = [
+  {
+    icon: BriefcaseBusinessIcon,
+    title: "Work modeling",
+    text: "Experts and AI draft the case, rubric, source materials, policy, and review rules together.",
+  },
+  {
+    icon: SparklesIcon,
+    title: "Run simulation",
+    text: "Candidates complete realistic work with AI as part of the task environment, not as an afterthought.",
+  },
+  {
+    icon: FileSearchIcon,
+    title: "AI evaluation",
+    text: "Scores trace back to evidence fragments, rubric anchors, reviewer notes, and visible reasoning.",
+  },
+  {
+    icon: UsersIcon,
+    title: "Reviewer calibration",
+    text: "Reviewers resolve disagreement and update anchors so assessment quality improves over time.",
+  },
+  {
+    icon: RouteIcon,
+    title: "Mobility pathways",
+    text: "Evidence becomes a useful signal for hiring, development, and movement into emerging opportunities.",
+  },
+];
+
+const pilotTracks = [
+  {
+    icon: HandshakeIcon,
+    title: "Relational skills",
+    text: "AI interview prototypes explore communication, empathy, conflict resolution, and psychological safety.",
+  },
+  {
+    icon: BriefcaseBusinessIcon,
+    title: "Case-based assessment",
+    text: "Work-sample simulations test AI collaboration through realistic source materials and deliverables.",
+  },
+  {
+    icon: BrainCircuitIcon,
+    title: "Cognitive flexibility",
+    text: "The research stream examines learning agility, adaptation, and how people acquire new skills.",
+  },
+];
+
+const sciencePrinciples = [
+  {
+    title: "Explainable by design",
+    text: "Assessment evidence must remain visible enough for reviewers, workers, employers, and partners to understand.",
+  },
+  {
+    title: "Fair and accountable",
+    text: "AI is a supplement to human decision-making, with review, confidence, and audit trails built into consequential moments.",
+  },
+  {
+    title: "Built with partners",
+    text: "Durable workforce signals require employers, educators, researchers, and workforce leaders to shape the same evidence loop.",
   },
 ];
 
@@ -177,353 +224,528 @@ type CtaButtonProps = {
 };
 
 function CtaButton({ href, children, className, variant, size }: CtaButtonProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={className}>
-      {children}
-    </Button>
+    <motion.div
+      className="inline-flex"
+      whileHover={reducedMotion ? undefined : { y: -2, scale: 1.015 }}
+      whileTap={reducedMotion ? undefined : { y: 0, scale: 0.985 }}
+      transition={{ duration: 0.22, ease: smoothEase }}
+    >
+      <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={className}>
+        {children}
+      </Button>
+    </motion.div>
   );
 }
 
-function GoldIcon({ icon: Icon }: { icon: ComponentType<{ className?: string }> }) {
+function Reveal({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
-    <div className="flex size-12 items-center justify-center rounded-full border border-[#a86d1d]/55 bg-[#0a0602] text-[#f6a93b] shadow-[0_0_28px_rgba(246,169,59,0.18)]">
-      <Icon className="size-5" />
+    <motion.div
+      className={className}
+      initial="hidden"
+      transition={{ delay }}
+      variants={revealVariants}
+      viewport={{ once: true, amount: 0.2 }}
+      whileInView="visible"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function StaggerGroup({ children, className }: { children: ReactNode; className?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div className={className} initial="hidden" variants={staggerVariants} viewport={{ once: true, amount: 0.18 }} whileInView="visible">
+      {children}
+    </motion.div>
+  );
+}
+
+function MotionCard({ children, className }: { children: ReactNode; className?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      variants={reducedMotion ? undefined : revealVariants}
+      whileHover={reducedMotion ? undefined : { y: -8, scale: 1.01 }}
+      transition={{ duration: 0.32, ease: smoothEase }}
+    >
+      <Card className={className}>{children}</Card>
+    </motion.div>
+  );
+}
+
+function MotionMedia({ children, className }: { children: ReactNode; className?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, scale: 0.92, y: 42 }}
+      transition={{ duration: 0.9, ease: smoothEase }}
+      viewport={{ once: true, amount: 0.28 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function LogoGlyph({ className }: { className?: string }) {
+  return (
+    <div className={cn("relative size-8 shrink-0", className)}>
+      <div className="absolute left-0 top-2 h-5 w-6 skew-x-[-18deg] rounded-md bg-[#d9a84e]" />
+      <div className="absolute left-3 top-0 h-7 w-3.5 skew-x-[22deg] rounded-md bg-[#ffe2a4]" />
+      <div className="absolute bottom-0 right-0 size-3 rounded-sm bg-[#8d5b19]" />
+    </div>
+  );
+}
+
+function LogoMark() {
+  return (
+    <div className="flex items-center gap-3">
+      <LogoGlyph />
+      <span className="text-[11px] font-extrabold leading-none text-[#fff5e6]">
+        AI-READY
+        <br />
+        WORKFORCE
+      </span>
     </div>
   );
 }
 
 function SectionLabel({ children }: { children: ReactNode }) {
+  return <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#d9a84e]">{children}</p>;
+}
+
+function IconFrame({ icon: Icon, className }: { icon: IconComponent; className?: string }) {
   return (
-    <div className="mb-7 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#c27a22]">
-      {children}
+    <div className={cn("flex size-11 items-center justify-center rounded-md border border-[#6d4c20] bg-[#15110b] text-[#f1be62]", className)}>
+      <Icon className="size-5" />
     </div>
   );
 }
 
-function FrontierCard({
-  icon,
-  title,
-  text,
-}: {
-  icon: ComponentType<{ className?: string }>;
-  title: string;
-  text: string;
-}) {
+function EvidenceCard({ item }: { item: (typeof evidenceChapters)[number] }) {
+  const Icon = item.icon;
+
   return (
-    <Card className="border-[#5d3510]/80 bg-[#070504]/78 text-[#f3e9d8] shadow-[0_0_50px_rgba(207,118,23,0.06)]">
-      <CardHeader>
-        <GoldIcon icon={icon} />
-        <CardTitle className="font-serif text-2xl font-normal text-[#f7efe3]">{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm leading-6 text-[#a89c8b]">{text}</p>
+    <MotionCard className="group rounded-lg border-[#332715] bg-[#0c0a07]/92 text-[#fff5e6] shadow-[0_20px_80px_rgba(0,0,0,0.28)] transition duration-300 hover:border-[#7b5a2b]">
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between gap-5">
+          <IconFrame icon={Icon} />
+          <Badge className="rounded-md border-[#4a371c] bg-[#16110a] px-2 py-1 text-[11px] text-[#d9a84e]" variant="outline">
+            {item.source}
+          </Badge>
+        </div>
+        <h3 className="mt-10 text-2xl font-semibold leading-tight text-[#fff5e6]">{item.title}</h3>
+        <p className="mt-4 text-sm leading-6 text-[#b9ad9b]">{item.text}</p>
       </CardContent>
-    </Card>
+    </MotionCard>
+  );
+}
+
+function PracticeNode({ item }: { item: (typeof practices)[number] }) {
+  const Icon = item.icon;
+
+  return (
+    <MotionCard className="rounded-lg border-[#332715] bg-[#0b0906] text-[#fff5e6] transition duration-300 hover:border-[#7b5a2b]">
+      <CardContent className="p-5">
+        <IconFrame icon={Icon} className="size-10" />
+        <h3 className="mt-8 text-2xl font-semibold leading-none text-[#f4c875]">{item.title}</h3>
+        <p className="mt-4 text-sm leading-6 text-[#b9ad9b]">{item.text}</p>
+      </CardContent>
+    </MotionCard>
+  );
+}
+
+function ModuleRow({ item }: { item: (typeof platformModules)[number] }) {
+  const Icon = item.icon;
+
+  return (
+    <motion.div className="grid gap-5 border-b border-[#332715] py-6 last:border-b-0 sm:grid-cols-[56px_1fr]" variants={revealVariants}>
+      <IconFrame icon={Icon} />
+      <div>
+        <h3 className="text-2xl font-semibold leading-tight text-[#fff5e6]">{item.title}</h3>
+        <p className="mt-3 max-w-xl text-sm leading-6 text-[#b9ad9b]">{item.text}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+function PilotCard({ item }: { item: (typeof pilotTracks)[number] }) {
+  const Icon = item.icon;
+
+  return (
+    <MotionCard className="rounded-lg border-[#332715] bg-[#0f0c08] text-[#fff5e6]">
+      <CardContent className="p-7">
+        <IconFrame icon={Icon} />
+        <h3 className="mt-10 text-3xl font-semibold leading-tight">{item.title}</h3>
+        <p className="mt-4 text-sm leading-6 text-[#b9ad9b]">{item.text}</p>
+      </CardContent>
+    </MotionCard>
   );
 }
 
 export function FrontierLabLandingPage() {
+  const heroRef = useRef<HTMLElement>(null);
+  const platformRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const { scrollYProgress: platformScroll } = useScroll({
+    target: platformRef,
+    offset: ["start end", "end start"],
+  });
+  const heroImageY = useTransform(heroScroll, [0, 1], ["0%", "3%"]);
+  const heroImageScale = useTransform(heroScroll, [0, 1], [1, 1.02]);
+  const heroTextY = useTransform(heroScroll, [0, 1], ["0%", "-5%"]);
+  const heroTextOpacity = useTransform(heroScroll, [0, 0.72, 1], [1, 0.95, 0.82]);
+  const portalGlowOpacity = useTransform(heroScroll, [0, 0.42, 1], [0.22, 0.9, 0.14]);
+  const portalGlowScale = useTransform(heroScroll, [0, 1], [0.82, 1.22]);
+  const platformImageY = useTransform(platformScroll, [0, 1], ["6%", "-8%"]);
+  const platformImageScale = useTransform(platformScroll, [0, 0.5, 1], [0.95, 1, 1.04]);
+
   return (
-    <main className="min-h-screen overflow-hidden bg-[#020100] text-[#f6efe7]">
-      <section className="relative min-h-screen border-b border-[#3b2209] px-6 py-6 sm:px-10 lg:px-14">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_24%,rgba(247,145,30,0.22),transparent_24%),radial-gradient(circle_at_50%_0%,rgba(255,185,96,0.12),transparent_42%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(207,118,23,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(207,118,23,0.15)_1px,transparent_1px)] [background-size:72px_72px]" />
+    <MotionConfig reducedMotion="user" transition={{ ease: smoothEase }}>
+      <main className="min-h-screen overflow-x-hidden bg-[#060504] text-[#fff5e6]">
+      <section ref={heroRef} className="relative min-h-[calc(100svh-24px)] overflow-hidden border-b border-[#332715]">
+        <motion.div className="absolute inset-0" style={reducedMotion ? undefined : { y: heroImageY, scale: heroImageScale }}>
+          <Image
+            alt="Dark cinematic research portal for AI-ready workforce assessment"
+            className="object-contain object-top opacity-95 md:hidden"
+            fill
+            priority
+            sizes="(max-width: 767px) 100vw, 1px"
+            src="/images/aiw-dark-hero-gpt-image-2-mobile.png"
+          />
+          <Image
+            alt="Dark cinematic research portal for AI-ready workforce assessment"
+            className="hidden object-cover object-[72%_50%] opacity-95 md:block xl:object-center"
+            fill
+            priority
+            sizes="(min-width: 768px) 100vw, 1px"
+            src="/images/aiw-dark-hero-gpt-image-2-wide.png"
+          />
+          <motion.div
+            className="absolute right-[8%] top-[9%] hidden h-[62%] w-[34%] rounded-full bg-[#f1be62]/20 blur-3xl lg:block"
+            style={reducedMotion ? undefined : { opacity: portalGlowOpacity, scale: portalGlowScale }}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#060504_0%,rgba(6,5,4,0.95)_54%,rgba(6,5,4,0.54)_100%)] md:bg-[linear-gradient(90deg,#060504_0%,rgba(6,5,4,0.95)_31%,rgba(6,5,4,0.42)_61%,rgba(6,5,4,0.04)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,5,4,0.72)_0%,rgba(6,5,4,0)_30%,rgba(6,5,4,0.1)_66%,#060504_100%)]" />
+          <div className="absolute inset-0 opacity-[0.13] [background-image:linear-gradient(rgba(239,190,98,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(239,190,98,0.12)_1px,transparent_1px)] [background-size:80px_80px]" />
+        </motion.div>
 
-        <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between gap-6" aria-label="Main navigation">
-          <Link className="flex items-center gap-3" href="/concepts">
-            <span className="size-8 rounded-full border border-[#e8912e] shadow-[0_0_24px_rgba(232,145,46,0.35)]" />
-            <span className="font-serif text-lg text-[#f4eadf]">AI-Ready Workforce</span>
-          </Link>
-          <div className="hidden items-center gap-10 text-xs font-medium text-[#b2a797] md:flex">
-            {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`}>
-                {item}
-              </a>
-            ))}
-          </div>
-          <CtaButton className="bg-[#ffbd68] text-[#130904] shadow-[0_0_28px_rgba(255,189,104,0.28)] hover:bg-[#ffd192]" href="mailto:hello@example.com">
-            Book a Demo
-            <ArrowRightIcon data-icon="inline-end" />
-          </CtaButton>
-        </nav>
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-24px)] max-w-[1440px] flex-col px-6 py-6 lg:px-10">
+          <motion.nav
+            animate={reducedMotion ? undefined : "visible"}
+            aria-label="Main navigation"
+            className="flex items-center justify-between gap-5"
+            initial={reducedMotion ? undefined : "hidden"}
+            variants={heroVariants}
+          >
+            <Link href="/concepts" aria-label="AI-Ready Workforce concepts">
+              <LogoMark />
+            </Link>
+            <NavigationMenu className="hidden flex-none lg:flex">
+              <NavigationMenuList className="gap-2">
+                {navItems.map((item) => (
+                  <NavigationMenuItem key={item.href}>
+                    <NavigationMenuLink
+                      className="rounded-md px-3 py-2 text-[12px] font-medium text-[#d7cbb8] transition hover:bg-[#18120a] hover:text-[#f1be62] focus:bg-[#18120a] focus:text-[#f1be62]"
+                      href={item.href}
+                    >
+                      {item.label}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+            <div className="flex items-center gap-3">
+              <Button
+                className="hidden h-auto px-0 text-[12px] font-medium text-[#d7cbb8] hover:bg-transparent hover:text-[#f1be62] sm:inline-flex"
+                nativeButton={false}
+                render={<Link href="#science" />}
+                variant="ghost"
+              >
+                Research brief
+              </Button>
+              <CtaButton className="h-11 rounded-md bg-[#f1be62] px-5 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="mailto:hello@example.com">
+                Book a Demo
+                <ArrowRightIcon data-icon="inline-end" />
+              </CtaButton>
+            </div>
+          </motion.nav>
 
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center pb-20 pt-20 text-center lg:pt-16">
-          <div className="relative flex min-h-[360px] w-full max-w-5xl items-center justify-center">
-            <div className="absolute left-0 top-14 hidden max-w-[250px] text-left lg:block">
-              <FeatureCallout icon={HexagonIcon} title="Simulation Assessment" text="Realistic tasks. Real outcomes." />
-            </div>
-            <div className="absolute bottom-14 left-1 hidden max-w-[230px] text-left lg:block">
-              <FeatureCallout icon={UserCheckIcon} title="Human Review" text="Expert feedback. Fair decisions." />
-            </div>
-            <div className="absolute right-0 top-28 hidden max-w-[250px] text-left lg:block">
-              <FeatureCallout icon={SparklesIcon} title="AI Guidance" text="Context-aware support that builds capability." />
-            </div>
+          <motion.div className="flex flex-1 items-center py-16 lg:py-20" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
+            <div className="max-w-[1000px]">
+              <motion.div animate={reducedMotion ? undefined : "visible"} initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
+                <motion.div variants={heroVariants}>
+                  <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
+                    Frontier research institute
+                  </Badge>
+                </motion.div>
+                <motion.h1 className="mt-8 max-w-[1180px] text-[clamp(4rem,8vw,8.8rem)] font-semibold leading-[0.88] tracking-[-0.08em] text-[#fff5e6] lg:leading-[0.82]" variants={heroVariants}>
+                  Measure <span className="whitespace-nowrap">AI-ready</span> work where it happens.
+                </motion.h1>
+                <motion.p className="mt-8 max-w-[710px] text-xl leading-9 text-[#d7cbb8]" variants={heroVariants}>
+                  Case-based simulations, 6P evidence maps, and trained human review turn AI collaboration into
+                  visible signals for hiring, mobility, and learning.
+                </motion.p>
+                <motion.div className="mt-8 flex flex-wrap gap-3" variants={heroVariants}>
+                  <CtaButton className="h-12 rounded-md bg-[#f1be62] px-6 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="#platform" size="lg">
+                    See the Platform
+                    <ArrowRightIcon data-icon="inline-end" />
+                  </CtaButton>
+                  <CtaButton className="h-12 rounded-md border-[#6d4c20] bg-[#090705]/70 px-6 text-sm text-[#fff5e6] transition active:scale-[0.98] hover:bg-[#18120a]" href="#evidence" size="lg" variant="outline">
+                    View Evidence
+                  </CtaButton>
+                </motion.div>
+              </motion.div>
 
-            <div className="relative flex size-[280px] items-center justify-center rounded-full border border-[#ff982d]/50 bg-[radial-gradient(circle,rgba(255,194,113,0.38),rgba(214,104,12,0.1)_42%,transparent_70%)] shadow-[0_0_90px_rgba(255,145,38,0.55)] sm:size-[390px]">
-              <div className="absolute inset-4 rounded-full border border-[#ffae52]/30" />
-              <div className="absolute inset-12 rounded-full border border-dashed border-[#ffc174]/30" />
-              <div className="absolute h-px w-[78%] rotate-12 bg-[#ffae52]/35" />
-              <div className="absolute h-px w-[72%] -rotate-[32deg] bg-[#ffae52]/30" />
-              <div className="absolute h-px w-[62%] rotate-[55deg] bg-[#ffae52]/25" />
-              <div className="size-4 rounded-full bg-[#ffe2a9] shadow-[0_0_35px_12px_rgba(255,172,62,0.7)]" />
-            </div>
-          </div>
+              <StaggerGroup className="mt-14 grid max-w-[920px] overflow-hidden rounded-lg border border-[#332715] bg-[#080604]/68 shadow-[0_34px_120px_rgba(0,0,0,0.36)] backdrop-blur-sm sm:grid-cols-3">
+                {heroSignals.map((signal) => {
+                  const Icon = signal.icon;
 
-          <h1 className="mt-3 max-w-5xl font-serif text-5xl font-normal tracking-[-0.04em] text-[#f7efe8] sm:text-7xl lg:text-8xl">
-            Build the AI-ready workforce.
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#b5aa9d] sm:text-lg">
-            Simulation-based assessment, structured AI guidance, and human review for
-            hiring, upskilling, and mobility.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <CtaButton className="bg-[#ffbd68] text-[#130904] shadow-[0_0_28px_rgba(255,189,104,0.22)] hover:bg-[#ffd192]" href="#platform" size="lg">
-              See the Platform
-              <ArrowRightIcon data-icon="inline-end" />
-            </CtaButton>
-            <CtaButton className="border-[#6d3e13] bg-transparent text-[#f1dcc2] hover:bg-[#160b03]" href="mailto:hello@example.com" size="lg" variant="outline">
-              Book a Demo
-            </CtaButton>
-          </div>
+                  return (
+                    <motion.div
+                      key={signal.title}
+                      className="border-b border-[#332715] p-5 transition-colors duration-300 hover:bg-[#130e08]/72 sm:border-r sm:border-b-0 sm:last:border-r-0"
+                      variants={revealVariants}
+                      whileHover={reducedMotion ? undefined : { y: -6, scale: 1.015 }}
+                    >
+                      <Icon className="size-5 text-[#f1be62]" />
+                      <p className="mt-5 text-sm font-semibold text-[#fff5e6]">{signal.title}</p>
+                      <p className="mt-2 text-xs leading-5 text-[#b9ad9b]">{signal.text}</p>
+                    </motion.div>
+                  );
+                })}
+              </StaggerGroup>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <SectionShell id="problem">
-        <SectionLabel>01 / The Problem</SectionLabel>
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="font-serif text-4xl font-normal tracking-[-0.035em] sm:text-6xl">
-            The labor market is full of noisy signals.
-          </h2>
-          <p className="mt-5 text-base leading-7 text-[#9f9488]">
-            Employers struggle to define AI-era skills. Workers lack fair ways to show what
-            they can do. Traditional credentials, resumes, and generic assessments create
-            low-trust signals.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {problemCards.map((card) => (
-            <FrontierCard key={card.title} {...card} />
-          ))}
-        </div>
-      </SectionShell>
-
-      <SectionShell>
-        <SectionLabel>02 / How It Works</SectionLabel>
-        <h2 className="text-center font-serif text-4xl font-normal tracking-[-0.035em] sm:text-6xl">
-          From real work to measurable evidence.
-        </h2>
-        <div className="relative mt-16 grid gap-8 md:grid-cols-4">
-          <div className="absolute left-[10%] right-[10%] top-6 hidden h-px bg-gradient-to-r from-transparent via-[#b66a1b] to-transparent md:block" />
-          {workflowSteps.map((step, index) => (
-            <div key={step.title} className="relative text-center">
-              <div className="mx-auto mb-5 w-fit">
-                <GoldIcon icon={step.icon} />
-              </div>
-              <h3 className="text-lg font-semibold text-[#e3a04c]">
-                {index + 1}. {step.title}
-              </h3>
-              <p className="mx-auto mt-3 max-w-[210px] text-sm leading-6 text-[#9f9488]">
-                {step.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </SectionShell>
-
-      <SectionShell id="platform">
-        <SectionLabel>03 / The Platform</SectionLabel>
-        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-          <div>
-            <h2 className="font-serif text-4xl font-normal tracking-[-0.035em] sm:text-6xl">
-              One platform for hiring, upskilling, and mobility.
+      <section id="evidence" className="relative overflow-hidden border-b border-[#332715] bg-[#060504] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto grid max-w-[1320px] items-center gap-14 lg:grid-cols-[0.72fr_1.28fr]">
+          <Reveal>
+            <SectionLabel>Evidence system</SectionLabel>
+            <h2 className="mt-5 max-w-xl text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl lg:text-7xl">
+              Evidence should feel observable, not claimed.
             </h2>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {platformFeatures.map((feature) => (
-                <Card key={feature.title} className="border-[#5d3510]/80 bg-[#070504]/78 text-[#f3e9d8]">
-                  <CardHeader className="gap-4">
-                    <GoldIcon icon={feature.icon} />
-                    <CardTitle className="text-base">{feature.title}</CardTitle>
-                    <CardDescription className="text-xs leading-5 text-[#9f9488]">
-                      {feature.text}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-          </div>
-          <div className="relative min-h-[360px]">
-            <div className="absolute inset-x-8 bottom-2 h-16 rounded-full bg-[#f28c28]/20 blur-2xl" />
-            {[0, 1, 2].map((layer) => (
-              <div
-                key={layer}
-                className="absolute rounded-xl border border-[#6d3e13] bg-[#120b06]/80 p-5 shadow-[0_0_55px_rgba(255,146,42,0.12)]"
-                style={{
-                  inset: `${34 + layer * 22}px ${30 - layer * 10}px ${20 - layer * 18}px ${70 - layer * 34}px`,
-                  transform: `translate(${layer * 12}px, ${layer * -14}px) rotate(${layer * -2}deg)`,
-                }}
-              >
-                <div className="mb-5 h-3 w-28 rounded-full bg-[#f0a64f]/40" />
-                <div className="grid gap-3">
-                  <div className="h-7 rounded bg-[#f6efe7]/10" />
-                  <div className="h-7 rounded bg-[#f6efe7]/8" />
-                  <div className="h-20 rounded border border-[#6d3e13]/70 bg-[#080503]" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-
-      <SectionShell>
-        <div className="grid gap-10 lg:grid-cols-[0.38fr_0.62fr] lg:items-center">
-          <div>
-            <SectionLabel>04 / The Platform</SectionLabel>
-            <h2 className="font-serif text-5xl font-normal tracking-[-0.04em] sm:text-6xl">
-              What we measure.
-            </h2>
-            <p className="mt-5 text-base leading-7 text-[#9f9488]">
-              Six dimensions reveal AI-readiness and predict real-world performance.
+            <p className="mt-7 max-w-xl text-lg leading-8 text-[#b9ad9b]">
+              The strongest public story for AI-Ready Workforce is not a generic talent metric. It is a chain
+              from real work, to artifacts, to rubrics, to reviewer judgment.
             </p>
-            <CtaButton className="mt-8 border-[#6d3e13] bg-transparent text-[#f1dcc2] hover:bg-[#160b03]" href="#science" variant="outline">
-              Learn More
-              <ArrowRightIcon data-icon="inline-end" />
-            </CtaButton>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {dimensions.map((dimension) => (
-              <div key={dimension.title} className="flex gap-4">
-                <GoldIcon icon={dimension.icon} />
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-[#e3a04c]">
-                    {dimension.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#9f9488]">{dimension.text}</p>
+          </Reveal>
+          <MotionMedia>
+            <Card className="overflow-hidden rounded-lg border-[#332715] bg-[#0b0906] shadow-[0_40px_130px_rgba(0,0,0,0.38)]">
+              <CardContent className="p-0">
+                <div className="relative aspect-[16/9]">
+                  <Image
+                    alt="Black and gold six-node evidence spine for AI-ready work practices"
+                    className="object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 820px, 100vw"
+                    src="/images/aiw-dark-evidence-spine.png"
+                  />
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </SectionShell>
-
-      <SectionShell>
-        <SectionLabel>05 / Outcomes</SectionLabel>
-        <h2 className="text-center font-serif text-4xl font-normal tracking-[-0.035em] sm:text-6xl">
-          Built for the people shaping the AI-ready workforce.
-        </h2>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {outcomes.map((outcome) => (
-            <Card key={outcome.title} className="border-[#5d3510]/80 bg-[#070504]/78 text-[#f3e9d8]">
-              <CardHeader>
-                <GoldIcon icon={outcome.icon} />
-                <CardTitle className="font-serif text-2xl font-normal">{outcome.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="grid gap-3 text-sm text-[#b5aa9d]">
-                  {outcome.points.map((point) => (
-                    <li key={point} className="flex items-center gap-2">
-                      <CheckIcon className="size-4 text-[#ffbd68]" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
               </CardContent>
             </Card>
-          ))}
+          </MotionMedia>
         </div>
-      </SectionShell>
 
-      <SectionShell id="science">
-        <SectionLabel>06 / Science & Governance</SectionLabel>
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="font-serif text-4xl font-normal tracking-[-0.035em] sm:text-6xl">
-            Grounded in science. Built with human review.
-          </h2>
-          <p className="mt-5 text-base leading-7 text-[#9f9488]">
-            Our platform combines validated assessment design, transparent governance,
-            and controlled pilots to earn trust early and continuously.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {scienceCards.map((card) => (
-            <FrontierCard key={card.title} {...card} />
+        <StaggerGroup className="mx-auto mt-16 grid max-w-[1320px] gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {evidenceChapters.map((item) => (
+            <EvidenceCard key={item.title} item={item} />
           ))}
-        </div>
-        <Badge className="mx-auto mt-9 flex h-auto w-fit max-w-full whitespace-normal border-[#6d3e13] bg-[#0a0602] px-4 py-2 text-center leading-5 text-[#e7b16d]" variant="outline">
-          Built for fairness. Designed for accountability. Earned through evidence.
-        </Badge>
-      </SectionShell>
+        </StaggerGroup>
+      </section>
 
-      <section className="relative border-t border-[#3b2209] px-6 py-24 text-center sm:px-10 lg:px-14">
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[radial-gradient(ellipse_at_bottom,rgba(232,145,46,0.22),transparent_62%)]" />
-        <SectionLabel>07 / Get Started</SectionLabel>
-        <h2 className="font-serif text-4xl font-normal tracking-[-0.035em] sm:text-6xl">
-          Build the AI-ready workforce.
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#9f9488]">
-          See how our platform can help you hire better, develop talent, and unlock
-          new opportunities.
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <CtaButton className="bg-[#ffbd68] text-[#130904] hover:bg-[#ffd192]" href="mailto:hello@example.com" size="lg">
-            Book a Demo
-            <ArrowRightIcon data-icon="inline-end" />
-          </CtaButton>
-          <CtaButton className="border-[#6d3e13] bg-transparent text-[#f1dcc2] hover:bg-[#160b03]" href="#platform" size="lg" variant="outline">
-            See the Platform
-          </CtaButton>
+      <section id="framework" className="border-b border-[#332715] bg-[#0a0805] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal className="grid items-end gap-8 lg:grid-cols-[1fr_0.62fr]">
+            <div>
+              <SectionLabel>6P framework</SectionLabel>
+              <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl lg:text-7xl">
+                Six practices make AI-ready work reviewable.
+              </h2>
+            </div>
+            <p className="max-w-xl text-lg leading-8 text-[#b9ad9b]">
+              The framework turns broad AI literacy into behaviors a reviewer can observe inside a realistic
+              work sample.
+            </p>
+          </Reveal>
+
+          <StaggerGroup className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+            {practices.map((item) => (
+              <PracticeNode key={item.title} item={item} />
+            ))}
+          </StaggerGroup>
         </div>
       </section>
 
-      <footer className="border-t border-[#3b2209] px-6 py-8 text-xs text-[#887d70] sm:px-10 lg:px-14">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <Link className="font-serif text-lg text-[#f4eadf]" href="/concepts">
-            AI-Ready Workforce
-          </Link>
-          <div className="flex flex-wrap gap-7">
-            {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`}>
-                {item}
-              </a>
-            ))}
+      <section ref={platformRef} id="platform" className="relative overflow-hidden border-b border-[#332715] bg-[#060504] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal className="grid items-end gap-10 lg:grid-cols-[1fr_0.7fr]">
+            <div>
+              <SectionLabel>Platform</SectionLabel>
+              <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl lg:text-7xl">
+                A complete loop from case design to mobility signal.
+              </h2>
+            </div>
+            <p className="max-w-xl text-lg leading-8 text-[#b9ad9b]">
+              The platform acts as an assessment instrument: fewer panels, clearer evidence, and a visible path
+              from simulation to reviewer calibration.
+            </p>
+          </Reveal>
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-[0.95fr_0.75fr] lg:items-start">
+            <MotionMedia className="lg:sticky lg:top-10">
+              <Card className="overflow-hidden rounded-lg border-[#332715] bg-[#0b0906] shadow-[0_40px_130px_rgba(0,0,0,0.42)]">
+                <CardContent className="p-0">
+                  <motion.div className="relative min-h-[360px] bg-[#060504] lg:min-h-[620px]" style={reducedMotion ? undefined : { y: platformImageY, scale: platformImageScale }}>
+                    <Image
+                      alt="Dark platform system connecting simulation, review, mobility, and governance modules"
+                      className="object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 720px, 100vw"
+                      src="/images/aiw-dark-platform-system.png"
+                    />
+                  </motion.div>
+                </CardContent>
+              </Card>
+            </MotionMedia>
+            <Card className="rounded-lg border-[#332715] bg-[#0b0906] text-[#fff5e6] shadow-[0_28px_90px_rgba(0,0,0,0.32)]">
+              <CardContent className="p-6 lg:p-9">
+                <StaggerGroup>
+                  {platformModules.map((item) => (
+                    <ModuleRow key={item.title} item={item} />
+                  ))}
+                </StaggerGroup>
+              </CardContent>
+            </Card>
           </div>
-          <p>© 2026 AI-Ready Workforce.</p>
+        </div>
+      </section>
+
+      <section id="pilots" className="border-b border-[#332715] bg-[#0a0805] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1320px]">
+          <div className="grid gap-12 lg:grid-cols-[0.62fr_1fr] lg:items-start">
+            <Reveal className="lg:sticky lg:top-10">
+              <SectionLabel>Pilot pathways</SectionLabel>
+              <h2 className="mt-5 text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl">
+                Start with real constructs, not generic AI fluency.
+              </h2>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-[#b9ad9b]">
+                The leadership materials point to three practical research streams: relational skills,
+                case-based AI collaboration, and cognitive flexibility.
+              </p>
+            </Reveal>
+            <StaggerGroup className="grid gap-4 md:grid-cols-3 lg:grid-cols-1">
+              {pilotTracks.map((item) => (
+                <PilotCard key={item.title} item={item} />
+              ))}
+            </StaggerGroup>
+          </div>
+        </div>
+      </section>
+
+      <section id="science" className="border-b border-[#332715] bg-[#060504] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <Reveal>
+            <SectionLabel>Science and governance</SectionLabel>
+            <h2 className="mt-5 text-5xl font-semibold leading-none text-[#fff5e6] sm:text-6xl lg:text-7xl">
+              Trust is earned in the review loop.
+            </h2>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-[#b9ad9b]">
+              The site should make a simple claim: AI can help prepare evidence, but consequential interpretation
+              stays accountable to trained people.
+            </p>
+          </Reveal>
+          <StaggerGroup className="grid gap-px overflow-hidden rounded-lg border border-[#332715] bg-[#332715]">
+            {sciencePrinciples.map((item) => (
+              <motion.div key={item.title} className="bg-[#0b0906] p-8" variants={revealVariants}>
+                <h3 className="text-3xl font-semibold leading-tight text-[#f4c875]">{item.title}</h3>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-[#b9ad9b]">{item.text}</p>
+              </motion.div>
+            ))}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      <footer className="bg-[#0a0805] px-6 py-12 lg:px-10">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal className="grid items-end gap-10 pb-10 lg:grid-cols-[1fr_auto]">
+            <div>
+              <SectionLabel>Get started</SectionLabel>
+              <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-none text-[#f1be62] sm:text-6xl">
+                Build a signal people can inspect.
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-[#b9ad9b]">
+                Bring employers, educators, researchers, and workforce leaders into one evidence loop for
+                AI-era work.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <CtaButton className="h-12 rounded-md bg-[#f1be62] px-7 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="mailto:hello@example.com" size="lg">
+                Book a Demo
+                <ArrowRightIcon data-icon="inline-end" />
+              </CtaButton>
+              <CtaButton className="h-12 rounded-md border-[#6d4c20] bg-transparent px-7 text-sm text-[#fff5e6] transition active:scale-[0.98] hover:bg-[#18120a]" href="#evidence" size="lg" variant="outline">
+                Review Evidence
+              </CtaButton>
+            </div>
+          </Reveal>
+          <Separator className="bg-[#332715]" />
+          <div className="flex flex-col gap-6 pt-8 md:flex-row md:items-center md:justify-between">
+            <Link href="/concepts" aria-label="AI-Ready Workforce concepts">
+              <LogoMark />
+            </Link>
+            <div className="flex flex-wrap gap-6 text-sm text-[#b9ad9b]">
+              {navItems.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                </a>
+              ))}
+            </div>
+            <div className="flex items-center gap-5 text-[#b9ad9b]">
+              <span className="text-sm">&copy; 2026 AI-Ready Workforce Institute.</span>
+              <LinkIcon className="size-4" />
+              <MailIcon className="size-4" />
+            </div>
+          </div>
         </div>
       </footer>
-    </main>
-  );
-}
-
-function FeatureCallout({
-  icon,
-  title,
-  text,
-}: {
-  icon: ComponentType<{ className?: string }>;
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="flex items-center gap-4 text-[#d4c8ba]">
-      <GoldIcon icon={icon} />
-      <div>
-        <p className="text-sm font-semibold text-[#f4eadf]">{title}</p>
-        <p className="mt-1 text-xs leading-5 text-[#a99d90]">{text}</p>
-      </div>
-    </div>
-  );
-}
-
-function SectionShell({
-  id,
-  children,
-}: {
-  id?: string;
-  children: ReactNode;
-}) {
-  return (
-    <section id={id} className="mx-auto max-w-7xl border-b border-[#3b2209] px-6 py-20 sm:px-10 lg:px-14">
-      {children}
-      <Separator className="mt-16 bg-[#3b2209]/60" />
-    </section>
+      </main>
+    </MotionConfig>
   );
 }
