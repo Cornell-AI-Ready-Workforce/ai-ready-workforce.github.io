@@ -1,139 +1,221 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, ComponentType, ReactNode } from "react";
+import { useRef } from "react";
+import { MotionConfig, motion, useReducedMotion, useScroll, useTransform, type MotionValue, type Variants } from "motion/react";
 import {
   ArrowRightIcon,
+  BadgeCheckIcon,
   BarChart3Icon,
-  BrainIcon,
   BriefcaseBusinessIcon,
-  CheckCircle2Icon,
   CirclePlayIcon,
+  CompassIcon,
+  FileSearchIcon,
   GraduationCapIcon,
   HandshakeIcon,
   LinkIcon,
   MailIcon,
-  NetworkIcon,
+  MessageSquareTextIcon,
   OrbitIcon,
+  PresentationIcon,
+  RefreshCcwIcon,
+  RouteIcon,
+  SearchCheckIcon,
   ShieldCheckIcon,
   SparklesIcon,
   UsersIcon,
+  WorkflowIcon,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-const navItems = ["Our Mission", "Platform", "Solutions", "Science", "Resources", "About Us"];
+type IconComponent = ComponentType<{ className?: string }>;
+
+const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 38, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.78, ease: smoothEase },
+  },
+};
+
+const staggerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const heroVariants: Variants = {
+  hidden: { opacity: 0, y: 34, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: smoothEase },
+  },
+};
+
+const navItems = [
+  { label: "Mission", href: "#mission" },
+  { label: "Evidence", href: "#evidence" },
+  { label: "Platform", href: "#platform" },
+  { label: "Science", href: "#science" },
+  { label: "Partners", href: "#partners" },
+  { label: "Contact", href: "#contact" },
+];
 
 const partnerLogos = ["Wegmans", "M&T Bank", "paychex", "Cornell University", "Strada", "eCornell"];
+
+const heroSignals = [
+  {
+    title: "Simulation-based",
+    text: "Real work, not proxy credentials",
+    icon: OrbitIcon,
+  },
+  {
+    title: "Evidence-linked",
+    text: "Scores trace back to artifacts",
+    icon: FileSearchIcon,
+  },
+  {
+    title: "Human-reviewed",
+    text: "AI prepares. Reviewers decide.",
+    icon: BadgeCheckIcon,
+  },
+];
 
 const evidenceSignals = [
   {
     icon: BarChart3Icon,
     title: "Authentic measures",
-    label: "Simulation-based assessments that reflect real work, transferable skills, and learning pathways.",
+    label: "Simulation-based assessments reflect real work, transferable skills, and learning pathways.",
     source: "Vision slide",
   },
   {
-    icon: UsersIcon,
+    icon: WorkflowIcon,
     title: "6P evidence map",
     label: "Plan, Prompt, Probe, Protect, Pivot, and Present frame observable AI-ready work.",
     source: "Prototype Demo 2",
   },
   {
-    icon: ShieldCheckIcon,
+    icon: FileSearchIcon,
     title: "Evidence-linked review",
     label: "Scores connect to decisions, artifacts, rubric anchors, and reviewer notes.",
     source: "Design principles",
   },
   {
-    icon: BrainIcon,
+    icon: UsersIcon,
     title: "Human-centered AI",
     label: "AI structures evidence and surfaces patterns; trained human reviewers own the final call.",
-    source: "Design principles",
+    source: "Leadership transcript",
   },
 ];
 
-const solutionBullets = [
-  "Clarify AI-era work through employer co-design",
-  "Evaluate real-world skills with transparent assessments",
-  "Reveal skill adjacencies to unlock mobility",
-  "Equip training programs with actionable insights",
+const practices = [
+  {
+    icon: CompassIcon,
+    title: "Plan",
+    text: "Frame the task, constraints, and fit for AI support.",
+  },
+  {
+    icon: MessageSquareTextIcon,
+    title: "Prompt",
+    text: "Brief the model with context, criteria, and role needs.",
+  },
+  {
+    icon: SearchCheckIcon,
+    title: "Probe",
+    text: "Check evidence, limits, and competing explanations.",
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: "Protect",
+    text: "Handle risk, privacy, bias, and responsible use.",
+  },
+  {
+    icon: RefreshCcwIcon,
+    title: "Pivot",
+    text: "Adapt when evidence changes or the first path fails.",
+  },
+  {
+    icon: PresentationIcon,
+    title: "Present",
+    text: "Explain the decision, tradeoffs, and final recommendation.",
+  },
 ];
 
-const solutionLoop = [
+const platformModules = [
   {
     icon: BriefcaseBusinessIcon,
-    title: "Employers",
-    text: "Define real tasks and success",
-    position: "left-[45%] top-0",
+    title: "Work modeling",
+    text: "Employers define real tasks, source materials, and success criteria.",
   },
   {
     icon: SparklesIcon,
-    title: "Assess",
-    text: "Simulate work, measure what matters",
-    position: "right-0 top-[40%]",
+    title: "Simulation assessment",
+    text: "Candidates work through role-relevant scenarios with AI as part of the environment.",
   },
   {
-    icon: GraduationCapIcon,
-    title: "Develop",
-    text: "Practice with feedback and build confidence",
-    position: "bottom-0 left-[45%]",
+    icon: FileSearchIcon,
+    title: "Reviewer console",
+    text: "AI organizes evidence and proposes rubric scores for trained human review.",
   },
   {
-    icon: ShieldCheckIcon,
-    title: "Mobilize",
-    text: "Match skills to new opportunities",
-    position: "left-0 top-[40%]",
+    icon: RouteIcon,
+    title: "Mobility map",
+    text: "Evidence becomes a signal for growth, adjacent roles, and training pathways.",
   },
 ];
 
-const platformFeatures = [
+const solutionSteps = [
   {
-    icon: BarChart3Icon,
-    title: "Skill & Task Intelligence",
-    text: "Extract and model the skills and tasks that drive impact.",
+    title: "Define",
+    text: "Translate AI-era work into observable tasks with employers and educators.",
   },
   {
-    icon: SparklesIcon,
-    title: "AI-Powered Assessments",
-    text: "Generate role-relevant tasks and rubrics with transparency.",
+    title: "Assess",
+    text: "Run realistic simulations that produce artifacts, decisions, and explanations.",
   },
   {
-    icon: OrbitIcon,
-    title: "Practice & Feedback",
-    text: "Safe environments to learn, practice, and improve.",
+    title: "Review",
+    text: "Anchor AI-supported scoring to rubrics, notes, and human judgment.",
   },
   {
-    icon: NetworkIcon,
-    title: "Insights & Mobility",
-    text: "Reveal adjacencies and guide reskilling pathways.",
-  },
-  {
-    icon: ShieldCheckIcon,
-    title: "Trust & Governance",
-    text: "Fair, auditable, and built on rigorous science.",
+    title: "Mobilize",
+    text: "Turn the evidence into development paths and trusted opportunity signals.",
   },
 ];
 
 const impactItems = [
   {
     icon: BriefcaseBusinessIcon,
-    title: "For Employers",
-    text: "Higher-quality hires and stronger, more agile teams.",
+    title: "For employers",
+    text: "Higher-quality hiring signals for teams adapting to AI-enabled work.",
   },
   {
-    icon: UsersIcon,
-    title: "For Workers",
-    text: "Clear pathways to grow skills and advance careers.",
+    icon: GraduationCapIcon,
+    title: "For workers",
+    text: "Clearer evidence of skill, growth, and readiness for new roles.",
   },
   {
     icon: HandshakeIcon,
-    title: "For Communities",
-    text: "Stronger local economies and more inclusive opportunity.",
+    title: "For communities",
+    text: "A stronger bridge between local talent, training, and economic mobility.",
   },
 ];
 
@@ -148,19 +230,101 @@ type CtaButtonProps = {
 };
 
 function CtaButton({ href, children, className, variant, size }: CtaButtonProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={className}>
+    <motion.div
+      className="inline-flex"
+      transition={{ duration: 0.2, ease: smoothEase }}
+      whileHover={reducedMotion ? undefined : { y: -2, scale: 1.015 }}
+      whileTap={reducedMotion ? undefined : { y: 0, scale: 0.985 }}
+    >
+      <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={className}>
+        {children}
+      </Button>
+    </motion.div>
+  );
+}
+
+function Reveal({ children, className, id }: { children: ReactNode; className?: string; id?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return (
+      <div className={className} id={id}>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      className={className}
+      id={id}
+      initial="hidden"
+      variants={revealVariants}
+      viewport={{ once: true, amount: 0.22 }}
+      whileInView="visible"
+    >
       {children}
-    </Button>
+    </motion.div>
+  );
+}
+
+function StaggerGroup({ children, className }: { children: ReactNode; className?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div className={className} initial="hidden" variants={staggerVariants} viewport={{ once: true, amount: 0.18 }} whileInView="visible">
+      {children}
+    </motion.div>
+  );
+}
+
+function MotionCard({ children, className }: { children: ReactNode; className?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      variants={reducedMotion ? undefined : revealVariants}
+      transition={{ duration: 0.3, ease: smoothEase }}
+      whileHover={reducedMotion ? undefined : { y: -4, scale: 1.004 }}
+    >
+      <Card className={className}>{children}</Card>
+    </motion.div>
+  );
+}
+
+function MotionMedia({ children, className }: { children: ReactNode; className?: string }) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, scale: 0.94, y: 38 }}
+      transition={{ duration: 0.82, ease: smoothEase }}
+      viewport={{ once: true, amount: 0.28 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
 function LogoGlyph({ className }: { className?: string }) {
   return (
-    <div className={cn("relative size-7 shrink-0", className)}>
-      <div className="absolute left-0 top-1.5 h-4 w-5 skew-x-[-18deg] rounded-[4px] bg-[#3155e7]" />
-      <div className="absolute left-2.5 top-0 h-6 w-3 skew-x-[22deg] rounded-[4px] bg-[#6d8cff]" />
-      <div className="absolute bottom-0 right-0 size-2.5 rounded-sm bg-[#2237bf]" />
+    <div className={cn("relative size-8 shrink-0", className)}>
+      <div className="absolute left-0 top-2 h-5 w-6 skew-x-[-18deg] rounded-[6px] bg-[#3155e7]" />
+      <div className="absolute left-3 top-0 h-7 w-3.5 skew-x-[22deg] rounded-[6px] bg-[#7ca0ff]" />
+      <div className="absolute bottom-0 right-0 size-3 rounded-[3px] bg-[#2237bf]" />
     </div>
   );
 }
@@ -169,7 +333,7 @@ function LogoMark() {
   return (
     <div className="flex items-center gap-2.5">
       <LogoGlyph />
-      <span className="text-[10px] font-extrabold leading-[0.95] tracking-tight text-[#0b1028]">
+      <span className="text-[11px] font-extrabold leading-[0.95] tracking-tight text-[#0b1028]">
         AI-READY
         <br />
         WORKFORCE
@@ -180,15 +344,15 @@ function LogoMark() {
 
 function PartnerLogo({ partner }: { partner: string }) {
   if (partner === "Wegmans") {
-    return <span className="font-serif text-[12px] font-bold italic tracking-[-0.06em]">Wegmans</span>;
+    return <span className="font-serif text-[13px] font-bold italic tracking-[-0.06em]">Wegmans</span>;
   }
 
   if (partner === "M&T Bank") {
-    return <span className="font-serif text-[12px] font-bold tracking-[-0.04em]">M&amp;TBank</span>;
+    return <span className="font-serif text-[13px] font-bold tracking-[-0.04em]">M&amp;TBank</span>;
   }
 
   if (partner === "paychex") {
-    return <span className="text-[13px] font-extrabold tracking-[-0.05em]">paychex</span>;
+    return <span className="text-[14px] font-extrabold tracking-[-0.05em]">paychex</span>;
   }
 
   if (partner === "Cornell University") {
@@ -203,7 +367,7 @@ function PartnerLogo({ partner }: { partner: string }) {
   if (partner === "Strada") {
     return (
       <span className="inline-flex flex-col leading-none">
-        <span className="text-[13px] font-extrabold tracking-[-0.07em]">Strada</span>
+        <span className="text-[14px] font-extrabold tracking-[-0.07em]">Strada</span>
         <span className="text-[4px] font-semibold uppercase tracking-[0.16em]">Education Network</span>
       </span>
     );
@@ -212,360 +376,500 @@ function PartnerLogo({ partner }: { partner: string }) {
   return (
     <span className="inline-flex items-center gap-1.5">
       <span className="size-4 rounded-[2px] border-2 border-[#111827]" />
-      <span className="text-[11px] font-semibold tracking-[-0.04em]">eCornell</span>
+      <span className="text-[12px] font-semibold tracking-[-0.04em]">eCornell</span>
     </span>
   );
 }
 
-function HeroVisual({ className }: { className?: string }) {
-  return (
-    <div className={cn("relative h-[360px] overflow-visible", className)}>
-      <div className="absolute inset-y-0 left-[-64px] right-0 [mask-image:radial-gradient(ellipse_at_66%_58%,black_0%,black_65%,transparent_91%)]">
-        <Image
-          alt=""
-          className="pointer-events-none -translate-x-12 scale-105 select-none object-cover object-[58%_52%]"
-          fill
-          priority
-          sizes="(min-width: 1024px) 620px, 100vw"
-          src="/images/aiw-hero-portal-v2.png"
-        />
-        <div className="absolute inset-y-0 left-0 w-36 bg-[linear-gradient(90deg,#f8fbff,rgba(248,251,255,0))]" />
-        <div className="absolute inset-x-0 bottom-0 h-12 bg-[linear-gradient(180deg,rgba(248,251,255,0),#f8fbff)]" />
-      </div>
+function SectionLabel({ children }: { children: ReactNode }) {
+  return <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3155e7]">{children}</p>;
+}
 
-      <Card className="absolute left-[48px] top-[54px] hidden w-[88px] rounded-lg border-white/70 bg-white/70 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
-        <CardContent className="p-3">
-          <p className="text-[8px] font-semibold leading-3 text-[#111936]">Skill & Task Intelligence</p>
-          <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Identify the skills AI-era jobs actually require.</p>
-          <div className="mt-3 h-7 rounded-md bg-[linear-gradient(135deg,rgba(49,85,231,0.08),rgba(99,190,255,0.28))]" />
-        </CardContent>
-      </Card>
-      <Card className="absolute right-[66px] top-[54px] hidden w-[100px] rounded-lg border-white/70 bg-white/72 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
-        <CardContent className="p-3">
-          <p className="text-[8px] font-semibold leading-3 text-[#111936]">AI-Generated Assessments</p>
-          <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Realistic tasks. Transparent rubrics. Validated outcomes.</p>
-          <div className="mt-3 flex size-7 items-center justify-center rounded-full bg-[#edf5ff]">
-            <SparklesIcon className="size-3 text-[#3155e7]" />
-          </div>
-        </CardContent>
-      </Card>
-      <Card className="absolute bottom-[72px] right-[62px] hidden w-[102px] rounded-lg border-white/70 bg-white/76 py-0 shadow-[0_16px_50px_rgba(43,84,160,0.1)] backdrop-blur-xl sm:block">
-        <CardContent className="p-3">
-          <p className="text-[8px] font-semibold leading-3 text-[#111936]">Human Review & Fairness</p>
-          <p className="mt-1.5 text-[7px] leading-3 text-[#66708b]">Expert feedback. Bias audits. Trusted decisions.</p>
-          <div className="mt-3 flex gap-1 text-[#8fb2ff]">
-            <UsersIcon className="size-3" />
-            <CheckCircle2Icon className="size-3" />
-          </div>
-        </CardContent>
-      </Card>
+function IconBubble({ icon: Icon, className }: { icon: IconComponent; className?: string }) {
+  return (
+    <div className={cn("flex size-11 items-center justify-center rounded-full bg-[#edf4ff] text-[#3155e7]", className)}>
+      <Icon className="size-5" />
     </div>
   );
 }
 
-export function LightReferenceLandingPage() {
+function HeroVisual({
+  glowOpacity,
+  glowScale,
+  imageScale,
+  imageY,
+}: {
+  glowOpacity: MotionValue<number>;
+  glowScale: MotionValue<number>;
+  imageScale: MotionValue<number>;
+  imageY: MotionValue<string>;
+}) {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <main className="min-h-screen bg-[#f8fbff] text-[#0b1028]">
-      <section className="relative overflow-hidden border-b border-[#e4ecf7] bg-[radial-gradient(circle_at_59%_24%,rgba(194,228,255,0.62),transparent_28%),radial-gradient(circle_at_96%_12%,rgba(255,230,205,0.72),transparent_24%),linear-gradient(180deg,#ffffff,#f8fbff)] lg:h-[455px]">
-        <div className="mx-auto h-full max-w-[932px] px-6 py-5 lg:px-0">
-          <nav className="flex h-[36px] items-center justify-between gap-5" aria-label="Main navigation">
-            <Link href="/concepts">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <motion.div
+        className="absolute inset-0"
+        style={reducedMotion ? undefined : { y: imageY, scale: imageScale }}
+      >
+        <div className="absolute inset-0 motion-safe:animate-[aiw-portal-drift_13s_ease-in-out_infinite]">
+          <Image
+            alt="Luminous research portal representing AI-ready workforce mobility"
+            className="pointer-events-none select-none object-contain object-top md:hidden"
+            fill
+            priority
+            sizes="(max-width: 767px) 100vw, 1px"
+            src="/images/aiw-hero-gpt-image-2-mobile.png"
+          />
+          <Image
+            alt="Luminous research portal representing AI-ready workforce mobility"
+            className="pointer-events-none hidden select-none object-cover object-[73%_50%] md:block lg:object-center"
+            fill
+            priority
+            sizes="(min-width: 768px) 100vw, 1px"
+            src="/images/aiw-hero-gpt-image-2-wide.png"
+          />
+        </div>
+      </motion.div>
+      <motion.div
+        className="absolute right-[12%] top-[12%] hidden h-[56%] w-[38%] rounded-full bg-[#85c7ff]/26 blur-3xl lg:block"
+        style={reducedMotion ? undefined : { opacity: glowOpacity, scale: glowScale }}
+      />
+      <motion.div
+        className="absolute right-[31%] top-[24%] hidden rounded-full border border-white/70 bg-white/55 px-5 py-3 shadow-[0_24px_80px_rgba(54,86,142,0.16)] backdrop-blur-xl lg:block"
+        initial={reducedMotion ? undefined : { opacity: 0, y: 18, scale: 0.96 }}
+        animate={reducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.35, ease: smoothEase }}
+      >
+        <div className="flex items-center gap-3 motion-safe:animate-[aiw-float_7s_ease-in-out_infinite]">
+          <IconBubble icon={FileSearchIcon} className="size-8 bg-white/70" />
+          <div>
+            <p className="text-[11px] font-semibold tracking-[-0.02em]">Evidence trace</p>
+            <p className="text-[10px] leading-4 text-[#66708b]">Artifacts to review</p>
+          </div>
+        </div>
+      </motion.div>
+      <motion.div
+        className="absolute bottom-[19%] right-[5%] hidden rounded-full border border-white/70 bg-white/58 px-5 py-3 shadow-[0_24px_80px_rgba(54,86,142,0.16)] backdrop-blur-xl lg:block"
+        initial={reducedMotion ? undefined : { opacity: 0, y: 22, scale: 0.96 }}
+        animate={reducedMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: smoothEase }}
+      >
+        <div className="flex items-center gap-3 motion-safe:animate-[aiw-float_8s_ease-in-out_infinite_reverse]">
+          <IconBubble icon={UsersIcon} className="size-8 bg-white/70" />
+          <div>
+            <p className="text-[11px] font-semibold tracking-[-0.02em]">Human review</p>
+            <p className="text-[10px] leading-4 text-[#66708b]">People decide</p>
+          </div>
+        </div>
+      </motion.div>
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,251,255,0.98)_0%,rgba(247,251,255,0.9)_58%,rgba(247,251,255,0.44)_100%)] md:bg-[linear-gradient(90deg,rgba(247,251,255,0.96)_0%,rgba(247,251,255,0.74)_35%,rgba(247,251,255,0.12)_67%,rgba(247,251,255,0)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,251,255,0.82)_0%,rgba(247,251,255,0)_21%,rgba(247,251,255,0)_76%,rgba(247,251,255,0.8)_100%)]" />
+      <div className="absolute inset-x-[12%] bottom-[10%] h-px bg-[linear-gradient(90deg,transparent,rgba(49,85,231,0.45),transparent)] motion-safe:animate-[aiw-glow_4.5s_ease-in-out_infinite]" />
+    </div>
+  );
+}
+
+function EvidenceCard({ signal }: { signal: (typeof evidenceSignals)[number] }) {
+  const Icon = signal.icon;
+
+  return (
+    <MotionCard className="group rounded-[22px] border-[#dce7f6] bg-white/75 shadow-[0_24px_70px_rgba(54,86,142,0.08)] backdrop-blur transition duration-300 hover:border-[#b9cdf4] hover:shadow-[0_28px_80px_rgba(49,85,231,0.14)]">
+      <CardContent className="p-6">
+        <IconBubble icon={Icon} />
+        <h3 className="mt-6 text-xl font-semibold tracking-[-0.04em] text-[#0b1028]">{signal.title}</h3>
+        <p className="mt-3 text-sm leading-6 text-[#4e5a76]">{signal.label}</p>
+        <p className="mt-6 text-[11px] font-medium uppercase tracking-[0.14em] text-[#8a96ad]">{signal.source}</p>
+      </CardContent>
+    </MotionCard>
+  );
+}
+
+function PracticeNode({ practice, index }: { practice: (typeof practices)[number]; index: number }) {
+  const Icon = practice.icon;
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      className="relative"
+      transition={{ duration: 0.3, ease: smoothEase }}
+      variants={reducedMotion ? undefined : revealVariants}
+      whileHover={reducedMotion ? undefined : { y: -6 }}
+    >
+      <div className="hidden lg:absolute lg:left-1/2 lg:top-[22px] lg:h-px lg:w-full lg:bg-[#cbdcf4] lg:content-['']" aria-hidden="true" />
+      <div className="relative z-10 rounded-[20px] border border-[#dce7f6] bg-white/80 p-5 shadow-[0_18px_50px_rgba(54,86,142,0.06)]">
+        <div className="flex items-center justify-between gap-4">
+          <IconBubble icon={Icon} className="size-10" />
+          <span className="text-[11px] font-semibold text-[#8a96ad]">0{index + 1}</span>
+        </div>
+        <h3 className="mt-5 text-xl font-semibold tracking-[-0.04em]">{practice.title}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#53617e]">{practice.text}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+export function LightReferenceLandingPage() {
+  const heroRef = useRef<HTMLElement>(null);
+  const platformRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const { scrollYProgress: platformScroll } = useScroll({
+    target: platformRef,
+    offset: ["start end", "end start"],
+  });
+  const heroImageY = useTransform(heroScroll, [0, 1], ["0%", "3%"]);
+  const heroImageScale = useTransform(heroScroll, [0, 1], [1, 1.018]);
+  const heroTextY = useTransform(heroScroll, [0, 1], ["0%", "-5%"]);
+  const heroTextOpacity = useTransform(heroScroll, [0, 0.74, 1], [1, 0.96, 0.82]);
+  const portalGlowOpacity = useTransform(heroScroll, [0, 0.42, 1], [0.18, 0.72, 0.16]);
+  const portalGlowScale = useTransform(heroScroll, [0, 1], [0.82, 1.2]);
+  const platformImageY = useTransform(platformScroll, [0, 1], ["5%", "-7%"]);
+  const platformImageScale = useTransform(platformScroll, [0, 0.5, 1], [0.96, 1, 1.04]);
+
+  return (
+    <MotionConfig reducedMotion="user" transition={{ ease: smoothEase }}>
+      <main className="min-h-screen overflow-x-hidden bg-[#f7fbff] text-[#0b1028]">
+      <section ref={heroRef} className="relative min-h-[calc(100svh-24px)] overflow-hidden border-b border-[#dce7f6] bg-[radial-gradient(circle_at_67%_18%,rgba(187,224,255,0.72),transparent_30%),radial-gradient(circle_at_92%_9%,rgba(255,231,204,0.78),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)]">
+        <HeroVisual glowOpacity={portalGlowOpacity} glowScale={portalGlowScale} imageScale={heroImageScale} imageY={heroImageY} />
+        <div className="relative mx-auto flex min-h-[calc(100svh-24px)] max-w-[1440px] flex-col px-6 py-6 lg:px-10">
+          <motion.nav
+            animate={reducedMotion ? undefined : "visible"}
+            aria-label="Main navigation"
+            className="flex items-center justify-between gap-5"
+            initial={reducedMotion ? undefined : "hidden"}
+            variants={heroVariants}
+          >
+            <Link href="/concepts" aria-label="AI-Ready Workforce concepts">
               <LogoMark />
             </Link>
             <NavigationMenu className="hidden flex-none lg:flex">
-              <NavigationMenuList className="gap-3">
-              {navItems.map((item) => (
-                <NavigationMenuItem key={item}>
-                  <NavigationMenuLink
-                    className="px-2 py-1 text-[8px] font-medium text-[#18223c] hover:bg-[#eef4ff] focus:bg-[#eef4ff]"
-                    href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
-                  >
-                    {item}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
+              <NavigationMenuList className="gap-2">
+                {navItems.map((item) => (
+                  <NavigationMenuItem key={item.href}>
+                    <NavigationMenuLink
+                      className="rounded-full px-3 py-2 text-[12px] font-medium text-[#18223c] transition hover:bg-white/70 hover:text-[#3155e7] focus:bg-white/70 focus:text-[#3155e7]"
+                      href={item.href}
+                    >
+                      {item.label}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
               </NavigationMenuList>
             </NavigationMenu>
             <div className="flex items-center gap-4">
               <Button
-                className="hidden h-auto px-0 text-[8px] font-medium text-[#18223c] hover:bg-transparent hover:text-[#3155e7] sm:inline-flex"
+                className="hidden h-auto px-0 text-[12px] font-medium text-[#18223c] hover:bg-transparent hover:text-[#3155e7] sm:inline-flex"
                 nativeButton={false}
                 render={<Link href="#signin" />}
                 variant="ghost"
               >
                 Sign in
               </Button>
-              <CtaButton className="h-[34px] rounded-md bg-[#3155e7] px-4 text-[10px] text-white shadow-[0_12px_28px_rgba(49,85,231,0.22)] hover:bg-[#2647d6]" href="mailto:hello@example.com">
+              <CtaButton className="h-11 rounded-full bg-[#3155e7] px-5 text-sm text-white shadow-[0_16px_36px_rgba(49,85,231,0.24)] transition active:scale-[0.98] hover:bg-[#2647d6]" href="mailto:hello@example.com">
                 Book a Demo
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
             </div>
-          </nav>
+          </motion.nav>
 
-          <div className="relative z-10 pt-7 lg:w-[460px]">
-            <Badge className="rounded-full border-0 bg-[#e9f1ff] px-3 py-1 text-[8px] text-[#3155e7]">
-              Institute for Human Advancement in the AI Economy
-            </Badge>
-            <h1 className="mt-5 max-w-[460px] text-[48px] font-semibold leading-[1.05] tracking-[-0.055em] text-balance">
-              <span className="block">Build an</span>
-              <span className="block">
-                <span className="text-[#3155e7]">AI-ready</span> workforce.
-              </span>
-            </h1>
-            <p className="mt-5 max-w-[410px] text-[13px] leading-[1.5] text-[#34405d]">
-              Evidence-based assessments and AI-powered tools that help employers find talent,
-              help workers grow, and help communities thrive.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <CtaButton className="h-[30px] rounded-md bg-[#3155e7] px-4 text-[10px] text-white hover:bg-[#2647d6]" href="#platform" size="lg">
-                See the Platform
-                <ArrowRightIcon data-icon="inline-end" />
-              </CtaButton>
-              <CtaButton className="h-[30px] rounded-md border-[#b8c8ee] bg-white/70 px-4 text-[10px] text-[#3155e7] hover:bg-white" href="#science" size="lg" variant="outline">
-                <CirclePlayIcon data-icon="inline-start" />
-                Watch Overview
-              </CtaButton>
-            </div>
-            <div className="mt-9">
-              <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#8791a8]">
-                Trusted by forward-thinking partners
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[#151b2e] opacity-90 lg:w-[520px] lg:flex-nowrap">
-                {partnerLogos.map((partner) => (
-                  <PartnerLogo key={partner} partner={partner} />
-                ))}
-              </div>
-            </div>
-            <HeroVisual className="mt-8 lg:hidden" />
-          </div>
-          <HeroVisual className="absolute right-[-6px] top-[66px] z-0 hidden w-[520px] lg:block" />
-        </div>
-      </section>
+          <div className="flex flex-1 items-center py-16 lg:py-20">
+            <motion.div className="relative z-10 max-w-[920px]" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
+              <motion.div animate={reducedMotion ? undefined : "visible"} initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
+                <motion.div variants={heroVariants}>
+                  <Badge className="rounded-full border-0 bg-[#e7f0ff] px-4 py-1.5 text-[12px] text-[#3155e7]">
+                    Institute for Human Advancement in the AI Economy
+                  </Badge>
+                </motion.div>
+                <motion.h1 className="mt-8 max-w-[900px] text-[clamp(4.5rem,10.4vw,10.8rem)] font-semibold leading-[0.86] tracking-[-0.085em] text-balance lg:leading-[0.8]" variants={heroVariants}>
+                  Build the <span className="text-[#3155e7]">AI-ready</span> workforce.
+                </motion.h1>
+                <motion.p className="mt-8 max-w-[650px] text-xl leading-9 text-[#34405d]" variants={heroVariants}>
+                  Simulation-based assessments and evidence-linked review help employers see real capability,
+                  help workers grow, and help communities build mobility in the AI economy.
+                </motion.p>
+                <motion.div className="mt-8 flex flex-wrap gap-3" variants={heroVariants}>
+                  <CtaButton className="h-12 rounded-full bg-[#3155e7] px-6 text-sm text-white shadow-[0_16px_36px_rgba(49,85,231,0.22)] transition active:scale-[0.98] hover:bg-[#2647d6]" href="#platform" size="lg">
+                    See the Platform
+                    <ArrowRightIcon data-icon="inline-end" />
+                  </CtaButton>
+                  <CtaButton className="h-12 rounded-full border-[#b8c8ee] bg-white/70 px-6 text-sm text-[#3155e7] transition active:scale-[0.98] hover:bg-white" href="#evidence" size="lg" variant="outline">
+                    <CirclePlayIcon data-icon="inline-start" />
+                    View Evidence
+                  </CtaButton>
+                </motion.div>
+              </motion.div>
 
-      <section className="border-b border-[#e4ecf7] bg-white px-6 py-8 lg:h-[218px] lg:px-0">
-        <div className="mx-auto max-w-[932px]">
-          <h2 className="text-center text-[21px] font-semibold tracking-[-0.035em]">
-            Grounded in the leadership meeting materials.
-          </h2>
-          <div className="mt-7 grid gap-px bg-[#dce5f2] md:grid-cols-4 lg:h-[116px]">
-            {evidenceSignals.map((signal) => {
-              const Icon = signal.icon;
-              return (
-                <Card key={signal.title} className="overflow-hidden rounded-none border-0 bg-white px-5 py-7 text-center shadow-none ring-0 lg:h-full lg:gap-0 lg:py-0">
-                  <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-[#eef4ff] lg:size-9">
-                    <Icon className="size-5 text-[#3155e7] lg:size-4" />
-                  </div>
-                  <p className="mt-4 text-lg font-semibold leading-none tracking-[-0.04em] lg:mt-2 lg:text-[15px]">{signal.title}</p>
-                  <p className="mx-auto mt-2 max-w-[190px] text-sm leading-5 text-[#35415d] lg:mt-1.5 lg:max-w-[162px] lg:text-[8px] lg:leading-3">{signal.label}</p>
-                  <p className="mt-2 text-xs text-[#8992a6] lg:mt-1 lg:text-[8px]">- {signal.source}</p>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section id="our-mission" className="border-b border-[#e4ecf7] bg-[#fbfdff] px-6 py-9 lg:h-[280px] lg:px-0">
-        <div className="mx-auto grid max-w-[880px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <p className="text-[10px] font-semibold text-[#3155e7]">Our solution</p>
-            <h2 className="mt-2 max-w-[330px] text-[22px] font-semibold leading-[1.18] tracking-[-0.04em]">
-              A new public good for skill, mobility, and opportunity.
-            </h2>
-            <p className="mt-4 max-w-[345px] text-[10px] leading-4 text-[#35415d]">
-              We combine human-AI co-design, generative assessments, and rigorous science to
-              create trusted signals of ability and potential.
-            </p>
-            <ul className="mt-5 grid gap-2.5">
-              {solutionBullets.map((bullet) => (
-                <li key={bullet} className="flex items-start gap-2.5 text-[10px] text-[#27334f]">
-                  <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 fill-[#3155e7] text-white" />
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <Card className="rounded-[14px] border-[#d8e3f4] bg-white shadow-[0_18px_50px_rgba(57,88,132,0.1)] lg:h-[250px]">
-            <CardContent className="p-6">
-              <div className="grid gap-5 sm:hidden">
-                {solutionLoop.map((item) => {
-                  const Icon = item.icon;
+              <StaggerGroup className="mt-14 grid max-w-[820px] overflow-hidden rounded-[30px] border border-[#d8e5f6] bg-white/58 shadow-[0_30px_100px_rgba(54,86,142,0.1)] backdrop-blur md:grid-cols-3">
+                {heroSignals.map((signal) => {
+                  const Icon = signal.icon;
                   return (
-                    <div key={item.title} className="flex items-start gap-4 rounded-xl border border-[#e4ecf7] bg-[#fbfdff] p-4">
-                      <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#eef4ff]">
-                        <Icon className="size-5 text-[#3155e7]" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold">{item.title}</p>
-                        <p className="mt-1 text-sm leading-6 text-[#66708b]">{item.text}</p>
-                      </div>
-                    </div>
+                    <motion.div
+                      key={signal.title}
+                      className="border-b border-[#d8e5f6] p-5 transition-colors duration-300 hover:bg-white/62 md:border-r md:border-b-0 md:last:border-r-0"
+                      variants={revealVariants}
+                      whileHover={reducedMotion ? undefined : { y: -3 }}
+                    >
+                      <Icon className="size-5 text-[#3155e7]" />
+                      <p className="mt-5 text-base font-semibold tracking-[-0.04em]">{signal.title}</p>
+                      <p className="mt-1 text-xs leading-5 text-[#61708d]">{signal.text}</p>
+                    </motion.div>
                   );
                 })}
-              </div>
-              <div className="relative mx-auto hidden h-[202px] max-w-[430px] sm:block">
-                <div className="absolute inset-x-[70px] inset-y-[34px] rounded-full border border-[#b9c9eb]" />
-                <div className="absolute left-1/2 top-1/2 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-                  <LogoGlyph className="scale-[1.35]" />
+              </StaggerGroup>
+            </motion.div>
+          </div>
+
+          <motion.div
+            className="relative z-10 flex flex-col gap-4 border-t border-[#dce7f6] pt-6 lg:flex-row lg:items-center lg:justify-between"
+            initial={reducedMotion ? undefined : { opacity: 0, y: 18 }}
+            animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.68, ease: smoothEase }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8791a8]">
+              Trusted by forward-thinking partners
+            </p>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-[#151b2e] opacity-90">
+              {partnerLogos.map((partner) => (
+                <PartnerLogo key={partner} partner={partner} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="evidence" className="relative overflow-hidden border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto grid max-w-[1320px] items-center gap-14 lg:grid-cols-[0.78fr_1.22fr]">
+          <Reveal>
+            <SectionLabel>Evidence system</SectionLabel>
+            <h2 className="mt-5 max-w-[560px] text-[clamp(2.75rem,5vw,5.8rem)] font-semibold leading-[0.95] tracking-[-0.065em] text-balance">
+              Every score needs a visible chain of evidence.
+            </h2>
+            <p className="mt-7 max-w-[560px] text-lg leading-8 text-[#4e5a76]">
+              The leadership materials point to a simple standard: AI can structure the evidence, but the
+              assessment must stay anchored to observable work and trained human judgment.
+            </p>
+          </Reveal>
+          <MotionMedia>
+            <Card className="overflow-hidden rounded-[34px] border-[#dce7f6] bg-[#f7fbff] shadow-[0_34px_110px_rgba(54,86,142,0.14)]">
+              <CardContent className="p-0">
+                <div className="relative aspect-[16/9]">
+                  <Image
+                    alt="Glass evidence spine with six connected AI-ready work practices"
+                    className="object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    src="/images/aiw-evidence-spine.png"
+                  />
                 </div>
-                {solutionLoop.map((item) => {
-                  const Icon = item.icon;
+              </CardContent>
+            </Card>
+          </MotionMedia>
+        </div>
+
+        <StaggerGroup className="mx-auto mt-16 grid max-w-[1320px] gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {evidenceSignals.map((signal) => (
+            <EvidenceCard key={signal.title} signal={signal} />
+          ))}
+        </StaggerGroup>
+
+        <div className="mx-auto mt-20 max-w-[1320px]">
+          <StaggerGroup className="grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+            {practices.map((practice, index) => (
+              <PracticeNode key={practice.title} practice={practice} index={index} />
+            ))}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      <section id="mission" className="border-b border-[#dce7f6] bg-[#f7fbff] px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto grid max-w-[1320px] gap-16 lg:grid-cols-[0.92fr_1.08fr]">
+          <Reveal>
+            <SectionLabel>Our solution</SectionLabel>
+            <h2 className="mt-5 max-w-[640px] text-[clamp(2.6rem,5vw,5.4rem)] font-semibold leading-[0.98] tracking-[-0.06em] text-balance">
+              A public-good signal for skill, mobility, and opportunity.
+            </h2>
+            <p className="mt-7 max-w-[600px] text-lg leading-8 text-[#4e5a76]">
+              AI-Ready Workforce combines employer co-design, simulation assessment, reviewer calibration,
+              and mobility insight into one evidence loop.
+            </p>
+          </Reveal>
+
+          <StaggerGroup className="grid gap-4">
+            {solutionSteps.map((step, index) => (
+              <MotionCard key={step.title} className="rounded-[26px] border-[#dce7f6] bg-white/80 shadow-[0_22px_70px_rgba(54,86,142,0.07)] transition duration-300 hover:shadow-[0_28px_86px_rgba(49,85,231,0.12)]">
+                <CardContent className="grid gap-5 p-6 sm:grid-cols-[80px_1fr] sm:items-center">
+                  <div className="flex size-16 items-center justify-center rounded-2xl bg-[#edf4ff] text-2xl font-semibold tracking-[-0.06em] text-[#3155e7]">
+                    0{index + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold tracking-[-0.05em]">{step.title}</h3>
+                    <p className="mt-2 text-base leading-7 text-[#53617e]">{step.text}</p>
+                  </div>
+                </CardContent>
+              </MotionCard>
+            ))}
+          </StaggerGroup>
+        </div>
+      </section>
+
+      <section ref={platformRef} id="platform" className="relative overflow-hidden border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-32">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal className="grid items-end gap-10 lg:grid-cols-[1fr_0.65fr]">
+            <div>
+              <SectionLabel>The AI-Ready Workforce platform</SectionLabel>
+              <h2 className="mt-5 max-w-[820px] text-[clamp(2.75rem,5vw,5.6rem)] font-semibold leading-[0.96] tracking-[-0.065em] text-balance">
+                Infrastructure for workforce transformation.
+              </h2>
+            </div>
+            <p className="max-w-[500px] text-lg leading-8 text-[#4e5a76] lg:pb-2">
+              The platform is not just a test. It is a workflow for turning real work into evidence,
+              evidence into review, and review into paths people can use.
+            </p>
+          </Reveal>
+
+          <MotionMedia className="mt-14">
+          <Card className="overflow-hidden rounded-[38px] border-[#dce7f6] bg-[#f7fbff] shadow-[0_40px_120px_rgba(54,86,142,0.14)]">
+            <CardContent className="grid gap-0 p-0 lg:grid-cols-[1.12fr_0.88fr]">
+              <motion.div
+                className="relative min-h-[360px] bg-[radial-gradient(circle_at_45%_40%,rgba(191,225,255,0.52),transparent_42%),linear-gradient(180deg,#f9fcff,#eef6ff)] lg:min-h-[620px]"
+                style={reducedMotion ? undefined : { y: platformImageY, scale: platformImageScale }}
+              >
+                <div className="absolute inset-0">
+                  <Image
+                    alt="Glass platform system connecting assessment, review, and mobility modules"
+                    className="object-cover object-center"
+                    fill
+                    sizes="(min-width: 1024px) 680px, 100vw"
+                    src="/images/aiw-platform-system.png"
+                  />
+                </div>
+              </motion.div>
+              <div className="grid gap-px bg-[#dce7f6]">
+                {platformModules.map((module) => {
+                  const Icon = module.icon;
                   return (
-                    <div key={item.title} className={cn("absolute w-32", item.position)}>
-                      <div className="flex items-start gap-2.5">
-                        <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#eef4ff]">
-                          <Icon className="size-4 text-[#3155e7]" />
-                        </div>
-                        <div>
-                          <p className="text-[11px] font-semibold">{item.title}</p>
-                          <p className="mt-1 text-[9px] leading-3 text-[#66708b]">{item.text}</p>
-                        </div>
-                      </div>
-                    </div>
+                    <motion.div
+                      key={module.title}
+                      className="bg-white/88 p-8 transition duration-300 hover:bg-[#f7fbff]"
+                      initial={reducedMotion ? undefined : { opacity: 0, x: 24 }}
+                      transition={{ duration: 0.55, ease: smoothEase }}
+                      viewport={{ once: true, amount: 0.28 }}
+                      whileHover={reducedMotion ? undefined : { x: -4 }}
+                      whileInView={reducedMotion ? undefined : { opacity: 1, x: 0 }}
+                    >
+                      <IconBubble icon={Icon} />
+                      <h3 className="mt-8 text-3xl font-semibold tracking-[-0.055em]">{module.title}</h3>
+                      <p className="mt-4 max-w-[420px] text-base leading-7 text-[#53617e]">{module.text}</p>
+                    </motion.div>
                   );
                 })}
               </div>
             </CardContent>
           </Card>
+          </MotionMedia>
         </div>
       </section>
 
-      <section id="platform" className="border-b border-[#e4ecf7] bg-white px-6 py-7 lg:h-[180px] lg:px-0">
-        <div className="mx-auto max-w-[880px]">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-[#3155e7]">
-            The AI-Ready Workforce Platform
-          </p>
-          <h2 className="mt-2 max-w-[330px] text-[22px] font-semibold leading-[1.16] tracking-[-0.04em]">
-            End-to-end infrastructure for workforce transformation.
-          </h2>
-          <div className="mt-4 grid gap-px bg-[#dce5f2] lg:h-[54px] lg:grid-cols-5">
-            {platformFeatures.map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <Card key={feature.title} className="overflow-hidden rounded-none border-0 bg-white p-5 shadow-none ring-0 lg:h-full lg:gap-0 lg:p-0 lg:px-3">
-                  <Icon className="size-6 text-[#3155e7] lg:size-4" />
-                  <CardHeader className="px-0 pt-3 pb-0 lg:pt-1">
-                    <CardTitle className="text-sm font-semibold lg:text-[9px]">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="px-0 pt-1 pb-0">
-                    <p className="text-sm leading-6 text-[#59647d] lg:text-[8px] lg:leading-3">{feature.text}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[linear-gradient(90deg,#edf6ff,#ffffff_48%,#eef5ff)] px-6 py-6 lg:h-[148px] lg:px-0">
-        <div className="mx-auto max-w-[880px] text-center">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-[#3155e7]">Our impact</p>
-          <h2 className="mt-2 text-[23px] font-semibold leading-tight tracking-[-0.04em]">
+      <section className="bg-[linear-gradient(90deg,#eef6ff,#ffffff_50%,#f1f6ff)] px-6 py-20 lg:px-10 lg:py-24">
+        <Reveal className="mx-auto max-w-[1180px] text-center">
+          <SectionLabel>Our impact</SectionLabel>
+          <h2 className="mx-auto mt-5 max-w-[920px] text-[clamp(2.7rem,5vw,5.4rem)] font-semibold leading-[0.98] tracking-[-0.065em] text-balance">
             Better signals. Better decisions. Better futures.
           </h2>
-          <div className="mt-5 grid text-left md:grid-cols-3 md:divide-x md:divide-[#cbd9ef]">
+          <StaggerGroup className="mt-14 grid gap-px overflow-hidden rounded-[30px] border border-[#dce7f6] bg-[#dce7f6] text-left md:grid-cols-3">
             {impactItems.map((item) => {
               const Icon = item.icon;
               return (
-                <Card key={item.title} className="rounded-none border-0 bg-transparent px-7 py-0 shadow-none ring-0">
-                  <CardContent className="flex gap-4 p-0">
-                  <Icon className="size-5 shrink-0 text-[#3155e7]" />
-                  <div>
-                    <h3 className="text-[11px] font-semibold">{item.title}</h3>
-                    <p className="mt-1 text-[10px] leading-4 text-[#35415d]">{item.text}</p>
-                  </div>
-                  </CardContent>
-                </Card>
+                <motion.div key={item.title} className="bg-white/78 p-8" variants={revealVariants}>
+                  <Icon className="size-7 text-[#3155e7]" />
+                  <h3 className="mt-8 text-2xl font-semibold tracking-[-0.05em]">{item.title}</h3>
+                  <p className="mt-3 text-base leading-7 text-[#53617e]">{item.text}</p>
+                </motion.div>
               );
             })}
-          </div>
-        </div>
+          </StaggerGroup>
+        </Reveal>
       </section>
 
-      <section id="science" className="border-b border-[#e4ecf7] bg-white px-6 py-7 lg:h-[142px] lg:px-0">
-        <div className="mx-auto grid max-w-[880px] gap-10 lg:grid-cols-[0.9fr_170px_0.9fr]">
-          <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-[#3155e7]">
-              Rooted in science
-            </p>
-            <h2 className="mt-3 text-[23px] font-semibold leading-tight tracking-[-0.035em]">Rigor you can trust.</h2>
-            <p className="mt-3 max-w-[300px] text-[10px] leading-4 text-[#35415d]">
+      <section id="science" className="border-b border-[#dce7f6] bg-white px-6 py-24 lg:px-10 lg:py-28">
+        <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[0.9fr_220px_0.9fr]">
+          <Reveal>
+            <SectionLabel>Rooted in science</SectionLabel>
+            <h2 className="mt-5 text-[clamp(2.2rem,4vw,4.1rem)] font-semibold leading-none tracking-[-0.055em]">Rigor you can trust.</h2>
+            <p className="mt-6 max-w-[460px] text-base leading-7 text-[#53617e]">
               Our research program tests what works reliably, fairly, and at scale.
             </p>
-            <Link className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold text-[#3155e7]" href="#science">
+            <Link className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#3155e7]" href="#science">
               Explore our science
-              <ArrowRightIcon className="size-3" />
+              <ArrowRightIcon className="size-4" />
             </Link>
-          </div>
-          <div className="hidden items-center justify-center lg:flex">
-            <div className="grid grid-cols-14 gap-1.5 [clip-path:polygon(0_0,78%_0,100%_50%,78%_100%,0_100%,12%_50%)]">
+          </Reveal>
+          <MotionMedia className="hidden items-center justify-center lg:flex">
+            <div className="grid grid-cols-14 gap-2 [clip-path:polygon(0_0,78%_0,100%_50%,78%_100%,0_100%,12%_50%)]">
               {Array.from({ length: 126 }).map((_, index) => (
                 <span
                   key={index}
-                  className={cn("size-1.5 rounded-full bg-[#3155e7]", dotOpacities[index % dotOpacities.length])}
+                  className={cn("size-2 rounded-full bg-[#3155e7]", dotOpacities[index % dotOpacities.length])}
                 />
               ))}
             </div>
-          </div>
-          <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-[#3155e7]">
-              Built with partners
+          </MotionMedia>
+          <Reveal className="lg:pl-4" id="partners">
+            <SectionLabel>Built with partners</SectionLabel>
+            <h2 className="mt-5 text-[clamp(2.2rem,4vw,4.1rem)] font-semibold leading-none tracking-[-0.055em]">Together, we go further.</h2>
+            <p className="mt-6 max-w-[500px] text-base leading-7 text-[#53617e]">
+              We collaborate with employers, educators, researchers, and workforce leaders to create lasting change.
             </p>
-            <h2 className="mt-3 text-[23px] font-semibold leading-tight tracking-[-0.035em]">Together, we go further.</h2>
-            <p className="mt-3 max-w-[310px] text-[10px] leading-4 text-[#35415d]">
-              We collaborate with employers, educators, researchers, and workforce leaders to
-              create lasting change.
-            </p>
-            <Link className="mt-3 inline-flex items-center gap-2 text-[10px] font-semibold text-[#3155e7]" href="#partners">
+            <Link className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#3155e7]" href="#partners">
               See our partners
-              <ArrowRightIcon className="size-3" />
+              <ArrowRightIcon className="size-4" />
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <footer className="bg-white px-6 py-6 lg:h-[113px] lg:px-0">
-        <div className="mx-auto max-w-[880px]">
-          <div className="grid items-center gap-6 pb-1 lg:grid-cols-[1fr_auto]">
+      <footer id="contact" className="bg-white px-6 py-10 lg:px-10">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal className="grid items-center gap-8 pb-8 lg:grid-cols-[1fr_auto]">
             <div>
-              <h2 className="text-[23px] font-semibold leading-tight tracking-[-0.04em] text-[#3155e7]">
+              <h2 className="max-w-[760px] text-[clamp(2.4rem,5vw,5.4rem)] font-semibold leading-[0.96] tracking-[-0.065em] text-[#3155e7]">
                 Let&apos;s build the future of work, together.
               </h2>
-              <p className="mt-1 text-[10px] text-[#59647d]">
-                Join leading organizations advancing the AI-ready workforce.
-              </p>
+              <p className="mt-4 text-base text-[#53617e]">Join leading organizations advancing the AI-ready workforce.</p>
             </div>
             <div className="flex flex-wrap gap-4">
-              <CtaButton className="h-[32px] rounded-md bg-[#3155e7] px-9 text-[10px] text-white hover:bg-[#2647d6]" href="mailto:hello@example.com" size="lg">
+              <CtaButton className="h-12 rounded-full bg-[#3155e7] px-8 text-sm text-white transition active:scale-[0.98] hover:bg-[#2647d6]" href="mailto:hello@example.com" size="lg">
                 Book a Demo
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
-              <CtaButton className="h-[32px] rounded-md border-[#b8c8ee] px-9 text-[10px] text-[#3155e7]" href="mailto:hello@example.com" size="lg" variant="outline">
+              <CtaButton className="h-12 rounded-full border-[#b8c8ee] px-8 text-sm text-[#3155e7] transition active:scale-[0.98]" href="mailto:hello@example.com" size="lg" variant="outline">
                 Contact Us
               </CtaButton>
             </div>
-          </div>
-          <Separator className="bg-[#e4ecf7]" />
-          <div className="flex flex-col gap-5 pt-1 md:flex-row md:items-center md:justify-between">
-            <div className="origin-left scale-[0.86]">
-              <LogoMark />
+          </Reveal>
+          <Separator className="bg-[#dce7f6]" />
+          <div className="flex flex-col gap-6 pt-8 md:flex-row md:items-center md:justify-between">
+            <LogoMark />
+            <div className="flex flex-wrap gap-8 text-sm text-[#53617e]">
+              {navItems.slice(1, 5).map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                </a>
+              ))}
             </div>
-            <div className="flex flex-wrap gap-8 text-[10px] text-[#59647d]">
-              <a href="#platform">Platform</a>
-              <a href="#our-mission">Solutions</a>
-              <a href="#resources">Resources</a>
-              <a href="#science">Science</a>
-              <a href="#about-us">About Us</a>
-            </div>
-            <div className="flex items-center gap-5 text-[#59647d]">
-              <span className="text-[9px]">© 2026 AI-Ready Workforce Institute.</span>
-              <LinkIcon className="size-3.5" />
-              <MailIcon className="size-3.5" />
+            <div className="flex items-center gap-5 text-[#53617e]">
+              <span className="text-sm">&copy; 2026 AI-Ready Workforce Institute.</span>
+              <LinkIcon className="size-4" />
+              <MailIcon className="size-4" />
             </div>
           </div>
         </div>
       </footer>
     </main>
+    </MotionConfig>
   );
 }
