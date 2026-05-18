@@ -510,17 +510,13 @@ export function FrontierLabLandingPage() {
             <motion.div animate={reducedMotion ? undefined : "visible"} className="order-1 text-left" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
               <motion.div variants={heroVariants}>
                 <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
-                  Assessment evidence system
+                  Measure AI-ready work
                 </Badge>
               </motion.div>
-              <motion.h1 className="mt-7 max-w-[760px] font-serif text-[clamp(3.6rem,6.2vw,7.2rem)] font-normal leading-[0.92] tracking-[-0.055em] text-[#fff5e6] text-balance" variants={heroVariants}>
-                See how people actually work with <span className="whitespace-nowrap">AI.</span>
+              <motion.h1 className="mt-7 max-w-[820px] font-serif text-[clamp(4rem,7.1vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.06em] text-[#fff5e6] text-balance" variants={heroVariants}>
+                Interview for AI-ready skills.
               </motion.h1>
-              <motion.p className="mt-7 max-w-[660px] text-lg leading-8 text-[#d7cbb8] sm:text-xl sm:leading-9" variants={heroVariants}>
-                Hiring teams cannot see AI collaboration from proxy credentials. Case-based simulations,
-                evidence maps, and trained review turn the work itself into a visible signal.
-              </motion.p>
-              <motion.div className="mt-8 flex flex-wrap gap-3" variants={heroVariants}>
+              <motion.div className="mt-10 flex flex-wrap gap-3" variants={heroVariants}>
                 <CtaButton className="h-12 rounded-md bg-[#f1be62] px-6 text-sm text-[#130d05] transition active:scale-[0.98] hover:bg-[#ffe0a0]" href="#evidence" size="lg">
                   Explore Evidence
                   <ArrowRightIcon data-icon="inline-end" />
