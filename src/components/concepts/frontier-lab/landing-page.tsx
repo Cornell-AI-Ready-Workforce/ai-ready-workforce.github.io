@@ -506,14 +506,14 @@ export function FrontierLabLandingPage() {
             </div>
           </motion.nav>
 
-          <motion.div className="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-16" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
+          <motion.div className="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[1.35fr_0.85fr] lg:py-16" style={reducedMotion ? undefined : { y: heroTextY, opacity: heroTextOpacity }}>
             <motion.div animate={reducedMotion ? undefined : "visible"} className="order-1 text-left" initial={reducedMotion ? undefined : "hidden"} variants={staggerVariants}>
               <motion.div variants={heroVariants}>
                 <Badge className="rounded-md border-[#4a371c] bg-[#15100a]/82 px-3 py-1.5 text-sm text-[#f1be62]" variant="outline">
                   Assessment for AI-era work
                 </Badge>
               </motion.div>
-              <motion.h1 className="mt-7 max-w-[820px] font-serif text-[clamp(4rem,7.1vw,8.8rem)] font-normal leading-[0.88] tracking-[-0.06em] text-[#fff5e6] text-balance" variants={heroVariants}>
+              <motion.h1 className="mt-7 max-w-[980px] font-serif text-[clamp(3rem,5vw,6.6rem)] font-normal leading-[0.94] tracking-[-0.055em] text-[#fff5e6]" variants={heroVariants}>
                 Measure how people collaborate with AI before hiring.
               </motion.h1>
               <motion.div className="mt-10 flex flex-wrap gap-3" variants={heroVariants}>
