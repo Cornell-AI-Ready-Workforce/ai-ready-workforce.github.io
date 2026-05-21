@@ -418,7 +418,11 @@ export function FrontierLabLandingPage() {
                   </Badge>
                 </motion.div>
                 <motion.h1 className="mt-7 max-w-[340px] text-[clamp(2.3rem,9.4vw,6.4rem)] font-semibold leading-[0.96] text-white sm:max-w-[1160px]" variants={heroVariants}>
-                  Measure AI-ready skills through real work.
+                  Measure AI-ready
+                  <br />
+                  skills through
+                  <br />
+                  real work.
                 </motion.h1>
                 <motion.p className="mt-7 max-w-[340px] text-lg leading-7 text-white/78 sm:max-w-2xl sm:text-xl sm:leading-8" variants={heroVariants}>
                   Simulation-based assessments that reveal judgment, communication, adaptability, and real-world AI collaboration.
