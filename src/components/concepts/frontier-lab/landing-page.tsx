@@ -332,7 +332,7 @@ function ResearchRow({ item }: { item: (typeof researchTracks)[number] }) {
   );
 }
 
-function PersonCard({ person, index }: { person: (typeof people)[number]; index: number }) {
+function PersonCard({ person }: { person: (typeof people)[number] }) {
   return (
     <motion.article className="group" variants={revealVariants}>
       <div className="relative aspect-[4/5] overflow-hidden bg-[#e8e2dc]">
@@ -345,8 +345,7 @@ function PersonCard({ person, index }: { person: (typeof people)[number]; index:
         />
       </div>
       <div className="border-b border-[#d8d2ca] py-4">
-        <p className="font-mono text-xs text-[#8a8a8a]">{String(index + 1).padStart(2, "0")}</p>
-        <h3 className="mt-1 text-lg font-semibold leading-tight text-[#1f1f1f]">{person.name}</h3>
+        <h3 className="text-lg font-semibold leading-tight text-[#1f1f1f]">{person.name}</h3>
       </div>
     </motion.article>
   );
@@ -568,8 +567,8 @@ export function FrontierLabLandingPage() {
             </Reveal>
 
             <StaggerGroup className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-              {people.map((person, index) => (
-                <PersonCard key={person.name} index={index} person={person} />
+              {people.map((person) => (
+                <PersonCard key={person.name} person={person} />
               ))}
             </StaggerGroup>
           </div>
