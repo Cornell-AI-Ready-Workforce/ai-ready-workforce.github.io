@@ -189,8 +189,10 @@ function CtaButton({ href, children, className, variant, size }: CtaButtonProps)
       whileTap={reducedMotion ? undefined : { y: 0, scale: 0.985 }}
       transition={{ duration: 0.22, ease: smoothEase }}
     >
-      <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={cn("items-center justify-center gap-2 [&_svg]:mt-0", className)}>
-        {children}
+      <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={cn("items-center justify-center", className)}>
+        <span className="inline-flex items-center justify-center gap-2 leading-none [&_svg]:mt-0 [&_svg]:shrink-0">
+          {children}
+        </span>
       </Button>
     </motion.div>
   );
@@ -516,7 +518,7 @@ export function FrontierLabLandingPage() {
             <Reveal>
               <SectionLabel>Assessment evidence loop</SectionLabel>
               <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                AI prepares the record. People make the judgment.
+                AI prepares the evidence. Humans make the decision.
               </h2>
               <p className="mt-7 max-w-xl text-lg leading-8 text-[#555]">
                 The system is designed around visible evidence, reviewer calibration, and partner learning rather than an opaque score.
@@ -580,7 +582,7 @@ export function FrontierLabLandingPage() {
               <div>
                 <p className="text-xs font-bold uppercase text-white/75">Contact</p>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight sm:text-6xl">
-                  Study AI-ready skills with work people can review.
+                  Demonstrate AI-ready skills with work people can review.
                 </h2>
               </div>
               <CtaButton className="h-12 rounded-md bg-white px-7 text-sm font-semibold text-[#b31b1b] hover:bg-[#f2e9e4]" href="mailto:hello@example.com" size="lg">
