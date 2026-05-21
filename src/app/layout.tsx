@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "AI-Ready Workforce",
   description:
-    "A research-backed assessment project for measuring how people plan, prompt, produce, verify, and exercise judgment with AI.",
+    "A Cornell research initiative building simulation-based assessments, evidence traces, and human review methods for AI-ready skills.",
   icons: {
     icon: "/favicon.svg",
   },

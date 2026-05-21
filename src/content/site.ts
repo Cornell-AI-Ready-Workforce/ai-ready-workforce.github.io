@@ -64,9 +64,9 @@ export const conceptVariants = [
   {
     slug: "variant-b",
     label: "Variant B",
-    name: "Horizontal frontier",
+    name: "Cornell research site",
     href: "/concepts/variant-b",
-    tone: "Dark cinematic research-lab direction with a horizontal first fold.",
-    bestFor: "Use this slot for the alternate manager-review concept.",
+    tone: "Cornell-style public site for the assessment research initiative, with people and evidence foregrounded.",
+    bestFor: "Use this as the current deployed public direction.",
   },
 ];
