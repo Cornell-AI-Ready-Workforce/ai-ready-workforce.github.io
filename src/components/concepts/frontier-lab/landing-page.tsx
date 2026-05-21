@@ -541,12 +541,12 @@ export function FrontierLabLandingPage() {
         <section className="border-b border-[#d8d2ca] bg-white px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[0.72fr_1fr]">
             <Reveal className="lg:sticky lg:top-10">
-              <SectionLabel>Research streams</SectionLabel>
+              <SectionLabel>Assessment Focus</SectionLabel>
               <h2 className="mt-5 max-w-2xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                Built for assessment research, not generic AI fluency claims.
+                Assess the human skills behind AI-ready work.
               </h2>
               <p className="mt-7 max-w-xl text-lg leading-8 text-[#555]">
-                The work stays close to measurable constructs, reviewer calibration, and settings where decisions matter.
+                The assessment looks for observable evidence of communication, adaptation, calibration, and fair judgment in settings where decisions matter.
               </p>
             </Reveal>
             <StaggerGroup>
