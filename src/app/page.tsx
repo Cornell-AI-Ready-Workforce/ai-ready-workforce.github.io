@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { FrontierLabLandingPage } from "@/components/concepts/frontier-lab/landing-page";
 
 export default function Home() {
-  redirect("/concepts/variant-b");
+  return <FrontierLabLandingPage />;
 }

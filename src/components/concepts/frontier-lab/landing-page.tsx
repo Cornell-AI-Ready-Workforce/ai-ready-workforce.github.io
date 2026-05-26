@@ -28,7 +28,26 @@ import { cn } from "@/lib/utils";
 
 type IconComponent = ComponentType<{ className?: string }>;
 
+type Person = {
+  name: string;
+  title: string;
+  src: string;
+  href?: string;
+  imageClassName?: string;
+};
+
+type LogoAsset = {
+  name: string;
+  src: string;
+  width: number;
+  height: number;
+  className: string;
+  tone?: "light";
+  unoptimized?: boolean;
+};
+
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const contactHref = "https://cornell.ca1.qualtrics.com/jfe/form/SV_bKKQKsOe0Y54mYm";
 
 const revealVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -62,11 +81,9 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Evidence", href: "#evidence" },
   { label: "Practices", href: "#practices" },
-  { label: "People", href: "#people" },
+  { label: "Team", href: "#team" },
   { label: "Contact", href: "#contact" },
 ];
-
-const heroLabels = ["AI Fluency", "Relational Skills", "Adaptive Flexibility"];
 
 const problemSignals = [
   {
@@ -80,6 +97,24 @@ const problemSignals = [
   {
     title: "Rigorous case assessment does not scale",
     text: "Traditional work samples are expensive, inconsistent, and rarely capture AI-collaboration behavior.",
+  },
+];
+
+const frameworkPillars = [
+  {
+    icon: BrainCircuitIcon,
+    title: "AI Fluency",
+    text: "Frame tasks, prompt AI, verify outputs, and explain when AI should or should not be used.",
+  },
+  {
+    icon: HandshakeIcon,
+    title: "Relational Skills",
+    text: "Communicate, negotiate, and collaborate in AI-mediated work where human judgment still matters.",
+  },
+  {
+    icon: RefreshCcwIcon,
+    title: "Adaptive Flexibility",
+    text: "Revise plans when goals, evidence, feedback, or tool behavior changes.",
   },
 ];
 
@@ -139,36 +174,127 @@ const practices = [
   },
 ];
 
-const researchTracks = [
+const people: Person[] = [
   {
-    icon: HandshakeIcon,
-    title: "Relational skills assessment",
-    text: "Interview and collaboration tasks can surface communication, empathy, conflict resolution, and psychological safety.",
+    name: "Rene Kizilcec",
+    title: "Associate Professor; Faculty Director, Future of Learning Lab",
+    src: "/images/people/rene-kizilcec.jpeg",
+    href: "https://bowers.cornell.edu/people/rene-kizilcec",
   },
   {
-    icon: BrainCircuitIcon,
-    title: "Adaptive flexibility",
-    text: "The assessment can examine how people adapt when goals, evidence, or tool behavior changes.",
+    name: "Rachel Slama",
+    title: "Associate Director, Future of Learning Lab",
+    src: "/images/people/rachel-slama-profile.jpeg",
+    href: "https://bowers.cornell.edu/offices/information-science-administration",
+    imageClassName: "scale-[1.45]",
   },
   {
-    icon: BadgeCheckIcon,
-    title: "Calibration and fairness",
-    text: "Review rubrics, disagreement checks, and audit trails keep scoring visible and improvable.",
+    name: "Philipp Kircher",
+    title: "Irving M. Ives Professor of Industrial and Labor Relations",
+    src: "/images/people/philipp-kircher.jpeg",
+    href: "https://economics.cornell.edu/philipp-kircher",
+  },
+  {
+    name: "Michèle Belot",
+    title: "Frances Perkins Professor of Industrial and Labor Relations and Economics",
+    src: "/images/people/michele-belot.jpeg",
+    href: "https://www.ilr.cornell.edu/people/michele-belot",
+  },
+  {
+    name: "Thorsten Joachims",
+    title: "Jacob Gould Schurman Professor of Computer Science and Information Science",
+    src: "/images/people/thorsten-joachims-profile.jpeg",
+    href: "https://bowers.cornell.edu/people/thorsten-joachims",
+    imageClassName: "scale-[1.35]",
+  },
+  {
+    name: "JR Keller",
+    title: "Associate Professor of Human Resource Studies",
+    src: "/images/people/jr-keller.jpeg",
+    href: "https://www.ilr.cornell.edu/people/jr-keller",
+  },
+  {
+    name: "Steve Jackson",
+    title: "Professor of Information Science and Science & Technology Studies; Vice Provost for Academic Innovation",
+    src: "/images/people/steve-jackson.jpeg",
+    href: "https://bowers.cornell.edu/people/steve-jackson",
+  },
+  {
+    name: "Paul Krause",
+    title: "Vice Provost for External Education; Executive Director, eCornell",
+    src: "/images/people/paul-krause.jpeg",
+    href: "https://provost.cornell.edu/leadership/paul-krause/",
+  },
+  {
+    name: "Haocheng Zhang",
+    title: "Master's Student in Information Science",
+    src: "/images/people/haocheng-zhang.png",
+  },
+  {
+    name: "Diyang Lin",
+    title: "PhD Student",
+    src: "/images/people/diyang-lin.jpeg",
+  },
+  {
+    name: "Jinsook Lee",
+    title: "PhD Student in Information Science",
+    src: "/images/people/jinsook-lee.jpeg",
+    href: "https://bowers.cornell.edu/people/jinsook-lee",
   },
 ];
 
-const people = [
-  { name: "Rene Kizilcec", src: "/images/people/rene-kizilcec.jpeg" },
-  { name: "Rachel Slama", src: "/images/people/rachel-slama.jpeg" },
-  { name: "Philipp Kircher", src: "/images/people/philipp-kircher.jpeg" },
-  { name: "Michele Belot", src: "/images/people/michele-belot.jpeg" },
-  { name: "Thorsten Joachims", src: "/images/people/thorsten-joachims.jpeg" },
-  { name: "JR Keller", src: "/images/people/jr-keller.jpeg" },
-  { name: "Steve Jackson", src: "/images/people/steve-jackson.jpeg" },
-  { name: "Paul Krause", src: "/images/people/paul-krause.jpeg" },
-  { name: "Haocheng Zhang", src: "/images/people/haocheng-zhang.png" },
-  { name: "Diyang Lin", src: "/images/people/diyang-lin.jpeg" },
-  { name: "Jinsook Lee", src: "/images/people/jinsook-lee.jpeg" },
+const institutionalLogos: LogoAsset[] = [
+  {
+    name: "Cornell Future of Learning Lab",
+    src: "/images/cornell-future-learning-logo.png",
+    width: 600,
+    height: 154,
+    className: "w-[190px]",
+    tone: "light",
+  },
+  {
+    name: "Cornell Bowers College of Computing and Information Science",
+    src: "/images/cornell-bowers-logo.png",
+    width: 440,
+    height: 77,
+    className: "w-[205px]",
+    tone: "light",
+  },
+  {
+    name: "Cornell ILR School",
+    src: "/images/cornell-ilr-school-logo.png",
+    width: 573,
+    height: 164,
+    className: "w-[205px]",
+    tone: "light",
+  },
+  {
+    name: "Cornell University",
+    src: "/images/cornell-university-seal.svg",
+    width: 115,
+    height: 115,
+    className: "size-[64px]",
+    tone: "light",
+    unoptimized: true,
+  },
+];
+
+const supporterLogos: LogoAsset[] = [
+  {
+    name: "Cornell Center for Social Sciences",
+    src: "/images/cornell-ccss-logo.png",
+    width: 349,
+    height: 79,
+    className: "w-[210px]",
+    tone: "light",
+  },
+  {
+    name: "Laude Institute",
+    src: "/images/laude-institute-logo.png",
+    width: 128,
+    height: 24,
+    className: "w-[132px]",
+  },
 ];
 
 type CtaButtonProps = {
@@ -235,7 +361,7 @@ function StaggerGroup({ children, className }: { children: ReactNode; className?
   }
 
   return (
-    <motion.div className={className} initial="hidden" variants={staggerVariants} viewport={{ once: true, amount: 0.16 }} whileInView="visible">
+    <motion.div className={className} initial="hidden" variants={staggerVariants} viewport={{ once: true, amount: 0.03 }} whileInView="visible">
       {children}
     </motion.div>
   );
@@ -245,28 +371,30 @@ function SectionLabel({ children }: { children: ReactNode }) {
   return <p className="text-xs font-bold uppercase text-[#b31b1b]">{children}</p>;
 }
 
-function CornellLogo() {
+function LogoTile({ logo }: { logo: LogoAsset }) {
   return (
-    <Image
-      alt="Cornell Future of Learning Lab logo"
-      className="h-auto w-[210px]"
-      height={154}
-      src="/images/cornell-future-learning-logo.png"
-      width={600}
-    />
+    <div className="inline-flex min-h-16 items-center justify-center py-2">
+      <Image
+        alt={`${logo.name} logo`}
+        className={cn("h-auto max-h-16 object-contain", logo.tone === "light" && "brightness-0 invert opacity-90", logo.className)}
+        height={logo.height}
+        src={logo.src}
+        unoptimized={logo.unoptimized}
+        width={logo.width}
+      />
+    </div>
   );
 }
 
-function CornellUniversityLogo() {
+function FrameworkPillar({ item }: { item: (typeof frameworkPillars)[number] }) {
+  const Icon = item.icon;
+
   return (
-    <Image
-      alt="Cornell University logo"
-      className="size-[76px]"
-      height={115}
-      src="/images/cornell-university-seal.svg"
-      unoptimized
-      width={115}
-    />
+    <motion.article className="border-t border-[#d8d2ca] pt-7" variants={revealVariants}>
+      <IconFrame icon={Icon} />
+      <h3 className="mt-8 text-3xl font-semibold leading-tight text-[#1f1f1f]">{item.title}</h3>
+      <p className="mt-4 max-w-sm text-base leading-7 text-[#555]">{item.text}</p>
+    </motion.article>
   );
 }
 
@@ -320,35 +448,34 @@ function PracticeNode({ item }: { item: (typeof practices)[number] }) {
   );
 }
 
-function ResearchRow({ item }: { item: (typeof researchTracks)[number] }) {
-  const Icon = item.icon;
-
-  return (
-    <motion.article className="grid gap-5 border-b border-[#d8d2ca] py-7 last:border-b-0 sm:grid-cols-[48px_1fr]" variants={revealVariants}>
-      <IconFrame icon={Icon} />
-      <div>
-        <h3 className="text-2xl font-semibold leading-tight text-[#1f1f1f]">{item.title}</h3>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-[#555]">{item.text}</p>
-      </div>
-    </motion.article>
-  );
-}
-
-function PersonCard({ person }: { person: (typeof people)[number] }) {
-  return (
-    <motion.article className="group" variants={revealVariants}>
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#e8e2dc]">
+function PersonCard({ person }: { person: Person }) {
+  const content = (
+    <>
+      <div className="relative aspect-square overflow-hidden bg-[#e8e2dc]">
         <Image
           alt={`${person.name} headshot`}
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+          className={cn("object-cover", person.imageClassName)}
           fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+          sizes="(min-width: 1024px) 250px, (min-width: 768px) 31vw, 100vw"
           src={person.src}
         />
       </div>
-      <div className="border-b border-[#d8d2ca] py-4">
+      <div className="border-b border-[#d8d2ca] py-4 text-center">
         <h3 className="text-lg font-semibold leading-tight text-[#1f1f1f]">{person.name}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#555]">{person.title}</p>
       </div>
+    </>
+  );
+
+  return (
+    <motion.article className="group" variants={revealVariants}>
+      {person.href ? (
+        <a className="block transition duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b31b1b]" href={person.href} rel="noreferrer" target="_blank">
+          {content}
+        </a>
+      ) : (
+        content
+      )}
     </motion.article>
   );
 }
@@ -398,7 +525,7 @@ export function FrontierLabLandingPage() {
                   </a>
                 ))}
               </div>
-              <CtaButton className="hidden h-11 rounded-md border border-white/30 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:inline-flex" href="mailto:hello@example.com">
+              <CtaButton className="hidden h-11 rounded-md border border-white/30 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:inline-flex" href={contactHref}>
                 Contact the team
                 <ArrowRightIcon data-icon="inline-end" />
               </CtaButton>
@@ -432,18 +559,10 @@ export function FrontierLabLandingPage() {
                     View assessment model
                     <ArrowRightIcon data-icon="inline-end" />
                   </CtaButton>
-                  <CtaButton className="h-12 w-full rounded-md border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:w-auto" href="#people" size="lg" variant="outline">
-                    See the people
+                  <CtaButton className="h-12 w-full rounded-md border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:w-auto" href="#team" size="lg" variant="outline">
+                    Meet the team
                   </CtaButton>
                 </motion.div>
-              </motion.div>
-
-              <motion.div className="mt-12 grid max-w-5xl gap-3 sm:grid-cols-3" variants={staggerVariants}>
-                {heroLabels.map((label) => (
-                  <motion.div key={label} className="border border-white/18 bg-black/24 px-5 py-4 text-sm font-semibold text-white backdrop-blur-md" variants={heroVariants}>
-                    {label}
-                  </motion.div>
-                ))}
               </motion.div>
             </div>
           </div>
@@ -468,6 +587,28 @@ export function FrontierLabLandingPage() {
                   <h3 className="text-2xl font-semibold leading-tight text-[#1f1f1f]">{item.title}</h3>
                   <p className="mt-5 text-base leading-7 text-[#555]">{item.text}</p>
                 </motion.article>
+              ))}
+            </StaggerGroup>
+          </div>
+        </section>
+
+        <section id="framework" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
+          <div className="mx-auto max-w-[1320px]">
+            <Reveal className="grid items-end gap-8 lg:grid-cols-[0.78fr_1fr]">
+              <div>
+                <SectionLabel>Framework</SectionLabel>
+                <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+                  Three skills shape AI-ready work.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-xl leading-9 text-[#444]">
+                The assessment separates practical AI use from the human capabilities that make AI-supported work trustworthy.
+              </p>
+            </Reveal>
+
+            <StaggerGroup className="mt-14 grid gap-10 md:grid-cols-3">
+              {frameworkPillars.map((item) => (
+                <FrameworkPillar key={item.title} item={item} />
               ))}
             </StaggerGroup>
           </div>
@@ -501,7 +642,7 @@ export function FrontierLabLandingPage() {
               <div>
                 <SectionLabel>Six practices</SectionLabel>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  AI-ready work can be observed one practice at a time.
+                  Six practices make AI-ready work visible.
                 </h2>
               </div>
               <p className="max-w-xl text-lg leading-8 text-[#555]">
@@ -542,37 +683,18 @@ export function FrontierLabLandingPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#d8d2ca] bg-white px-5 py-20 lg:px-8 lg:py-28">
-          <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[0.72fr_1fr]">
-            <Reveal className="lg:sticky lg:top-10">
-              <SectionLabel>Assessment Focus</SectionLabel>
-              <h2 className="mt-5 max-w-2xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                Assess the human skills behind AI-ready work.
-              </h2>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-[#555]">
-                The assessment looks for observable evidence of communication, adaptation, calibration, and fair judgment in settings where decisions matter.
-              </p>
-            </Reveal>
-            <StaggerGroup>
-              {researchTracks.map((item) => (
-                <ResearchRow key={item.title} item={item} />
-              ))}
-            </StaggerGroup>
-          </div>
-        </section>
-
-        <section id="people" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
+        <section id="team" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-[1320px]">
-            <Reveal>
+            <Reveal className="mx-auto max-w-3xl text-center">
               <div>
-                <SectionLabel>Research Team</SectionLabel>
-                <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  People
+                <SectionLabel>Research team</SectionLabel>
+                <h2 className="mt-5 text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+                  Team
                 </h2>
               </div>
             </Reveal>
 
-            <StaggerGroup className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            <StaggerGroup className="mx-auto mt-14 grid max-w-[1080px] gap-x-7 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
               {people.map((person) => (
                 <PersonCard key={person.name} person={person} />
               ))}
@@ -588,30 +710,46 @@ export function FrontierLabLandingPage() {
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight sm:text-6xl">
                   Demonstrate AI-ready skills with work people can review.
                 </h2>
+                <div className="mt-7 grid gap-2 text-base leading-7 text-white/82">
+                  <p>Use the project contact form to reach the AI-Ready Workforce team.</p>
+                  <p>Location: Computing and Information Science Building 363, Cornell University, Ithaca, NY.</p>
+                </div>
               </div>
-              <CtaButton className="h-12 rounded-md bg-white px-7 text-sm font-semibold text-[#b31b1b] hover:bg-[#f2e9e4]" href="mailto:hello@example.com" size="lg">
+              <CtaButton className="h-12 rounded-md bg-white px-7 text-sm font-semibold text-[#b31b1b] hover:bg-[#f2e9e4]" href={contactHref} size="lg">
                 Contact the team
                 <MailIcon data-icon="inline-end" />
               </CtaButton>
             </Reveal>
 
-            <div className="flex flex-col gap-8 pt-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex w-fit flex-col gap-3 sm:flex-row sm:items-center">
-                <div className="inline-flex h-20 items-center bg-white px-4">
-                  <CornellLogo />
+            <div className="grid gap-8 pt-8 lg:grid-cols-[1.2fr_0.55fr] lg:items-end">
+              <div className="grid gap-8">
+                <div>
+                  <p className="text-xs font-bold uppercase text-white/70">Partners</p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {institutionalLogos.map((logo) => (
+                      <LogoTile key={logo.name} logo={logo} />
+                    ))}
+                  </div>
                 </div>
-                <div className="inline-flex size-20 items-center justify-center border border-white/40 bg-[#b31b1b]">
-                  <CornellUniversityLogo />
+                <div>
+                  <p className="text-xs font-bold uppercase text-white/70">Supporters</p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {supporterLogos.map((logo) => (
+                      <LogoTile key={logo.name} logo={logo} />
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-6 text-sm font-semibold text-white/85">
-                {navItems.map((item) => (
-                  <a key={item.href} className="transition hover:text-white" href={item.href}>
-                    {item.label}
-                  </a>
-                ))}
+              <div className="grid gap-6 lg:justify-items-end">
+                <div className="flex flex-wrap gap-6 text-sm font-semibold text-white/85 lg:justify-end">
+                  {navItems.map((item) => (
+                    <a key={item.href} className="transition hover:text-white" href={item.href}>
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+                <p className="text-sm text-white/75">&copy; 2026 AI-Ready Workforce.</p>
               </div>
-              <p className="text-sm text-white/75">&copy; 2026 AI-Ready Workforce.</p>
             </div>
           </div>
         </footer>
