@@ -294,6 +294,7 @@ const supporterLogos: LogoAsset[] = [
     width: 128,
     height: 24,
     className: "w-[132px]",
+    tone: "light",
   },
 ];
 
@@ -711,7 +712,6 @@ export function FrontierLabLandingPage() {
                   Demonstrate AI-ready skills with work people can review.
                 </h2>
                 <div className="mt-7 grid gap-2 text-base leading-7 text-white/82">
-                  <p>Use the project contact form to reach the AI-Ready Workforce team.</p>
                   <p>Location: Computing and Information Science Building 363, Cornell University, Ithaca, NY.</p>
                 </div>
               </div>
