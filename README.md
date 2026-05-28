@@ -1,6 +1,16 @@
 # AIW Website
 
-Private website project for AI-Ready Workforce.
+Website for AI-Ready Workforce, a Cornell research initiative focused on simulation-based assessment, evidence traces, and human review for AI-ready skills.
+
+## Site Surface
+
+The public website is a single root page:
+
+- `/`
+
+The earlier concept and variant routes were removed. The current production site is deployed at:
+
+- `https://ai-ready-workforce.vercel.app/`
 
 ## Local Development
 
@@ -9,29 +19,21 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
-
-## Current Direction
-
-- Official name: AI-Ready Workforce
-- Initial public-site focus: a premium modern website for the AI-ready work assessment project
-- Design routes are intentionally neutral until reference samples are provided:
-  - `/concepts`
-  - `/concepts/variant-a`
-  - `/concepts/variant-b`
-
-## UI System
-
-This project is initialized with shadcn/ui using the Base UI preset:
+Open `http://localhost:3000`. If that port is already in use:
 
 ```bash
-npx shadcn@latest init --preset b0 --base base --template next
+npm run dev -- --port 3001
 ```
 
-The full generated component set lives in `src/components/ui/`.
+## Project Structure
+
+- `src/app/page.tsx` renders the current website.
+- `src/components/landing/landing-page.tsx` contains the landing page content, motion, and layout.
+- `src/components/ui/` keeps only the UI primitives used by the site.
+- `public/images/` contains the active hero, assessment, logo, and team portrait assets.
 
 ## Scripts
 
 - `npm run dev` starts the local development server.
 - `npm run build` creates a production build.
-- `npm run lint` runs Next.js ESLint checks.
+- `npm run lint` runs ESLint checks.
