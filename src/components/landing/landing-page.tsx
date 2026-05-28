@@ -481,7 +481,7 @@ function PersonCard({ person }: { person: Person }) {
   );
 }
 
-export function FrontierLabLandingPage() {
+export function AIWLandingPage() {
   const heroRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
   const { scrollYProgress: heroScroll } = useScroll({
@@ -502,7 +502,7 @@ export function FrontierLabLandingPage() {
               fill
               priority
               sizes="100vw"
-              src="/images/aiw-variant-b-hero-modern.png"
+              src="/images/aiw-hero-modern.png"
               unoptimized
             />
           </motion.div>
