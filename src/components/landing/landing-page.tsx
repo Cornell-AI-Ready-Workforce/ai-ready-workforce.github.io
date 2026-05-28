@@ -203,9 +203,9 @@ const people: Person[] = [
   {
     name: "Thorsten Joachims",
     title: "Jacob Gould Schurman Professor of Computer Science and Information Science",
-    src: "/images/people/thorsten-joachims-profile.jpeg",
+    src: "/images/people/thorsten-joachims-2025.jpeg",
     href: "https://bowers.cornell.edu/people/thorsten-joachims",
-    imageClassName: "scale-[1.35]",
+    imageClassName: "object-[50%_12%]",
   },
   {
     name: "JR Keller",
@@ -222,7 +222,7 @@ const people: Person[] = [
   {
     name: "Paul Krause",
     title: "Vice Provost for External Education; Executive Director, eCornell",
-    src: "/images/people/paul-krause.jpeg",
+    src: "/images/people/paul-krause-official-2026.jpeg",
     href: "https://provost.cornell.edu/leadership/paul-krause/",
   },
   {
