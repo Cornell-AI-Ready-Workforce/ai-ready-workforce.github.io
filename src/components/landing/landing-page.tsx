@@ -184,9 +184,8 @@ const people: Person[] = [
   {
     name: "Rachel Slama",
     title: "Associate Director, Future of Learning Lab",
-    src: "/images/people/rachel-slama-profile.jpeg",
+    src: "/images/people/rachel-slama-2026.png",
     href: "https://bowers.cornell.edu/offices/information-science-administration",
-    imageClassName: "scale-[1.45]",
   },
   {
     name: "Philipp Kircher",
