@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   description:
     "A Cornell research initiative building simulation-based assessments, evidence traces, and human review methods for AI-ready skills.",
   icons: {
-    icon: "/favicon.svg",
+    icon: [{ url: "/favicon.png", type: "image/png" }],
+    apple: [{ url: "/favicon.png", type: "image/png" }],
   },
 };
 

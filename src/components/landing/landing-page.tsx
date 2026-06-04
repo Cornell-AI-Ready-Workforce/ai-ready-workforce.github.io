@@ -401,7 +401,9 @@ function FrameworkPillar({ item }: { item: (typeof frameworkPillars)[number] }) 
 function AIWMark() {
   return (
     <div className="flex items-center gap-3">
-      <div className="grid size-9 place-items-center border border-[#b31b1b] bg-white text-lg font-black text-[#b31b1b]">AI</div>
+      <div className="grid size-11 place-items-center rounded-md border border-white/30 bg-white/95 p-1.5 shadow-sm backdrop-blur">
+        <Image alt="" className="size-8 object-contain" height={64} src="/images/aiw-logo.png" unoptimized width={64} />
+      </div>
       <div>
         <p className="text-sm font-bold leading-none text-white">AI-Ready Workforce</p>
         <p className="mt-1 text-xs leading-none text-white/68">Cornell research initiative</p>
@@ -496,7 +498,7 @@ export function AIWLandingPage() {
         <section ref={heroRef} id="about" className="relative min-h-[100svh] overflow-hidden bg-[#120f0d] text-white">
           <motion.div className="absolute inset-0" style={reducedMotion ? undefined : { y: heroImageY }}>
             <Image
-              alt="Modern AI-ready workforce assessment environment with luminous threshold and review materials"
+              alt="People collaborating in a learning workspace with a subtle AI network overlay"
               className="object-cover"
               fill
               priority
