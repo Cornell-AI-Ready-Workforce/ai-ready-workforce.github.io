@@ -24,6 +24,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { withSiteBasePath } from "@/lib/site-path";
 import { cn } from "@/lib/utils";
 
 type IconComponent = ComponentType<{ className?: string }>;
@@ -378,7 +379,7 @@ function LogoTile({ logo }: { logo: LogoAsset }) {
         alt={`${logo.name} logo`}
         className={cn("h-auto max-h-16 object-contain", logo.tone === "light" && "brightness-0 invert opacity-90", logo.className)}
         height={logo.height}
-        src={logo.src}
+        src={withSiteBasePath(logo.src)}
         unoptimized={logo.unoptimized}
         width={logo.width}
       />
@@ -402,7 +403,7 @@ function AIWMark() {
   return (
     <div className="flex items-center gap-3">
       <div className="grid size-11 place-items-center rounded-md border border-white/30 bg-white/95 p-1.5 shadow-sm backdrop-blur">
-        <Image alt="" className="size-8 object-contain" height={64} src="/images/aiw-logo.png" unoptimized width={64} />
+        <Image alt="" className="size-8 object-contain" height={64} src={withSiteBasePath("/images/aiw-logo.png")} unoptimized width={64} />
       </div>
       <div>
         <p className="text-sm font-bold leading-none text-white">AI-Ready Workforce</p>
@@ -459,7 +460,7 @@ function PersonCard({ person }: { person: Person }) {
           className={cn("object-cover", person.imageClassName)}
           fill
           sizes="(min-width: 1024px) 250px, (min-width: 768px) 31vw, 100vw"
-          src={person.src}
+          src={withSiteBasePath(person.src)}
         />
       </div>
       <div className="border-b border-[#d8d2ca] py-4 text-center">
@@ -503,7 +504,7 @@ export function AIWLandingPage() {
               fill
               priority
               sizes="100vw"
-              src="/images/aiw-hero-modern.png"
+              src={withSiteBasePath("/images/aiw-hero-modern.png")}
               unoptimized
             />
           </motion.div>
@@ -678,7 +679,7 @@ export function AIWLandingPage() {
                   className="object-cover"
                   fill
                   sizes="(min-width: 1024px) 720px, 100vw"
-                  src="/images/aiw-assessment-loop-light.png"
+                  src={withSiteBasePath("/images/aiw-assessment-loop-light.png")}
                 />
               </div>
             </Reveal>
