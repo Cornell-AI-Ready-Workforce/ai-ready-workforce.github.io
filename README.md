@@ -2,15 +2,13 @@
 
 Website for AI-Ready Workforce, a Cornell research initiative focused on simulation-based assessment, evidence traces, and human review for AI-ready skills.
 
-## Site Surface
-
-The public website is a single root page:
-
-- `/`
-
 The earlier concept and variant routes were removed. The current production site is deployed at:
 
 - `https://ai-ready-workforce.vercel.app/`
+
+## Deployment
+
+`SITE_CANONICAL_ORIGIN` controls where legacy routes redirect. Leave it unset for the current Vercel deployment before June 15, 2026; set it to `https://ai-ready-workforce.ai.cornell.edu` when the Cornell deployment becomes canonical.
 
 ## Local Development
 
