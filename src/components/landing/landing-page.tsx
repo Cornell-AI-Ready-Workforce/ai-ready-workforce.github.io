@@ -22,7 +22,6 @@ import {
   UsersIcon,
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { withSiteBasePath } from "@/lib/site-path";
 import { cn } from "@/lib/utils";
@@ -179,6 +178,24 @@ const practices = [
     icon: PresentationIcon,
     title: "Deliver",
     text: "Explain the recommendation, tradeoffs, supporting evidence, and next steps.",
+  },
+];
+
+const growthValidationItems = [
+  {
+    icon: BadgeCheckIcon,
+    title: "Hiring and promotion",
+    text: "Role-relevant simulations show current capability with evidence reviewers can inspect.",
+  },
+  {
+    icon: RefreshCcwIcon,
+    title: "Upskilling and mobility",
+    text: "Feedback turns assessment into a development loop for teams and internal pathways.",
+  },
+  {
+    icon: SearchCheckIcon,
+    title: "Validation over time",
+    text: "Repeated attempts reveal adaptation, calibration, and AI-readiness growth across cohorts.",
   },
 ];
 
@@ -476,6 +493,18 @@ function PracticeNode({ item }: { item: (typeof practices)[number] }) {
   );
 }
 
+function GrowthValidationCard({ item }: { item: (typeof growthValidationItems)[number] }) {
+  const Icon = item.icon;
+
+  return (
+    <motion.article className="bg-white p-7 transition-colors duration-300 hover:bg-[#fff7f5]" variants={revealVariants}>
+      <IconFrame icon={Icon} />
+      <h3 className="mt-8 text-2xl font-semibold leading-tight text-[#1f1f1f]">{item.title}</h3>
+      <p className="mt-4 text-base leading-7 text-[#555]">{item.text}</p>
+    </motion.article>
+  );
+}
+
 function PersonCard({ person }: { person: Person }) {
   const content = (
     <>
@@ -698,12 +727,26 @@ export function AIWLandingPage() {
           </div>
         </section>
         
-        <section>
-          <SectionLabel>Growth and validation</SectionLabel>
-            <h2>Measure capability, then help people improve.</h2>
-            <p>
-              Simulations can be used for hiring and promotion, but also for upskilling, internal mobility, and workforce-wide AI-readiness assessment. Participants receive feedback, try again, and demonstrate how quickly they adapt.
-            </p>
+        <section className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
+          <div className="mx-auto max-w-[1320px]">
+            <Reveal className="grid items-end gap-8 lg:grid-cols-[0.78fr_1fr]">
+              <div>
+                <SectionLabel>Growth and validation</SectionLabel>
+                <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+                  Measure capability, then help people improve.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-xl leading-9 text-[#444]">
+                Simulations can support hiring and promotion, but also upskilling, internal mobility, and workforce-wide AI-readiness assessment. Participants receive feedback, try again, and show how quickly they adapt.
+              </p>
+            </Reveal>
+
+            <StaggerGroup className="mt-14 grid gap-px bg-[#d8d2ca] md:grid-cols-3">
+              {growthValidationItems.map((item) => (
+                <GrowthValidationCard key={item.title} item={item} />
+              ))}
+            </StaggerGroup>
+          </div>
         </section>
         
         <section id="team" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
