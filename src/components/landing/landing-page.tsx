@@ -564,11 +564,7 @@ export function AIWLandingPage() {
                 variants={staggerVariants}
               >
                 <motion.h1 className="mt-7 max-w-[340px] text-[clamp(2.3rem,9.4vw,6.4rem)] font-semibold leading-[0.96] text-white sm:max-w-[1160px]" variants={heroVariants}>
-                  Measure and Grow AI-ready
-                  <br />
-                  workforce skills with
-                  <br />
-                  realistic work simulations.
+                  Measure and Grow AI-ready workforce skills with realistic work simulations.
                 </motion.h1>
                 <motion.p className="mt-7 max-w-[340px] text-lg leading-7 text-white/78 sm:max-w-2xl sm:text-xl sm:leading-8" variants={heroVariants}>
                   We create AI-scaled, case-based simulations that reveal how people use AI, adapt to feedback, and collaborate with others under realistic workplace constraints.
