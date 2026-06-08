@@ -10,7 +10,7 @@ The earlier concept and variant routes were removed. The current production site
 
 `SITE_CANONICAL_ORIGIN` controls where legacy routes redirect. Leave it unset for the current Vercel deployment before June 15, 2026; set it to `https://ai-ready-workforce.ai.cornell.edu` when the Cornell deployment becomes canonical.
 
-GitHub Pages deploys from `Cornell-AI-Ready-Workforce/ai-ready-workforce.github.io` through `.github/workflows/pages.yml`. Before the custom domain is active, the workflow builds with `GITHUB_PAGES_BASE_PATH=/ai-ready-workforce.github.io` so the project Pages URL can load assets. After `https://ai-ready-workforce.ai.cornell.edu` is configured in GitHub Pages and Cornell DNS, set the repository variable `GITHUB_PAGES_CUSTOM_DOMAIN=true` so future builds target the domain root.
+GitHub Pages deploys from `Cornell-AI-Ready-Workforce/ai-ready-workforce.github.io` through `.github/workflows/pages.yml`. Before the custom domain is active, the workflow builds with `GITHUB_PAGES_BASE_PATH=/ai-ready-workforce.github.io` so the project Pages URL can load assets. After `https://ai-ready-workforce.ai.cornell.edu` is configured in GitHub Pages and Cornell DNS, set the repository variable `PAGES_CUSTOM_DOMAIN=true` so future builds target the domain root.
 
 ## Local Development
 
