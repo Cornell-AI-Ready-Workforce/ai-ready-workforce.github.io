@@ -88,16 +88,16 @@ const navItems = [
 
 const problemSignals = [
   {
-    title: "Resumes show what was, not what is now",
-    text: "Credentials rarely show whether someone can work effectively with AI today.",
+    title: "AI-readiness is hard to measure and cultivate",
+    text: "Organizations lack reliable behavioral evidence of who can use AI well, learn with it, and improve over time.",
   },
   {
-    title: "Interviews ask people to describe, not do",
-    text: "Words about work are not the work itself, and AI-generated materials hide the process.",
+    title: "Skills-based hiring is too static",
+    text: "Skills are granular and changing quickly, but credentials and job histories often describe the past rather than current capability.",
   },
   {
-    title: "Rigorous case assessment does not scale",
-    text: "Traditional work samples are expensive, inconsistent, and rarely capture AI-collaboration behavior.",
+    title: "Relational skills are hard to observe at scale",
+    text: "Communication, judgment, trust, and repair matter more in AI-mediated work, but interviews are costly and uneven signals.",
   },
 ];
 
@@ -105,40 +105,40 @@ const frameworkPillars = [
   {
     icon: BrainCircuitIcon,
     title: "AI Fluency",
-    text: "Frame tasks, prompt AI, verify outputs, and explain when AI should or should not be used.",
+    text: "Delegate, describe, discern, and act diligently when using AI across individual and team workflows.",
   },
   {
     icon: HandshakeIcon,
-    title: "Relational Skills",
-    text: "Communicate, negotiate, and collaborate in AI-mediated work where human judgment still matters.",
+    title: "Relational Fluency",
+    text: "Build trust, communicate under pressure, repair misunderstandings, and sustain collaboration in AI-mediated work.",
   },
   {
     icon: RefreshCcwIcon,
     title: "Adaptive Flexibility",
-    text: "Revise plans when goals, evidence, feedback, or tool behavior changes.",
+    text: "Pick up new skills, respond to feedback, revise strategies, and improve performance across attempts.",
   },
 ];
 
 const designPrinciples = [
   {
     icon: BriefcaseBusinessIcon,
-    title: "Simulation-Based Assessment",
-    text: "Candidates complete role-relevant simulations with realistic context, source materials, and deliverables.",
+    title: "AI-Scaled Work Demonstrations",
+    text: "Participants complete realistic, role-relevant cases with context, source materials, constraints, and deliverables.",
   },
   {
     icon: FileSearchIcon,
-    title: "Evidence Linked Evaluation",
-    text: "Scores connect to observable work: decisions, artifacts, rubric anchors, and reviewer notes.",
+    title: "Granular Skill Evidence",
+    text: "Behavioral evidence is linked to competencies, artifacts, decisions, revisions, and rubric anchors.",
   },
   {
     icon: UsersIcon,
-    title: "AI Prepares, Human Decides",
-    text: "Agents structure evidence and surface patterns while trained reviewers own the final interpretation.",
+    title: "AI Structures, Humans Judge",
+    text: "AI helps generate cases, organize traces, and surface patterns while trained reviewers own interpretation.",
   },
   {
     icon: BadgeCheckIcon,
-    title: "Review and Calibrate",
-    text: "Reviewers resolve disagreement, adjust anchors, and improve assessment quality over time.",
+    title: "Validate and Improve",
+    text: "Partners review evidence, calibrate scoring, and refine simulations through pilots and validation studies.",
   },
 ];
 
@@ -150,27 +150,27 @@ const practices = [
   },
   {
     icon: MessageSquareTextIcon,
-    title: "Prompt",
+    title: "Prepare",
     text: "Give AI enough context, criteria, examples, and boundaries to support the work.",
   },
   {
     icon: SearchCheckIcon,
-    title: "Probe",
+    title: "Collaborate",
     text: "Check sources, assumptions, calculations, edge cases, and competing explanations.",
   },
   {
     icon: ShieldCheckIcon,
-    title: "Protect",
+    title: "Verify",
     text: "Work within privacy, policy, fairness, and safety requirements.",
   },
   {
     icon: RefreshCcwIcon,
-    title: "Pivot",
+    title: "Adapt",
     text: "Revise the approach when evidence, feedback, or AI errors change the path.",
   },
   {
     icon: PresentationIcon,
-    title: "Present",
+    title: "Deliver",
     text: "Explain the recommendation, tradeoffs, supporting evidence, and next steps.",
   },
 ];
@@ -538,28 +538,23 @@ export function AIWLandingPage() {
                 style={reducedMotion ? undefined : { y: heroTextY }}
                 variants={staggerVariants}
               >
-                <motion.div variants={heroVariants}>
-                  <Badge className="rounded-md border-white/25 bg-white/12 px-3 py-1.5 text-sm text-white backdrop-blur-md" variant="outline">
-                    Assessment for AI-era work
-                  </Badge>
-                </motion.div>
                 <motion.h1 className="mt-7 max-w-[340px] text-[clamp(2.3rem,9.4vw,6.4rem)] font-semibold leading-[0.96] text-white sm:max-w-[1160px]" variants={heroVariants}>
-                  Measure AI-ready
+                  Measure and Grow AI-ready
                   <br />
-                  skills through
+                  workforce skills with
                   <br />
-                  real work.
+                  realistic work simulations.
                 </motion.h1>
                 <motion.p className="mt-7 max-w-[340px] text-lg leading-7 text-white/78 sm:max-w-2xl sm:text-xl sm:leading-8" variants={heroVariants}>
-                  Simulation-based assessments that reveal judgment, communication, adaptability, and real-world AI collaboration.
+                  We create AI-scaled, case-based simulations that reveal how people use AI, adapt to feedback, and collaborate with others under realistic workplace constraints.
                 </motion.p>
                 <motion.div className="mt-10 grid max-w-[340px] gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:[&>div]:w-auto [&>div]:w-full" variants={heroVariants}>
                   <CtaButton className="h-12 w-full rounded-md bg-[#b31b1b] px-6 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(179,27,27,0.35)] hover:bg-[#8f1414] sm:w-auto" href="#evidence" size="lg">
-                    View assessment model
+                    Explore the model
                     <ArrowRightIcon data-icon="inline-end" />
                   </CtaButton>
                   <CtaButton className="h-12 w-full rounded-md border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:w-auto" href="#team" size="lg" variant="outline">
-                    Meet the team
+                    Meet our team
                   </CtaButton>
                 </motion.div>
               </motion.div>
@@ -573,11 +568,11 @@ export function AIWLandingPage() {
               <div>
                 <SectionLabel>Problem</SectionLabel>
                 <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  Hiring methods miss the work itself.
+                  Workforce decisions need better evidence of real capability.
                 </h2>
               </div>
               <p className="max-w-2xl text-xl leading-9 text-[#444]">
-                Hiring teams need to see how candidates frame tasks, brief AI, verify output, adapt, and explain a decision under realistic constraints.
+                Employers need to see how people frame problems, use AI, evaluate evidence, adapt to feedback, and communicate decisions in role-relevant work.
               </p>
             </Reveal>
             <StaggerGroup className="mt-12 grid gap-px bg-[#d8d2ca] lg:grid-cols-3">
@@ -597,11 +592,11 @@ export function AIWLandingPage() {
               <div>
                 <SectionLabel>Framework</SectionLabel>
                 <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  Three skills shape AI-ready work.
+                  Three competencies define AI-ready work.
                 </h2>
               </div>
               <p className="max-w-2xl text-xl leading-9 text-[#444]">
-                The assessment separates practical AI use from the human capabilities that make AI-supported work trustworthy.
+                Our framework separates practical AI use from the human capabilities that make AI-supported work effective, trustworthy, and learnable.
               </p>
             </Reveal>
 
@@ -619,11 +614,11 @@ export function AIWLandingPage() {
               <div>
                 <SectionLabel>Design principles</SectionLabel>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  A case-based assessment people can inspect.
+                  Case-based simulations that make work visible.
                 </h2>
               </div>
               <p className="max-w-xl text-lg leading-8 text-[#555]">
-                The public story is not a black-box score. It is a visible chain from role-relevant simulation to evidence-linked review.
+                Each simulation links role-relevant tasks, source materials, AI collaboration, work artifacts, and reviewer evidence into an inspectable assessment record.
               </p>
             </Reveal>
 
@@ -641,11 +636,11 @@ export function AIWLandingPage() {
               <div>
                 <SectionLabel>Six practices</SectionLabel>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  Six practices make AI-ready work visible.
+                  A common work pattern reveals AI-ready behavior.
                 </h2>
               </div>
               <p className="max-w-xl text-lg leading-8 text-[#555]">
-                The evidence map turns broad AI skill into behaviors a reviewer can see inside a realistic work sample.
+                Across roles, simulations follow a shared pattern: plan the work, prepare the evidence, collaborate with AI, adapt through feedback, and deliver a decision-ready artifact.
               </p>
             </Reveal>
 
@@ -662,10 +657,10 @@ export function AIWLandingPage() {
             <Reveal>
               <SectionLabel>Assessment evidence loop</SectionLabel>
               <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                AI prepares the evidence. Humans make the decision.
+                AI scales the evidence. Humans own the decision.
               </h2>
               <p className="mt-7 max-w-xl text-lg leading-8 text-[#555]">
-                The system is designed around visible evidence, reviewer calibration, and partner learning rather than an opaque score.
+                The system is designed around visible behavioral evidence, reviewer calibration, feedback, and partner learning—not opaque scores.
               </p>
             </Reveal>
             <Reveal className="overflow-hidden rounded-lg border border-[#d8d2ca] bg-white shadow-[0_24px_70px_rgba(80,48,30,0.08)]">
@@ -681,7 +676,15 @@ export function AIWLandingPage() {
             </Reveal>
           </div>
         </section>
-
+        
+        <section>
+          <SectionLabel>Growth and validation</SectionLabel>
+            <h2>Measure capability, then help people improve.</h2>
+            <p>
+              Simulations can be used for hiring and promotion, but also for upskilling, internal mobility, and workforce-wide AI-readiness assessment. Participants receive feedback, try again, and demonstrate how quickly they adapt.
+            </p>
+        </section>
+        
         <section id="team" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-[1320px]">
             <Reveal className="mx-auto max-w-3xl text-center">
@@ -711,7 +714,7 @@ export function AIWLandingPage() {
               <div>
                 <p className="text-xs font-bold uppercase text-white/75">Contact</p>
                 <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight sm:text-6xl">
-                  Demonstrate AI-ready skills with work people can review.
+                  Partner with us to build and validate AI-ready workforce simulations. We are recruiting employer partners to co-design realistic use cases, pilot simulations, and evaluate evidence together.
                 </h2>
                 <div className="mt-7 grid gap-2 text-base leading-7 text-white/82">
                   <p>Location: Computing and Information Science Building 363, Cornell University, Ithaca, NY.</p>
