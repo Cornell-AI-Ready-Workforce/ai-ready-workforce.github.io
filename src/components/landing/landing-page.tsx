@@ -85,11 +85,11 @@ const heroVariants: Variants = {
 };
 
 const navItems = [
-  { label: "About", href: "#about" },
+  { label: "Overview", href: "#about" },
+  { label: "Framework", href: "#framework" },
   { label: "Evidence", href: "#evidence" },
   { label: "Practices", href: "#practices" },
   { label: "Team", href: "#team" },
-  { label: "Contact", href: "#contact" },
 ];
 
 const problemSignals = [
