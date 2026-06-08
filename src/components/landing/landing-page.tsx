@@ -406,8 +406,8 @@ function AIWMark() {
         <Image alt="" className="size-8 object-contain" height={64} src={withSiteBasePath("/images/aiw-logo.png")} unoptimized width={64} />
       </div>
       <div>
-        <p className="text-sm font-bold leading-none text-white">AI-Ready Workforce</p>
-        <p className="mt-1 text-xs leading-none text-white/68">Cornell research initiative</p>
+        <p className="text-base font-bold leading-none text-white">AI-Ready Workforce Initiative</p>
+        <p className="mt-1 text-sm leading-none text-white/68">Cornell University</p>
       </div>
     </div>
   );
@@ -528,10 +528,6 @@ export function AIWLandingPage() {
                   </a>
                 ))}
               </div>
-              <CtaButton className="hidden h-11 rounded-md border border-white/30 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:inline-flex" href={contactHref}>
-                Contact the team
-                <ArrowRightIcon data-icon="inline-end" />
-              </CtaButton>
             </motion.nav>
 
             <div className="grid flex-1 items-center py-16 lg:py-20">
@@ -690,7 +686,7 @@ export function AIWLandingPage() {
           <div className="mx-auto max-w-[1320px]">
             <Reveal className="mx-auto max-w-3xl text-center">
               <div>
-                <SectionLabel>Research team</SectionLabel>
+                <SectionLabel>Our team</SectionLabel>
                 <h2 className="mt-5 text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
                   Team
                 </h2>
@@ -702,6 +698,10 @@ export function AIWLandingPage() {
                 <PersonCard key={person.name} person={person} />
               ))}
             </StaggerGroup>
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <CtaButton href={contactHref} variant="secondary" size="lg">Contact the team</CtaButton>
           </div>
         </section>
 
