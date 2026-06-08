@@ -638,14 +638,15 @@ export function AIWLandingPage() {
 
         <section id="framework" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-[1320px]">
-            <Reveal className="grid items-end gap-8 lg:grid-cols-[0.78fr_1fr]">
+            <Reveal className="grid items-end gap-8 lg:grid-cols-[1.25fr_0.75fr]">
               <div>
                 <SectionLabel>Framework</SectionLabel>
-                <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  Three competencies define AI-ready work.
+                <h2 className="mt-5 max-w-none text-5xl font-semibold leading-tight text-[#1f1f1f] xl:text-6xl">
+                  <span className="lg:block lg:whitespace-nowrap">Three competencies</span>{" "}
+                  <span className="lg:block lg:whitespace-nowrap">define AI-ready work.</span>
                 </h2>
               </div>
-              <p className="max-w-2xl text-xl leading-9 text-[#444]">
+              <p className="max-w-xl text-xl leading-9 text-[#444]">
                 Our framework separates practical AI use from the human capabilities that make AI-supported work effective, trustworthy, and learnable.
               </p>
             </Reveal>
@@ -732,8 +733,9 @@ export function AIWLandingPage() {
             <Reveal className="grid items-end gap-8 lg:grid-cols-[0.78fr_1fr]">
               <div>
                 <SectionLabel>Growth and validation</SectionLabel>
-                <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  Measure capability, then help people improve.
+                <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.05] text-[#1f1f1f] sm:text-5xl lg:text-[4.5rem]">
+                  <span className="block">Measure capability.</span>
+                  <span className="block">Help people improve.</span>
                 </h2>
               </div>
               <p className="max-w-2xl text-xl leading-9 text-[#444]">
