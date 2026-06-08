@@ -43,6 +43,13 @@ type LogoAsset = {
   width: number;
   height: number;
   className: string;
+  mark?: {
+    src: string;
+    width: number;
+    height: number;
+    className: string;
+    unoptimized?: boolean;
+  };
   tone?: "light";
   unoptimized?: boolean;
 };
@@ -294,6 +301,13 @@ const supporterLogos: LogoAsset[] = [
     width: 128,
     height: 24,
     className: "w-[132px]",
+    mark: {
+      src: "/images/laude-logo.svg",
+      width: 244,
+      height: 236,
+      className: "size-10",
+      unoptimized: true,
+    },
     tone: "light",
   },
 ];
@@ -374,7 +388,18 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 function LogoTile({ logo }: { logo: LogoAsset }) {
   return (
-    <div className="inline-flex min-h-16 items-center justify-center py-2">
+    <div className="inline-flex min-h-16 items-center justify-center gap-3 py-2">
+      {logo.mark ? (
+        <Image
+          alt=""
+          aria-hidden="true"
+          className={cn("h-auto object-contain", logo.tone === "light" && "brightness-0 invert opacity-90", logo.mark.className)}
+          height={logo.mark.height}
+          src={withSiteBasePath(logo.mark.src)}
+          unoptimized={logo.mark.unoptimized}
+          width={logo.mark.width}
+        />
+      ) : null}
       <Image
         alt={`${logo.name} logo`}
         className={cn("h-auto max-h-16 object-contain", logo.tone === "light" && "brightness-0 invert opacity-90", logo.className)}
