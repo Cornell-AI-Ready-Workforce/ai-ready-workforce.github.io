@@ -55,6 +55,8 @@ type LogoAsset = {
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const contactHref = "https://cornell.ca1.qualtrics.com/jfe/form/SV_bKKQKsOe0Y54mYm";
+const sectionHeadingClass = "mt-5 text-4xl font-semibold leading-[1.08] text-[#1f1f1f] sm:text-5xl xl:text-6xl";
+const invertedSectionHeadingClass = "mt-5 text-4xl font-semibold leading-[1.08] sm:text-5xl xl:text-6xl";
 
 const revealVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -614,14 +616,16 @@ export function AIWLandingPage() {
 
         <section id="problem" className="border-y border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-[1320px]">
-            <Reveal className="grid items-end gap-8 lg:grid-cols-[0.82fr_1fr]">
+            <Reveal className="grid items-end gap-8 lg:grid-cols-[1.15fr_0.85fr]">
               <div>
                 <SectionLabel>Problem</SectionLabel>
-                <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
-                  Workforce decisions need better evidence of real capability.
+                <h2 className={sectionHeadingClass}>
+                  <span className="block sm:whitespace-nowrap">Workforce decisions</span>{" "}
+                  <span className="block sm:whitespace-nowrap">need better evidence</span>{" "}
+                  <span className="block sm:whitespace-nowrap">of real capability.</span>
                 </h2>
               </div>
-              <p className="max-w-2xl text-xl leading-9 text-[#444]">
+              <p className="max-w-xl text-xl leading-9 text-[#444]">
                 Employers need to see how people frame problems, use AI, evaluate evidence, adapt to feedback, and communicate decisions in role-relevant work.
               </p>
             </Reveal>
@@ -641,7 +645,7 @@ export function AIWLandingPage() {
             <Reveal className="grid items-end gap-8 lg:grid-cols-[1.25fr_0.75fr]">
               <div>
                 <SectionLabel>Framework</SectionLabel>
-                <h2 className="mt-5 max-w-none text-5xl font-semibold leading-tight text-[#1f1f1f] xl:text-6xl">
+                <h2 className={cn(sectionHeadingClass, "max-w-none")}>
                   <span className="lg:block lg:whitespace-nowrap">Three competencies</span>{" "}
                   <span className="lg:block lg:whitespace-nowrap">define AI-ready work.</span>
                 </h2>
@@ -664,7 +668,7 @@ export function AIWLandingPage() {
             <Reveal className="grid items-end gap-10 lg:grid-cols-[1fr_0.7fr]">
               <div>
                 <SectionLabel>Design principles</SectionLabel>
-                <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+                <h2 className={cn(sectionHeadingClass, "max-w-4xl")}>
                   Case-based simulations that make work visible.
                 </h2>
               </div>
@@ -686,7 +690,7 @@ export function AIWLandingPage() {
             <Reveal className="grid items-end gap-8 lg:grid-cols-[1fr_0.62fr]">
               <div>
                 <SectionLabel>Six practices</SectionLabel>
-                <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+                <h2 className={cn(sectionHeadingClass, "max-w-4xl")}>
                   A common work pattern reveals AI-ready behavior.
                 </h2>
               </div>
@@ -707,7 +711,7 @@ export function AIWLandingPage() {
           <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[0.78fr_1fr] lg:items-center">
             <Reveal>
               <SectionLabel>Assessment evidence loop</SectionLabel>
-              <h2 className="mt-5 max-w-3xl text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+              <h2 className={cn(sectionHeadingClass, "max-w-3xl")}>
                 AI scales the evidence. Humans own the decision.
               </h2>
               <p className="mt-7 max-w-xl text-lg leading-8 text-[#555]">
@@ -730,12 +734,12 @@ export function AIWLandingPage() {
         
         <section className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-[1320px]">
-            <Reveal className="grid items-end gap-8 lg:grid-cols-[0.78fr_1fr]">
+            <Reveal className="grid items-end gap-8 lg:grid-cols-[1fr_0.85fr]">
               <div>
                 <SectionLabel>Growth and validation</SectionLabel>
-                <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.05] text-[#1f1f1f] sm:text-5xl lg:text-[4.5rem]">
-                  <span className="block">Measure capability.</span>
-                  <span className="block">Help people improve.</span>
+                <h2 className={cn(sectionHeadingClass, "max-w-2xl")}>
+                  <span className="block sm:whitespace-nowrap">Measure capability.</span>{" "}
+                  <span className="block sm:whitespace-nowrap">Help people improve.</span>
                 </h2>
               </div>
               <p className="max-w-2xl text-xl leading-9 text-[#444]">
@@ -756,7 +760,7 @@ export function AIWLandingPage() {
             <Reveal className="mx-auto max-w-3xl text-center">
               <div>
                 <SectionLabel>Our team</SectionLabel>
-                <h2 className="mt-5 text-5xl font-semibold leading-tight text-[#1f1f1f] sm:text-6xl">
+                <h2 className={sectionHeadingClass}>
                   Team
                 </h2>
               </div>
@@ -779,7 +783,7 @@ export function AIWLandingPage() {
             <Reveal className="grid gap-10 border-b border-white/25 pb-10 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <p className="text-xs font-bold uppercase text-white/75">Contact</p>
-                <h2 className="mt-5 max-w-4xl text-5xl font-semibold leading-tight sm:text-6xl">
+                <h2 className={cn(invertedSectionHeadingClass, "max-w-4xl")}>
                   Partner with us to build and validate AI-ready workforce simulations. We are recruiting employer partners to co-design realistic use cases, pilot simulations, and evaluate evidence together.
                 </h2>
                 <div className="mt-7 grid gap-2 text-base leading-7 text-white/82">
