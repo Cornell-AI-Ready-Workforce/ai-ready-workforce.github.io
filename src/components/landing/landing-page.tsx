@@ -87,7 +87,7 @@ const heroVariants: Variants = {
 };
 
 const navItems = [
-  { label: "Overview", href: "#about" },
+  { label: "About", href: "#problem" },
   { label: "Framework", href: "#framework" },
   { label: "Evidence", href: "#evidence" },
   { label: "Practices", href: "#practices" },
