@@ -257,15 +257,20 @@ const people: Person[] = [
     src: "/images/people/haocheng-zhang.png",
   },
   {
+    name: "Jinsook Lee",
+    title: "PhD Student in Information Science",
+    src: "/images/people/jinsook-lee.jpeg",
+    href: "https://bowers.cornell.edu/people/jinsook-lee",
+  },
+  {
     name: "Diyang Lin",
     title: "PhD Student",
     src: "/images/people/diyang-lin.jpeg",
   },
   {
-    name: "Jinsook Lee",
-    title: "PhD Student in Information Science",
-    src: "/images/people/jinsook-lee.jpeg",
-    href: "https://bowers.cornell.edu/people/jinsook-lee",
+    name: "Andrew Chun",
+    title: "Undergraduate Student",
+    src: "/images/people/andrew-chun.jpeg",
   },
 ];
 
@@ -515,7 +520,8 @@ function PersonCard({ person }: { person: Person }) {
           alt={`${person.name} headshot`}
           className={cn("object-cover", person.imageClassName)}
           fill
-          sizes="(min-width: 1024px) 250px, (min-width: 768px) 31vw, 100vw"
+          quality={90}
+          sizes="(min-width: 1024px) 320px, (min-width: 768px) 34vw, 100vw"
           src={withSiteBasePath(person.src)}
         />
       </div>
