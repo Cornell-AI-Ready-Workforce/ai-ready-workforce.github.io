@@ -55,6 +55,10 @@ type LogoAsset = {
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const contactHref = "https://cornell.ca1.qualtrics.com/jfe/form/SV_bKKQKsOe0Y54mYm";
+const modelVideo = {
+  title: "AI-Ready Workforce model walkthrough",
+  embedUrl: "https://www.youtube-nocookie.com/embed/aKKW6Pw7i1s?rel=0&modestbranding=1",
+};
 const sectionHeadingClass = "mt-5 text-4xl font-semibold leading-[1.08] text-[#1f1f1f] sm:text-5xl xl:text-6xl";
 const invertedSectionHeadingClass = "mt-5 text-4xl font-semibold leading-[1.08] sm:text-5xl xl:text-6xl";
 
@@ -512,6 +516,37 @@ function GrowthValidationCard({ item }: { item: (typeof growthValidationItems)[n
   );
 }
 
+function ModelVideoSection() {
+  return (
+    <section id="model-video" className="border-b border-[#d8d2ca] bg-[#fbfaf7] px-5 py-16 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-[1120px]">
+        <Reveal className="text-center">
+          <div className="mx-auto max-w-4xl">
+            <SectionLabel>Model walkthrough</SectionLabel>
+            <h2 className={cn(sectionHeadingClass, "mx-auto max-w-4xl")}>
+              Watch the AI-Ready Workforce Showcase.
+            </h2>
+          </div>
+
+          <div className="mt-10 overflow-hidden rounded-lg border border-[#d8d2ca] bg-[#120f0d] shadow-[0_24px_70px_rgba(80,48,30,0.12)]">
+            <div className="relative aspect-video">
+              <iframe
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                src={modelVideo.embedUrl}
+                title={modelVideo.title}
+              />
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function PersonCard({ person }: { person: Person }) {
   const content = (
     <>
@@ -607,7 +642,7 @@ export function AIWLandingPage() {
                   We create AI-scaled, case-based simulations that reveal how people use AI, adapt to feedback, and collaborate with others under realistic workplace constraints.
                 </motion.p>
                 <motion.div className="mt-10 grid max-w-[340px] gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:[&>div]:w-auto [&>div]:w-full" variants={heroVariants}>
-                  <CtaButton className="h-12 w-full rounded-md bg-[#b31b1b] px-6 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(179,27,27,0.35)] hover:bg-[#8f1414] sm:w-auto" href="#evidence" size="lg">
+                  <CtaButton className="h-12 w-full rounded-md bg-[#b31b1b] px-6 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(179,27,27,0.35)] hover:bg-[#8f1414] sm:w-auto" href="#model-video" size="lg">
                     Explore the model
                     <ArrowRightIcon data-icon="inline-end" />
                   </CtaButton>
@@ -619,6 +654,8 @@ export function AIWLandingPage() {
             </div>
           </div>
         </section>
+
+        <ModelVideoSection />
 
         <section id="problem" className="border-y border-[#d8d2ca] bg-[#fbfaf7] px-5 py-20 lg:px-8 lg:py-28">
           <div className="mx-auto max-w-[1320px]">
