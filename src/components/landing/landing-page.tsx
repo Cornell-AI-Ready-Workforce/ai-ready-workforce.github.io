@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentProps, ComponentType, ReactNode } from "react";
+import type { ComponentProps, ComponentType, MouseEvent, ReactNode } from "react";
 import { useRef } from "react";
 import { MotionConfig, motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import {
@@ -344,11 +344,12 @@ type CtaButtonProps = {
   href: string;
   children: ReactNode;
   className?: string;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
   variant?: ComponentProps<typeof Button>["variant"];
   size?: ComponentProps<typeof Button>["size"];
 };
 
-function CtaButton({ href, children, className, variant, size }: CtaButtonProps) {
+function CtaButton({ href, children, className, onClick, variant, size }: CtaButtonProps) {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -358,13 +359,33 @@ function CtaButton({ href, children, className, variant, size }: CtaButtonProps)
       whileTap={reducedMotion ? undefined : { y: 0, scale: 0.985 }}
       transition={{ duration: 0.22, ease: smoothEase }}
     >
-      <Button nativeButton={false} render={<Link href={href} />} variant={variant} size={size} className={cn("items-center justify-center", className)}>
+      <Button nativeButton={false} render={<Link href={href} onClick={onClick} />} variant={variant} size={size} className={cn("items-center justify-center", className)}>
         <span className="inline-flex items-center justify-center gap-2 leading-none [&_svg]:mt-0 [&_svg]:shrink-0">
           {children}
         </span>
       </Button>
     </motion.div>
   );
+}
+
+function scrollToSection(href: string) {
+  if (!href.startsWith("#")) {
+    return;
+  }
+
+  document.getElementById(href.slice(1))?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
+function handleSectionLinkClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
+  if (!href.startsWith("#") || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) {
+    return;
+  }
+
+  event.preventDefault();
+  scrollToSection(href);
 }
 
 function Reveal({
@@ -620,7 +641,7 @@ export function AIWLandingPage() {
               </Link>
               <div className="hidden items-center gap-8 lg:flex">
                 {navItems.map((item) => (
-                  <a key={item.href} className="text-sm font-semibold text-white/82 transition hover:text-white" href={item.href}>
+                  <a key={item.href} className="text-sm font-semibold text-white/82 transition hover:text-white" href={item.href} onClick={(event) => handleSectionLinkClick(event, item.href)}>
                     {item.label}
                   </a>
                 ))}
@@ -642,11 +663,11 @@ export function AIWLandingPage() {
                   We create AI-scaled, case-based simulations that reveal how people use AI, adapt to feedback, and collaborate with others under realistic workplace constraints.
                 </motion.p>
                 <motion.div className="mt-10 grid max-w-[340px] gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:[&>div]:w-auto [&>div]:w-full" variants={heroVariants}>
-                  <CtaButton className="h-12 w-full rounded-md bg-[#b31b1b] px-6 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(179,27,27,0.35)] hover:bg-[#8f1414] sm:w-auto" href="#model-video" size="lg">
+                  <CtaButton className="h-12 w-full rounded-md bg-[#b31b1b] px-6 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(179,27,27,0.35)] hover:bg-[#8f1414] sm:w-auto" href="#model-video" onClick={(event) => handleSectionLinkClick(event, "#model-video")} size="lg">
                     Explore the model
                     <ArrowRightIcon data-icon="inline-end" />
                   </CtaButton>
-                  <CtaButton className="h-12 w-full rounded-md border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:w-auto" href="#team" size="lg" variant="outline">
+                  <CtaButton className="h-12 w-full rounded-md border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/18 sm:w-auto" href="#team" onClick={(event) => handleSectionLinkClick(event, "#team")} size="lg" variant="outline">
                     Meet our team
                   </CtaButton>
                 </motion.div>
@@ -861,7 +882,7 @@ export function AIWLandingPage() {
               <div className="grid gap-6 lg:justify-items-end">
                 <div className="flex flex-wrap gap-6 text-sm font-semibold text-white/85 lg:justify-end">
                   {navItems.map((item) => (
-                    <a key={item.href} className="transition hover:text-white" href={item.href}>
+                    <a key={item.href} className="transition hover:text-white" href={item.href} onClick={(event) => handleSectionLinkClick(event, item.href)}>
                       {item.label}
                     </a>
                   ))}
