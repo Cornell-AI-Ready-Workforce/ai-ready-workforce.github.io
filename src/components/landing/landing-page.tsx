@@ -523,8 +523,8 @@ function ModelVideoSection() {
         <Reveal className="text-center">
           <div className="mx-auto max-w-4xl">
             <SectionLabel>Model walkthrough</SectionLabel>
-            <h2 className={cn(sectionHeadingClass, "mx-auto max-w-4xl")}>
-              Watch the AI-Ready Workforce Showcase.
+            <h2 className={cn(sectionHeadingClass, "mx-auto max-w-4xl text-[2rem] leading-[1.12] sm:text-5xl sm:leading-[1.08] xl:text-6xl")}>
+              Watch the AI-Ready <span className="whitespace-nowrap">Workforce Showcase.</span>
             </h2>
           </div>
 
@@ -662,7 +662,7 @@ export function AIWLandingPage() {
             <Reveal className="grid items-end gap-8 lg:grid-cols-[1.15fr_0.85fr]">
               <div>
                 <SectionLabel>Problem</SectionLabel>
-                <h2 className={sectionHeadingClass}>
+                <h2 className={cn(sectionHeadingClass, "text-[2rem] leading-[1.12] sm:text-5xl sm:leading-[1.08] xl:text-6xl")}>
                   <span className="block sm:whitespace-nowrap">Workforce decisions</span>{" "}
                   <span className="block sm:whitespace-nowrap">need better evidence</span>{" "}
                   <span className="block sm:whitespace-nowrap">of real capability.</span>
