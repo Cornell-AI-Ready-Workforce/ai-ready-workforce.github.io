@@ -780,10 +780,6 @@ export function AIWLandingPage() {
               ))}
             </StaggerGroup>
           </div>
-
-          <div className="mt-10 flex justify-center">
-            <CtaButton href={contactHref} variant="secondary" size="lg">Contact the team</CtaButton>
-          </div>
         </section>
 
         <footer id="contact" className="bg-[#b31b1b] px-5 py-12 text-white lg:px-8">
@@ -804,7 +800,7 @@ export function AIWLandingPage() {
               </CtaButton>
             </Reveal>
 
-            <div className="grid gap-8 pt-8 lg:grid-cols-[1.2fr_0.55fr] lg:items-end">
+            <div className="grid gap-8 pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div className="grid gap-8">
                 <div>
                   <p className="text-xs font-bold uppercase text-white/70">Partners</p>
@@ -824,13 +820,6 @@ export function AIWLandingPage() {
                 </div>
               </div>
               <div className="grid gap-6 lg:justify-items-end">
-                <div className="flex flex-wrap gap-6 text-sm font-semibold text-white/85 lg:justify-end">
-                  {navItems.map((item) => (
-                    <a key={item.href} className="transition hover:text-white" href={item.href}>
-                      {item.label}
-                    </a>
-                  ))}
-                </div>
                 <p className="text-sm text-white/75">&copy; 2026 AI-Ready Workforce.</p>
               </div>
             </div>
