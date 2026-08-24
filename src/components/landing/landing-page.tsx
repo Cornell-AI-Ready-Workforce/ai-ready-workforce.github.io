@@ -92,6 +92,7 @@ const navItems = [
   { label: "Evidence", href: "#evidence" },
   { label: "Practices", href: "#practices" },
   { label: "Team", href: "#team" },
+  { label: "Partners", href: withSiteBasePath("/partners/") },
 ];
 
 const problemSignals = [
@@ -254,7 +255,8 @@ const people: Person[] = [
   {
     name: "Haocheng Zhang",
     title: "Master's Student in Information Science",
-    src: "/images/people/haocheng-zhang.png",
+    src: "/images/people/haocheng-zhang-2026.jpg",
+    imageClassName: "object-[50%_15%]",
   },
   {
     name: "Jinsook Lee",
@@ -798,7 +800,7 @@ export function AIWLandingPage() {
               </div>
               <CtaButton className="h-12 rounded-md bg-white px-7 text-sm font-semibold text-[#b31b1b] hover:bg-[#f2e9e4]" href={contactHref} size="lg">
                 Contact the team
-                <MailIcon data-icon="inline-end" />
+                <MailIcon />
               </CtaButton>
             </Reveal>
 
